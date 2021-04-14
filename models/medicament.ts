@@ -11,6 +11,7 @@ import {
     HasOneGetAssociationMixin,
     HasOneSetAssociationMixin
 } from "sequelize";
+import {DeliveryInstance} from "./Delivery";
 
 export interface MedicamentProps{
     id:number;

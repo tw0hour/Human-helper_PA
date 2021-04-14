@@ -12,14 +12,14 @@ export interface donationProps {
     date:string;
 }
 
-export interface donationCreationProps extends Optional<donationProps, "id">{}
+export interface DonationCreationProps extends Optional<donationProps, "id">{}
 
-export interface donationInstance extends Model<donationProps,donationCreationProps>,donationProps{
+export interface DonationInstance extends Model<donationProps,DonationCreationProps>,donationProps{
 
 }
 
-export default function(sequelize:Sequelize): ModelCtor<donationInstance>{
-    return sequelize.define<donationInstance>("donation",{
+export default function(sequelize:Sequelize): ModelCtor<DonationInstance>{
+    return sequelize.define<DonationInstance>("donation",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

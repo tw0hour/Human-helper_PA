@@ -8,6 +8,7 @@ import {
     Sequelize
 } from "sequelize";
 import {CampInstance} from "./camp";
+import {VolunteerInstance} from "./volunteer";
 
 export interface GivenProps {
     id: number
@@ -21,8 +22,8 @@ export interface GivenInstance extends Model<GivenProps, GivenCreationProps>, Gi
     getCamp: HasManyGetAssociationsMixin<CampInstance>;
     setCamp: HasManySetAssociationsMixin<CampInstance, "id">
 
-    getVolonteer: HasManyGetAssociationsMixin<VolonteerInstance>;
-    setVolonteer: HasManySetAssociationsMixin<VolonteerInstance, "id">
+    getVolonteer: HasManyGetAssociationsMixin<VolunteerInstance>;
+    setVolonteer: HasManySetAssociationsMixin<VolunteerInstance, "id">
 }
 
 export default function (sequelize: Sequelize): ModelCtor<GivenInstance> {

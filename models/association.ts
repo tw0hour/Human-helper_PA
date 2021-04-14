@@ -16,6 +16,7 @@ import {
     HasManySetAssociationsMixin
 } from "sequelize";
 import {CampInstance} from "./camp";
+import {DonationInstance} from "./donation";
 
 
 export interface AssociationProps{

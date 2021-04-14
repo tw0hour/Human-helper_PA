@@ -14,14 +14,14 @@ export interface volunteerProps{
     type:string;
 }
 
-export interface volunteerCreationProps extends Optional<volunteerProps, "id">{}
+export interface VolunteerCreationProps extends Optional<volunteerProps, "id">{}
 
-export interface volunteerInstance extends Model<volunteerProps,volunteerCreationProps>,volunteerProps{
+export interface VolunteerInstance extends Model<volunteerProps,VolunteerCreationProps>,volunteerProps{
 
 }
 
-export default function(sequelize:Sequelize): ModelCtor<volunteerInstance>{
-    return sequelize.define<volunteerInstance>("volunteer",{
+export default function(sequelize:Sequelize): ModelCtor<VolunteerInstance>{
+    return sequelize.define<VolunteerInstance>("volunteer",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
