@@ -1,9 +1,10 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {SpaceCreationProps, SpaceInstance} from "../models/space";
+import {AssociationCreationProps, AssociationInstance} from "../models/association";
+import association from "../models/association";
 
 
-export interface SpaceUpdateOption {
+export interface AssociationUpdateOption {
     id:string;
     name?:string;
     description?:string;
@@ -15,55 +16,55 @@ export interface SpaceUpdateOption {
     status?:boolean;
 }
 
-export class SpaceController {
+export class AssociationController {
 
-    Space: ModelCtor<SpaceInstance>;
+    Association: ModelCtor<AssociationInstance>;
 
-    private static instance: SpaceController;
+    private static instance: AssociationController;
 
-    public static async getInstance(): Promise<SpaceController> {
-        if(SpaceController.instance == undefined) {
-            const {Space} = await SequelizeManager.getInstance();
-            SpaceController.instance = new SpaceController(Space);
+    public static async getInstance(): Promise<AssociationController> {
+        if(AssociationController.instance == undefined) {
+            const {Association} = await SequelizeManager.getInstance();
+            AssociationController.instance = new AssociationController(Association);
         }
-        return  SpaceController.instance;
+        return  AssociationController.instance;
     }
 
-    constructor(Visit: ModelCtor<SpaceInstance>) {
-        this.Space = Visit;
+    constructor(Association: ModelCtor<AssociationInstance>) {
+        this.Association = Association;
     }
 
-    public async getAll(limit: number, offset: number): Promise<SpaceInstance[] | null>{
-        return await this.Space.findAll({
+    public async getAll(limit: number, offset: number): Promise<AssociationInstance[] | null>{
+        return await this.Association.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: SpaceCreationProps): Promise<SpaceInstance | null> {
-        return await this.Space.create({
+    public async add(props: AssociationCreationProps): Promise<AssociationInstance | null> {
+        return await this.Association.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<SpaceInstance | null> {
-        return await this.Space.findOne({
+    public async getById(id: string): Promise<AssociationInstance | null> {
+        return await this.Association.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: SpaceUpdateOption): Promise<SpaceInstance | null> {
+    public async update(options: AssociationUpdateOption): Promise<AssociationInstance | null> {
 
-        const spaceUpdate = await this.getById(options.id);
+        const associationUpdate = await this.getById(options.id);
 
-        if(spaceUpdate === null)
+        if(associationUpdate === null)
         {
             return null;
         }
         else
         {
-            return await spaceUpdate.update({
+            return await associationUpdate.update({
                 ...options
             }, {
                 where: {
@@ -74,8 +75,8 @@ export class SpaceController {
     }
 
     public async removeById (id: string):Promise<Boolean> {
-        const spaceDelete = await this.getById(id);
-        if(spaceDelete === null)
+        const associationDelete = await this.getById(id);
+        if(associationDelete === null)
         {
             return false;
         }
@@ -83,9 +84,9 @@ export class SpaceController {
         {
             try
             {
-                await this.Space.destroy({
+                await this.Association.destroy({
                     where:{
-                        id: spaceDelete.id
+                        id: associationDelete.id
                     }
                 });
                 return true;

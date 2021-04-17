@@ -6,19 +6,19 @@ import {
     ModelCtor,
 } from "sequelize";
 
-export interface type_clothProps{
+export interface Type_clothProps {
     id:number;
     name:string;
 }
 
-export interface type_clothCreationProps extends Optional<type_clothProps, "id">{}
+export interface Type_clothCreationProps extends Optional<Type_clothProps, "id">{}
 
-export interface type_clothInstance extends Model<type_clothProps,type_clothCreationProps>,type_clothProps{
+export interface Type_clothInstance extends Model<Type_clothProps,Type_clothCreationProps>,Type_clothProps{
 
 }
 
-export default function(sequelize:Sequelize): ModelCtor<type_clothInstance>{
-    return sequelize.define<type_clothInstance>("type_cloth",{
+export default function(sequelize:Sequelize): ModelCtor<Type_clothInstance>{
+    return sequelize.define<Type_clothInstance>("type_cloth",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

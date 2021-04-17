@@ -6,19 +6,19 @@ import {
     ModelCtor,
 } from "sequelize";
 
-export interface gender_clothProps{
+export interface Gender_clothProps {
     id:number;
     name:string;
 }
 
-export interface gender_clothCreationProps extends Optional<gender_clothProps, "id">{}
+export interface Gender_clothCreationProps extends Optional<Gender_clothProps, "id">{}
 
-export interface gender_clothInstance extends Model<gender_clothProps,gender_clothCreationProps>,gender_clothProps{
+export interface Gender_clothInstance extends Model<Gender_clothProps,Gender_clothCreationProps>,Gender_clothProps{
 
 }
 
-export default function(sequelize:Sequelize): ModelCtor<gender_clothInstance>{
-    return sequelize.define<gender_clothInstance>("gender_cloth",{
+export default function(sequelize:Sequelize): ModelCtor<Gender_clothInstance>{
+    return sequelize.define<Gender_clothInstance>("gender_cloth",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
