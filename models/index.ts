@@ -46,7 +46,7 @@ export class SequelizeManager implements SequelizeManagerProps{
     Volunteer: ModelCtor<VolunteerInstance>;
     sequelize: Sequelize;
 
-    private static async getInstance():Promise<SequelizeManager>{
+    public static async getInstance():Promise<SequelizeManager>{
         if(SequelizeManager.instance === undefined){
             SequelizeManager.instance = await SequelizeManager.initialize();
         }
