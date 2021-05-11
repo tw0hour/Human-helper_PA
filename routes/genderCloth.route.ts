@@ -1,5 +1,5 @@
 import express from "express";
-import {Gender_clothController} from "../controllers/gender_cloth.controller";
+import {GenderClothController} from "../controllers/genderCloth.controller";
 
 const gender_clothRoutes = express();
 
@@ -7,7 +7,7 @@ const gender_clothRoutes = express();
  * GetAll
  */
 gender_clothRoutes.get("/",async function(req,res){
-    const gender_clothController = await Gender_clothController.getInstance();
+    const gender_clothController = await GenderClothController.getInstance();
     const gender_cloth = await gender_clothController.getAll();
 
     if(gender_cloth){
@@ -24,7 +24,7 @@ gender_clothRoutes.get("/:id",async function(req,res){
     if(id === undefined) {
         res.status(400).end();
     }
-    const gender_clothController = await Gender_clothController.getInstance();
+    const gender_clothController = await GenderClothController.getInstance();
     const gender_cloth = await gender_clothController.getById(id);
 
     if(gender_cloth) {
@@ -45,7 +45,7 @@ gender_clothRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const gender_clothController = await Gender_clothController.getInstance();
+    const gender_clothController = await GenderClothController.getInstance();
     const gender_cloth = await gender_clothController.add({
         type
     });
@@ -68,7 +68,7 @@ gender_clothRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const gender_clothController = await Gender_clothController.getInstance();
+    const gender_clothController = await GenderClothController.getInstance();
     const gender_cloth = await gender_clothController.update({
         id,
         type
@@ -90,7 +90,7 @@ gender_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) 
     if (id === undefined) {
         res.status(400).end();
     }
-    const gender_clothController = await Gender_clothController.getInstance();
+    const gender_clothController = await GenderClothController.getInstance();
     const gender_cloth = await gender_clothController.removeById(id);
 
     if(gender_cloth) {

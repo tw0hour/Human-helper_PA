@@ -1,6 +1,6 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {Planning_campCreationProps, Planning_campInstance} from "../models/planning_camp";
+import {Planning_campCreationProps, Planning_campInstance} from "../models/planningCamp";
 
 
 export interface Planning_campUpdateOption {

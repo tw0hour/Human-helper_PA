@@ -1,5 +1,5 @@
 import express from "express";
-import {Planning_campController} from "../controllers/planning_camp.controller";
+import {PlanningCampController} from "../controllers/planningCamp.controller";
 
 const planning_campRoutes = express();
 
@@ -7,7 +7,7 @@ const planning_campRoutes = express();
  * GetAll
  */
 planning_campRoutes.get("/",async function(req,res){
-    const planning_campController = await  Planning_campController.getInstance();
+    const planning_campController = await  PlanningCampController.getInstance();
     const planning_camp = await planning_campController.getAll();
 
     if(planning_camp){
@@ -24,7 +24,7 @@ planning_campRoutes.get("/:id",async function(req,res){
     if(id === undefined) {
         res.status(400).end();
     }
-    const planning_campController = await  Planning_campController.getInstance();
+    const planning_campController = await  PlanningCampController.getInstance();
     const planning_camp = await planning_campController.getById(id);
 
     if(planning_camp) {
@@ -46,7 +46,7 @@ planning_campRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const planning_campController = await  Planning_campController.getInstance();
+    const planning_campController = await  PlanningCampController.getInstance();
     const planning_camp = await planning_campController.add({
         day,
         time_slots : timeslot
@@ -72,7 +72,7 @@ planning_campRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const planning_campController = await  Planning_campController.getInstance();
+    const planning_campController = await  PlanningCampController.getInstance();
     const planning_camp = await planning_campController.update({
         id,
         day,
@@ -95,7 +95,7 @@ planning_campRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res)
     if (id === undefined) {
         res.status(400).end();
     }
-    const planning_campController = await  Planning_campController.getInstance();
+    const planning_campController = await  PlanningCampController.getInstance();
     const planning_camp = await planning_campController.removeById(id);
 
     if(planning_camp) {

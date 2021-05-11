@@ -1,6 +1,6 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {Gender_clothCreationProps, Gender_clothInstance, Gender_clothProps} from "../models/gender_cloth";
+import {Gender_clothCreationProps, Gender_clothInstance, Gender_clothProps} from "../models/genderCloth";
 
 
 

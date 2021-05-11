@@ -1,5 +1,5 @@
 import express from "express";
-import {Type_ClothController} from "../controllers/type_cloth.controller";
+import {TypeClothController} from "../controllers/typeCloth.controller";
 import {AssociationController} from "../controllers/association.controller";
 
 const type_clothRoutes = express();
@@ -8,7 +8,7 @@ const type_clothRoutes = express();
  * GetAll
  */
 type_clothRoutes.get("/",async function(req,res){
-    const type_clothController = await Type_ClothController.getInstance();
+    const type_clothController = await TypeClothController.getInstance();
     const type_cloth = await type_clothController.getAll();
 
     if(type_cloth){
@@ -25,7 +25,7 @@ type_clothRoutes.get("/:id",async function(req,res){
     if(id === undefined) {
         res.status(400).end();
     }
-    const type_clothController = await Type_ClothController.getInstance();
+    const type_clothController = await TypeClothController.getInstance();
     const type_cloth = await type_clothController.getById(id);
 
     if(type_cloth) {
@@ -46,7 +46,7 @@ type_clothRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const type_clothController = await Type_ClothController.getInstance();
+    const type_clothController = await TypeClothController.getInstance();
     const type_cloth = await type_clothController.add({
         type
     });
@@ -69,7 +69,7 @@ type_clothRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const type_clothController = await Type_ClothController.getInstance();
+    const type_clothController = await TypeClothController.getInstance();
     const type_cloth = await type_clothController.update({
         id,
         type
@@ -91,7 +91,7 @@ type_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     if (id === undefined) {
         res.status(400).end();
     }
-    const type_clothController = await Type_ClothController.getInstance();
+    const type_clothController = await TypeClothController.getInstance();
     const type_cloth = await type_clothController.removeById(id);
 
     if(type_cloth) {
