@@ -1,53 +1,53 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {Planning_campCreationProps, Planning_campInstance} from "../models/planningCamp";
+import {PlanningCampCreationProps, PlanningCampInstance} from "../models/planningCamp";
 
 
-export interface Planning_campUpdateOption {
+export interface PlanningCampUpdateOption {
     id: string;
     day?: number;
     time_slots?: string;
 }
 
-export class Planning_campController {
+export class PlanningCampController {
 
-    Planning_camp: ModelCtor<Planning_campInstance>;
+    Planning_camp: ModelCtor<PlanningCampInstance>;
 
-    private static instance: Planning_campController;
+    private static instance: PlanningCampController;
 
-    public static async getInstance(): Promise<Planning_campController> {
-        if(Planning_campController.instance == undefined) {
-            const {Planning_camp} = await SequelizeManager.getInstance();
-            Planning_campController.instance = new Planning_campController(Planning_camp);
+    public static async getInstance(): Promise<PlanningCampController> {
+        if(PlanningCampController.instance == undefined) {
+            const {PlanningCamp} = await SequelizeManager.getInstance();
+            PlanningCampController.instance = new PlanningCampController(PlanningCamp);
         }
-        return Planning_campController.instance;
+        return PlanningCampController.instance;
     }
 
-    constructor(Planning_camp: ModelCtor<Planning_campInstance>) {
+    constructor(Planning_camp: ModelCtor<PlanningCampInstance>) {
         this.Planning_camp = Planning_camp;
     }
 
-    public async getAll(limit?: number, offset?: number): Promise<Planning_campInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<PlanningCampInstance[] | null>{
         return await this.Planning_camp.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: Planning_campCreationProps): Promise<Planning_campInstance | null> {
+    public async add(props: PlanningCampCreationProps): Promise<PlanningCampInstance | null> {
         return await this.Planning_camp.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<Planning_campInstance | null> {
+    public async getById(id: string): Promise<PlanningCampInstance | null> {
         return await this.Planning_camp.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: Planning_campUpdateOption): Promise<Planning_campInstance | null> {
+    public async update(options: PlanningCampUpdateOption): Promise<PlanningCampInstance | null> {
 
         const planning_campUpdate = await this.getById(options.id.toString());
 

@@ -22,7 +22,7 @@ export interface DeliveryInstance extends Model<DeliveryProps,DeliveryCreationPr
 
 }
 export default function(sequelize:Sequelize): ModelCtor<DeliveryInstance>{
-    return sequelize.define<DeliveryInstance>("animal",{
+    return sequelize.define<DeliveryInstance>("delivery",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

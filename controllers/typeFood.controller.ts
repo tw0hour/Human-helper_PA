@@ -1,25 +1,25 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {TypeFoodCreationProps, TypeFoodInstance} from "../models/TypeFood";
+import {TypeFoodCreationProps, TypeFoodInstance} from "../models/typeFood";
 
 
-export interface Type_FoodUpdateOption {
+export interface TypeFoodUpdateOption {
     id:string;
     type:string;
 }
 
-export class Type_FoodController {
+export class TypeFoodController {
 
     Food: ModelCtor<TypeFoodInstance>;
 
-    private static instance: Type_FoodController;
+    private static instance: TypeFoodController;
 
-    public static async getInstance(): Promise<Type_FoodController> {
-        if(Type_FoodController.instance == undefined) {
-            const {Type_food} = await SequelizeManager.getInstance();
-            Type_FoodController.instance = new Type_FoodController(Type_food);
+    public static async getInstance(): Promise<TypeFoodController> {
+        if(TypeFoodController.instance == undefined) {
+            const {TypeFood} = await SequelizeManager.getInstance();
+            TypeFoodController.instance = new TypeFoodController(TypeFood);
         }
-        return Type_FoodController.instance;
+        return TypeFoodController.instance;
     }
 
     constructor(Food: ModelCtor<TypeFoodInstance>) {
@@ -46,7 +46,7 @@ export class Type_FoodController {
             }
         });
     }
-    public async update(options: Type_FoodUpdateOption): Promise<TypeFoodInstance | null> {
+    public async update(options: TypeFoodUpdateOption): Promise<TypeFoodInstance | null> {
 
         const foodUpdate = await this.getById(options.id.toString());
 

@@ -6,7 +6,7 @@ import {
     ModelCtor,
 } from "sequelize";
 
-export interface volunteerProps{
+export interface VolunteerProps {
     id:number;
     name:string;
     mail:string;
@@ -14,9 +14,9 @@ export interface volunteerProps{
     type:string;
 }
 
-export interface VolunteerCreationProps extends Optional<volunteerProps, "id">{}
+export interface VolunteerCreationProps extends Optional<VolunteerProps, "id">{}
 
-export interface VolunteerInstance extends Model<volunteerProps,VolunteerCreationProps>,volunteerProps{
+export interface VolunteerInstance extends Model<VolunteerProps,VolunteerCreationProps>,VolunteerProps{
 
 }
 

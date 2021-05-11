@@ -2,7 +2,7 @@ import express from "express";
 import {ClothController} from "../controllers/cloth.controller";
 import cloth from "../models/cloth";
 import {AssociationController} from "../controllers/association.controller";
-import {gender_clothRoutes} from "./gender_cloth.route";
+import {gender_clothRoutes} from "./genderCloth.route";
 
 const clothRoutes = express();
 

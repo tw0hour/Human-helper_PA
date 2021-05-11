@@ -11,7 +11,7 @@ import {
     HasOneGetAssociationMixin,
     HasOneSetAssociationMixin
 } from "sequelize";
-import {DeliveryInstance} from "./Delivery";
+import {DeliveryInstance} from "./delivery";
 
 export interface MedicamentProps{
     id:number;
@@ -25,12 +25,12 @@ export interface MedicamentInstance extends Model<MedicamentProps,MedicamentCrea
     getDelivery: HasOneGetAssociationMixin<DeliveryInstance>;
     setDelivery: HasOneSetAssociationMixin<DeliveryInstance, "id">;
 
-    getVolonteer: HasOneGetAssociationMixin<DeliveryInstance>;
-    setVolonteer: HasOneSetAssociationMixin<DeliveryInstance, "id">;
+    getVolunteer: HasOneGetAssociationMixin<DeliveryInstance>;
+    setVolunteer: HasOneSetAssociationMixin<DeliveryInstance, "id">;
 }
 
 export default function(sequelize:Sequelize): ModelCtor<MedicamentInstance>{
-    return sequelize.define<MedicamentInstance>("Medicament",{
+    return sequelize.define<MedicamentInstance>("medicament",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

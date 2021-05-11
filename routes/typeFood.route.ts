@@ -1,6 +1,5 @@
 import express from "express";
-import {Type_FoodController} from "../controllers/TypeFood.controller";
-import {AssociationController} from "../controllers/association.controller";
+import {TypeFoodController} from "../controllers/typeFood.controller";
 
 const typeFoodRoutes = express();
 
@@ -8,12 +7,12 @@ const typeFoodRoutes = express();
  * GetAll
  */
 typeFoodRoutes.get("/",async function(req,res){
-    const type_foodController = await Type_FoodController.getInstance();
-    const type_food = await type_foodController.getAll();
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFood = await typeFoodController.getAll();
 
-    if(type_food){
+    if(typeFood){
         res.status(201).end();
-        res.json(type_food).end();
+        res.json(typeFood).end();
     }
 });
 
@@ -25,11 +24,11 @@ typeFoodRoutes.get("/:id",async function(req,res){
     if(id === undefined) {
         res.status(400).end();
     }
-    const type_foodController = await Type_FoodController.getInstance();
-    const type_food = await type_foodController.getById(id);
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFood = await typeFoodController.getById(id);
 
-    if(type_food) {
-        res.json(type_food);
+    if(typeFood) {
+        res.json(typeFood);
         res.status(201).end();
     } else {
         res.status(404).end();
@@ -46,13 +45,13 @@ typeFoodRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const type_foodController = await Type_FoodController.getInstance();
-    const type_food = await type_foodController.add({
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFood = await typeFoodController.add({
         type
     });
-    if(type_food) {
+    if(typeFood) {
         res.status(201).end();
-        res.json(type_food);
+        res.json(typeFood);
     } else {
         res.status(500).end();
     }
@@ -69,15 +68,15 @@ typeFoodRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const type_foodController = await Type_FoodController.getInstance();
-    const type_food = await type_foodController.update({
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFood = await typeFoodController.update({
         id,
         type
     });
 
-    if(type_food) {
+    if(typeFood) {
         res.status(201).end();
-        res.json(type_food);
+        res.json(typeFood);
     } else {
         res.status(500).end();
     }
@@ -91,12 +90,12 @@ typeFoodRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     if (id === undefined) {
         res.status(400).end();
     }
-    const type_foodController = await Type_FoodController.getInstance();
-    const type_foodDelete = await type_foodController.removeById(id);
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFoodDelete = await typeFoodController.removeById(id);
 
-    if(type_foodDelete) {
+    if(typeFoodDelete) {
         res.status(201).end();
-        res.json(type_foodDelete);
+        res.json(typeFoodDelete);
     } else {
         res.status(500).end();
     }

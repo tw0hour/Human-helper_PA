@@ -1,5 +1,5 @@
 import express from "express";
-import {DeliveryController} from "../controllers/Delivery.controller";
+import {DeliveryController} from "../controllers/delivery.controller";
 
 const deliveryRoutes = express();
 

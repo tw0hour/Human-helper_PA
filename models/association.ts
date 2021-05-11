@@ -38,7 +38,7 @@ export interface AssociationInstance extends Model<AssociationProps,AssociationC
 
 }
 export default function(sequelize:Sequelize):ModelCtor<AssociationInstance>{
-    return sequelize.define<AssociationInstance>("Association",{
+    return sequelize.define<AssociationInstance>("association",{
         id:{
             type: DataTypes.BIGINT,
             primaryKey: true,

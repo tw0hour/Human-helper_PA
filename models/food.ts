@@ -24,7 +24,7 @@ export interface FoodInstance extends Model<FoodProps,FoodCreationProps>,FoodPro
 
 }
 export default function(sequelize:Sequelize): ModelCtor<FoodInstance>{
-    return sequelize.define<FoodInstance>("animal",{
+    return sequelize.define<FoodInstance>("food",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

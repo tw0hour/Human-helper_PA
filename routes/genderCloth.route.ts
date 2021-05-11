@@ -7,12 +7,12 @@ const gender_clothRoutes = express();
  * GetAll
  */
 gender_clothRoutes.get("/",async function(req,res){
-    const gender_clothController = await GenderClothController.getInstance();
-    const gender_cloth = await gender_clothController.getAll();
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.getAll();
 
-    if(gender_cloth){
+    if(genderCloth){
         res.status(201).end();
-        res.json(gender_cloth).end();
+        res.json(genderCloth).end();
     }
 });
 
@@ -24,11 +24,11 @@ gender_clothRoutes.get("/:id",async function(req,res){
     if(id === undefined) {
         res.status(400).end();
     }
-    const gender_clothController = await GenderClothController.getInstance();
-    const gender_cloth = await gender_clothController.getById(id);
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.getById(id);
 
-    if(gender_cloth) {
-        res.json(gender_cloth);
+    if(genderCloth) {
+        res.json(genderCloth);
         res.status(201).end();
     } else {
         res.status(404).end();
@@ -45,13 +45,13 @@ gender_clothRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const gender_clothController = await GenderClothController.getInstance();
-    const gender_cloth = await gender_clothController.add({
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.add({
         type
     });
-    if(gender_cloth) {
+    if(genderCloth) {
         res.status(201).end();
-        res.json(gender_cloth);
+        res.json(genderCloth);
     } else {
         res.status(500).end();
     }
@@ -68,15 +68,15 @@ gender_clothRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const gender_clothController = await GenderClothController.getInstance();
-    const gender_cloth = await gender_clothController.update({
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.update({
         id,
         type
     });
 
-    if(gender_cloth) {
+    if(genderCloth) {
         res.status(201).end();
-        res.json(gender_cloth);
+        res.json(genderCloth);
     } else {
         res.status(500).end();
     }
@@ -90,12 +90,12 @@ gender_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) 
     if (id === undefined) {
         res.status(400).end();
     }
-    const gender_clothController = await GenderClothController.getInstance();
-    const gender_cloth = await gender_clothController.removeById(id);
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.removeById(id);
 
-    if(gender_cloth) {
+    if(genderCloth) {
         res.status(201).end();
-        res.json(gender_cloth);
+        res.json(genderCloth);
     } else {
         res.status(500).end();
     }

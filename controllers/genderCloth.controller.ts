@@ -1,53 +1,53 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {Gender_clothCreationProps, Gender_clothInstance, Gender_clothProps} from "../models/genderCloth";
+import {GenderClothCreationProps, GenderClothInstance, GenderClothProps} from "../models/genderCloth";
 
 
 
-export interface Gender_clothUpdateOption {
+export interface GenderClothUpdateOption {
     id:string;
     type:string;
 }
 
-export class Gender_clothController {
+export class GenderClothController {
 
-    Gender_cloth: ModelCtor<Gender_clothInstance>;
+    Gender_cloth: ModelCtor<GenderClothInstance>;
 
-    private static instance: Gender_clothController;
+    private static instance: GenderClothController;
 
-    public static async getInstance(): Promise<Gender_clothController> {
-        if(Gender_clothController.instance == undefined) {
-            const {Gender_cloth} = await SequelizeManager.getInstance();
-            Gender_clothController.instance = new Gender_clothController(Gender_cloth);
+    public static async getInstance(): Promise<GenderClothController> {
+        if(GenderClothController.instance == undefined) {
+            const {GenderCloth} = await SequelizeManager.getInstance();
+            GenderClothController.instance = new GenderClothController(GenderCloth);
         }
-        return Gender_clothController.instance;
+        return GenderClothController.instance;
     }
 
-    constructor(Gender_cloth: ModelCtor<Gender_clothInstance>) {
+    constructor(Gender_cloth: ModelCtor<GenderClothInstance>) {
         this.Gender_cloth = Gender_cloth;
     }
 
-    public async getAll(limit?: number, offset?: number): Promise<Gender_clothInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<GenderClothInstance[] | null>{
         return await this.Gender_cloth.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: Gender_clothCreationProps): Promise<Gender_clothInstance | null> {
+    public async add(props: GenderClothCreationProps): Promise<GenderClothInstance | null> {
         return await this.Gender_cloth.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<Gender_clothInstance | null> {
+    public async getById(id: string): Promise<GenderClothInstance | null> {
         return await this.Gender_cloth.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: Gender_clothUpdateOption): Promise<Gender_clothInstance | null> {
+    public async update(options: GenderClothUpdateOption): Promise<GenderClothInstance | null> {
 
         const gender_clothUpdate = await this.getById(options.id.toString());
 

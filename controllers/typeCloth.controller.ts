@@ -1,52 +1,52 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {Type_clothCreationProps, Type_clothInstance} from "../models/type_cloth";
+import {TypeClothCreationProps, TypeClothInstance} from "../models/typeCloth";
 
 
-export interface Type_ClothUpdateOption {
+export interface TypeClothUpdateOption {
     id:string;
     type?:string;
 }
 
-export class Type_ClothController {
+export class TypeClothController {
 
-    Type_Cloth: ModelCtor<Type_clothInstance>;
+    Type_Cloth: ModelCtor<TypeClothInstance>;
 
-    private static instance: Type_ClothController;
+    private static instance: TypeClothController;
 
-    public static async getInstance(): Promise<Type_ClothController> {
-        if(Type_ClothController.instance == undefined) {
-            const {Type_cloth} = await SequelizeManager.getInstance();
-            Type_ClothController.instance = new Type_ClothController(Type_cloth);
+    public static async getInstance(): Promise<TypeClothController> {
+        if(TypeClothController.instance == undefined) {
+            const {TypeCloth} = await SequelizeManager.getInstance();
+            TypeClothController.instance = new TypeClothController(TypeCloth);
         }
-        return Type_ClothController.instance;
+        return TypeClothController.instance;
     }
 
-    constructor(Type_Cloth: ModelCtor<Type_clothInstance>) {
+    constructor(Type_Cloth: ModelCtor<TypeClothInstance>) {
         this.Type_Cloth = Type_Cloth;
     }
 
-    public async getAll(limit?: number, offset?: number): Promise<Type_clothInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<TypeClothInstance[] | null>{
         return await this.Type_Cloth.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: Type_clothCreationProps): Promise<Type_clothInstance | null> {
+    public async add(props: TypeClothCreationProps): Promise<TypeClothInstance | null> {
         return await this.Type_Cloth.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<Type_clothInstance | null> {
+    public async getById(id: string): Promise<TypeClothInstance | null> {
         return await this.Type_Cloth.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: Type_ClothUpdateOption): Promise<Type_clothInstance | null> {
+    public async update(options: TypeClothUpdateOption): Promise<TypeClothInstance | null> {
 
         const foodUpdate = await this.getById(options.id.toString());
 

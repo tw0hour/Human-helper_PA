@@ -1,5 +1,5 @@
 import express from "express";
-import {FoodController} from "../controllers/Food.controller";
+import {FoodController} from "../controllers/food.controller";
 import {AssociationController} from "../controllers/association.controller";
 
 const foodRoutes = express();

@@ -1,18 +1,16 @@
-import {ModelCtor, Sequelize} from "sequelize";
+import { Association, ModelCtor, Sequelize } from "sequelize";
 import campCreator,{ CampInstance} from "./camp";
 import associationCreator, {AssociationInstance} from "./association";
 import clothCreator,{ClothInstance} from "./cloth";
-import deliveryCreator,{DeliveryInstance} from "./Delivery";
+import deliveryCreator,{DeliveryInstance} from "./delivery";
 import donationCreator, {DonationInstance} from "./donation";
-import foodCreator,{FoodInstance} from "./Food";
-import type_foodCreator from "./TypeFood";
-import gender_clothCreator, {Gender_clothInstance} from "./gender_cloth";
-import givenCreator,{GivenInstance} from "./given";
+import foodCreator,{FoodInstance} from "./food";
+import typeFoodCreator,{TypeFoodInstance} from "./typeFood";
+import genderClothCreator, {GenderClothInstance} from "./genderCloth";
 import medicamentCreator,{MedicamentInstance} from "./medicament";
-import planning_campCreator, {Planning_campInstance} from "./planning_camp";
-import type_clothCreator,{Type_clothInstance} from "./type_cloth";
+import planningCampCreator, {PlanningCampInstance} from "./planningCamp";
+import typeClothCreator,{TypeClothInstance} from "./typeCloth";
 import volunteerCreator,{VolunteerInstance} from "./volunteer";
-import {TypeFoodInstance} from "./TypeFood";
 
 export interface SequelizeManagerProps{
     sequelize:Sequelize;
@@ -22,12 +20,11 @@ export interface SequelizeManagerProps{
     Delivery:ModelCtor<DeliveryInstance>;
     Donation:ModelCtor<DonationInstance>;
     Food:ModelCtor<FoodInstance>;
-    Type_food: ModelCtor<TypeFoodInstance>;
-    Gender_cloth:ModelCtor<Gender_clothInstance>;
-    Given:ModelCtor<GivenInstance>;
+    TypeFood: ModelCtor<TypeFoodInstance>;
+    GenderCloth:ModelCtor<GenderClothInstance>;
     Medicament:ModelCtor<MedicamentInstance>;
-    Planning_camp:ModelCtor<Planning_campInstance>;
-    Type_cloth:ModelCtor<Type_clothInstance>;
+    PlanningCamp:ModelCtor<PlanningCampInstance>;
+    TypeCloth:ModelCtor<TypeClothInstance>;
     Volunteer:ModelCtor<VolunteerInstance>;
 }
 
@@ -41,12 +38,11 @@ export class SequelizeManager implements SequelizeManagerProps{
     Delivery: ModelCtor<DeliveryInstance>;
     Donation: ModelCtor<DonationInstance>;
     Food: ModelCtor<FoodInstance>;
-    Type_food: ModelCtor<TypeFoodInstance>;
-    Gender_cloth: ModelCtor<Gender_clothInstance>;
-    Given: ModelCtor<GivenInstance>;
+    TypeFood: ModelCtor<TypeFoodInstance>;
+    GenderCloth: ModelCtor<GenderClothInstance>;
     Medicament: ModelCtor<MedicamentInstance>;
-    Planning_camp: ModelCtor<Planning_campInstance>;
-    Type_cloth: ModelCtor<Type_clothInstance>;
+    PlanningCamp: ModelCtor<PlanningCampInstance>;
+    TypeCloth: ModelCtor<TypeClothInstance>;
     Volunteer: ModelCtor<VolunteerInstance>;
     sequelize: Sequelize;
 
@@ -75,12 +71,11 @@ export class SequelizeManager implements SequelizeManagerProps{
             Delivery: deliveryCreator(sequelize),
             Donation: donationCreator(sequelize),
             Food: foodCreator(sequelize),
-            Type_food: type_foodCreator(sequelize),
-            Gender_cloth: gender_clothCreator(sequelize),
-            Given: givenCreator(sequelize),
+            TypeFood: typeFoodCreator(sequelize),
+            GenderCloth: genderClothCreator(sequelize),
             Medicament: medicamentCreator(sequelize),
-            Planning_camp: planning_campCreator(sequelize),
-            Type_cloth: type_clothCreator(sequelize),
+            PlanningCamp: planningCampCreator(sequelize),
+            TypeCloth: typeClothCreator(sequelize),
             Volunteer: volunteerCreator(sequelize),
         }
         SequelizeManager.associate(managersProps);
@@ -89,6 +84,40 @@ export class SequelizeManager implements SequelizeManagerProps{
     }
 
     private static associate(props: SequelizeManagerProps): void {
+        props.Association.hasMany(props.Camp);
+        props.Association.hasMany(props.Donation);
+
+        props.Volunteer.hasMany(props.Donation);
+        props.Volunteer.hasMany(props.Food);
+        props.Volunteer.hasMany(props.Medicament);
+        props.Volunteer.hasMany(props.Cloth);
+
+        props.Food.belongsTo(props.Volunteer);
+        props.Food.belongsTo(props.TypeFood);
+        props.Food.belongsTo(props.Delivery);
+
+        props.TypeFood.hasMany(props.Food);
+
+        props.Medicament.belongsTo(props.Volunteer);
+        props.Medicament.belongsTo(props.Delivery);
+
+        props.Cloth.belongsTo(props.TypeCloth);
+        props.Cloth.belongsTo(props.Volunteer);
+        props.Cloth.belongsTo(props.GenderCloth);
+        props.Cloth.belongsTo(props.Delivery);
+
+        props.TypeCloth.hasMany(props.Cloth);
+
+        props.GenderCloth.hasMany(props.Cloth);
+
+        props.Delivery.hasMany(props.Food);
+        props.Delivery.hasMany(props.Medicament);
+        props.Delivery.hasMany(props.Cloth);
+        props.Delivery.belongsTo(props.Camp);
+
+        props.Camp.belongsTo(props.PlanningCamp);
+        props.Camp.belongsTo(props.Association);
+        props.Camp.hasMany(props.Delivery);
 
     }
 
@@ -99,12 +128,11 @@ export class SequelizeManager implements SequelizeManagerProps{
         this.Delivery = props.Delivery;
         this.Donation = props.Donation;
         this.Food = props.Food;
-        this.Type_food = props.Type_food;
-        this.Gender_cloth = props.Gender_cloth;
-        this.Given = props.Given;
+        this.TypeFood = props.TypeFood;
+        this.GenderCloth = props.GenderCloth;
         this.Medicament = props.Medicament;
-        this.Planning_camp = props.Planning_camp;
-        this.Type_cloth = props.Type_cloth;
+        this.PlanningCamp = props.PlanningCamp;
+        this.TypeCloth = props.TypeCloth;
         this.Volunteer = props.Volunteer;
         this.sequelize = props.sequelize;
     }

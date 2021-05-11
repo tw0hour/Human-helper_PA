@@ -18,24 +18,26 @@ import {
 import {CampInstance} from "./camp";
 
 
-export interface Planning_campProps{
+export interface PlanningCampProps {
     id: number;
     day: number;
     time_slots: string;
 }
 
-export interface Planning_campCreationProps extends Optional<Planning_campProps, "id"> {}
+export interface PlanningCampCreationProps extends Optional<PlanningCampProps, "id"> {}
 
-export interface Planning_campInstance extends Model<Planning_campProps,Planning_campCreationProps>,Planning_campProps{
+export interface PlanningCampInstance extends Model<PlanningCampProps,PlanningCampCreationProps>,PlanningCampProps{
     getCamp: HasOneGetAssociationMixin<CampInstance>;
     setCamp: HasOneSetAssociationMixin<CampInstance, "id">;
 
 
 }
-export default function(sequelize:Sequelize):ModelCtor<Planning_campInstance>{
-    return sequelize.define<Planning_campInstance>("Planning_camp",{
+export default function(sequelize:Sequelize):ModelCtor<PlanningCampInstance>{
+    return sequelize.define<PlanningCampInstance>("planningCamp",{
         id:{
-            type:DataTypes.BIGINT
+            type:DataTypes.BIGINT,
+            primaryKey: true,
+            autoIncrement: true
         },
         day:{
             type:DataTypes.BIGINT

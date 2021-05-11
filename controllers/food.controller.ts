@@ -1,6 +1,6 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {FoodCreationProps, FoodInstance} from "../models/Food";
+import {FoodCreationProps, FoodInstance} from "../models/food";
 
 
 export interface FoodUpdateOption {

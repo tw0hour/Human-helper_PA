@@ -2,34 +2,34 @@ import express from "express";
 import {TypeClothController} from "../controllers/typeCloth.controller";
 import {AssociationController} from "../controllers/association.controller";
 
-const type_clothRoutes = express();
+const typeClothRoutes = express();
 
 /**
  * GetAll
  */
-type_clothRoutes.get("/",async function(req,res){
-    const type_clothController = await TypeClothController.getInstance();
-    const type_cloth = await type_clothController.getAll();
+typeClothRoutes.get("/",async function(req, res){
+    const typeClothController = await TypeClothController.getInstance();
+    const typeCloth = await typeClothController.getAll();
 
-    if(type_cloth){
+    if(typeCloth){
         res.status(201).end();
-        res.json(type_cloth).end();
+        res.json(typeCloth).end();
     }
 });
 
 /**
  * GetById
  */
-type_clothRoutes.get("/:id",async function(req,res){
+typeClothRoutes.get("/:id",async function(req, res){
     const id = req.params.id;
     if(id === undefined) {
         res.status(400).end();
     }
-    const type_clothController = await TypeClothController.getInstance();
-    const type_cloth = await type_clothController.getById(id);
+    const typeClothController = await TypeClothController.getInstance();
+    const typeCloth = await typeClothController.getById(id);
 
-    if(type_cloth) {
-        res.json(type_cloth);
+    if(typeCloth) {
+        res.json(typeCloth);
         res.status(201).end();
     } else {
         res.status(404).end();
@@ -39,20 +39,20 @@ type_clothRoutes.get("/:id",async function(req,res){
 /**
  * Add
  */
-type_clothRoutes.post("/", async function(req, res) {
+typeClothRoutes.post("/", async function(req, res) {
     const type = req.body.type;
 
     if (type === undefined) {
         res.status(400).end();
         return;
     }
-    const type_clothController = await TypeClothController.getInstance();
-    const type_cloth = await type_clothController.add({
+    const typeClothController = await TypeClothController.getInstance();
+    const typeCloth = await typeClothController.add({
         type
     });
-    if(type_cloth) {
+    if(typeCloth) {
         res.status(201).end();
-        res.json(type_cloth);
+        res.json(typeCloth);
     } else {
         res.status(500).end();
     }
@@ -61,7 +61,7 @@ type_clothRoutes.post("/", async function(req, res) {
 /**
  * Update
  */
-type_clothRoutes.put("/:id",async function(req,res){
+typeClothRoutes.put("/:id",async function(req, res){
     const id = req.params.id;
     const type = req.body.type;
 
@@ -69,15 +69,15 @@ type_clothRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const type_clothController = await TypeClothController.getInstance();
-    const type_cloth = await type_clothController.update({
+    const typeClothController = await TypeClothController.getInstance();
+    const typeCloth = await typeClothController.update({
         id,
         type
     });
 
-    if(type_cloth) {
+    if(typeCloth) {
         res.status(201).end();
-        res.json(type_cloth);
+        res.json(typeCloth);
     } else {
         res.status(500).end();
     }
@@ -86,22 +86,22 @@ type_clothRoutes.put("/:id",async function(req,res){
 /**
  * Delete
  */
-type_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
+typeClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;
     if (id === undefined) {
         res.status(400).end();
     }
-    const type_clothController = await TypeClothController.getInstance();
-    const type_cloth = await type_clothController.removeById(id);
+    const typeClothController = await TypeClothController.getInstance();
+    const typeCloth = await typeClothController.removeById(id);
 
-    if(type_cloth) {
+    if(typeCloth) {
         res.status(201).end();
-        res.json(type_cloth);
+        res.json(typeCloth);
     } else {
         res.status(500).end();
     }
 });
 
 export {
-    type_clothRoutes
+    typeClothRoutes
 };

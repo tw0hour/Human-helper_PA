@@ -1,34 +1,34 @@
 import express from "express";
 import {PlanningCampController} from "../controllers/planningCamp.controller";
 
-const planning_campRoutes = express();
+const planningCampRoutes = express();
 
 /**
  * GetAll
  */
-planning_campRoutes.get("/",async function(req,res){
-    const planning_campController = await  PlanningCampController.getInstance();
-    const planning_camp = await planning_campController.getAll();
+planningCampRoutes.get("/",async function(req, res){
+    const planningCampController = await  PlanningCampController.getInstance();
+    const planningCamp = await planningCampController.getAll();
 
-    if(planning_camp){
+    if(planningCamp){
         res.status(201).end();
-        res.json(planning_camp).end();
+        res.json(planningCamp).end();
     }
 });
 
 /**
  * GetById
  */
-planning_campRoutes.get("/:id",async function(req,res){
+planningCampRoutes.get("/:id",async function(req, res){
     const id = req.params.id;
     if(id === undefined) {
         res.status(400).end();
     }
-    const planning_campController = await  PlanningCampController.getInstance();
-    const planning_camp = await planning_campController.getById(id);
+    const planningCampController = await  PlanningCampController.getInstance();
+    const planningCamp = await planningCampController.getById(id);
 
-    if(planning_camp) {
-        res.json(planning_camp);
+    if(planningCamp) {
+        res.json(planningCamp);
         res.status(201).end();
     } else {
         res.status(404).end();
@@ -38,7 +38,7 @@ planning_campRoutes.get("/:id",async function(req,res){
 /**
  * Add
  */
-planning_campRoutes.post("/", async function(req, res) {
+planningCampRoutes.post("/", async function(req, res) {
     const day = req.body.day;
     const timeslot = req.body.timeslots;
 
@@ -46,15 +46,15 @@ planning_campRoutes.post("/", async function(req, res) {
         res.status(400).end();
         return;
     }
-    const planning_campController = await  PlanningCampController.getInstance();
-    const planning_camp = await planning_campController.add({
+    const planningCampController = await  PlanningCampController.getInstance();
+    const planningCamp = await planningCampController.add({
         day,
         time_slots : timeslot
     });
 
-    if(planning_camp) {
+    if(planningCamp) {
         res.status(201).end();
-        res.json(planning_camp);
+        res.json(planningCamp);
     } else {
         res.status(500).end();
     }
@@ -63,7 +63,7 @@ planning_campRoutes.post("/", async function(req, res) {
 /**
  * Update
  */
-planning_campRoutes.put("/:id",async function(req,res){
+planningCampRoutes.put("/:id",async function(req, res){
     const id = req.params.id;
     const day = req.body.day;
     const timeslot = req.body.timeslots;
@@ -72,16 +72,16 @@ planning_campRoutes.put("/:id",async function(req,res){
         res.status(400).end();
         return;
     }
-    const planning_campController = await  PlanningCampController.getInstance();
-    const planning_camp = await planning_campController.update({
+    const planningCampController = await  PlanningCampController.getInstance();
+    const planningCamp = await planningCampController.update({
         id,
         day,
         time_slots : timeslot
     });
 
-    if(planning_camp) {
+    if(planningCamp) {
         res.status(201).end();
-        res.json(planning_camp);
+        res.json(planningCamp);
     } else {
         res.status(500).end();
     }
@@ -90,22 +90,22 @@ planning_campRoutes.put("/:id",async function(req,res){
 /**
  * Delete
  */
-planning_campRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
+planningCampRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;
     if (id === undefined) {
         res.status(400).end();
     }
-    const planning_campController = await  PlanningCampController.getInstance();
-    const planning_camp = await planning_campController.removeById(id);
+    const planningCampController = await  PlanningCampController.getInstance();
+    const planningCamp = await planningCampController.removeById(id);
 
-    if(planning_camp) {
+    if(planningCamp) {
         res.status(201).end();
-        res.json(planning_camp);
+        res.json(planningCamp);
     } else {
         res.status(500).end();
     }
 });
 
 export {
-    planning_campRoutes
+    planningCampRoutes
 };

@@ -1,6 +1,6 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {DeliveryCreationProps, DeliveryInstance} from "../models/Delivery";
+import {DeliveryCreationProps, DeliveryInstance} from "../models/delivery";
 
 
 export interface DeliveryUpdateOption {
