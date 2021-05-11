@@ -39,7 +39,7 @@ genderClothRoutes.get("/:id",async function(req, res){
  * Add
  */
 genderClothRoutes.post("/", async function(req, res) {
-    const type = await req.body.type;
+    const type = req.body.type;
 
     if (type === undefined) {
         res.status(400).end();

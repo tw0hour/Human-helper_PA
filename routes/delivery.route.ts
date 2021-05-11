@@ -20,7 +20,7 @@ deliveryRoutes.get("/",async function(req,res){
  * GetById
  */
 deliveryRoutes.get("/:id",async function(req,res){
-    const id = await req.params.id;
+    const id = req.params.id;
     if(id === undefined) {
         res.status(400).end();
     }
@@ -37,7 +37,7 @@ deliveryRoutes.get("/:id",async function(req,res){
  * Add
  */
 deliveryRoutes.post("/", async function(req, res) {
-    const status = await req.body.status;
+    const status = req.body.status;
 
     if(status === undefined) {
         res.status(400).end();
@@ -57,8 +57,8 @@ deliveryRoutes.post("/", async function(req, res) {
  * Upadte
  */
 deliveryRoutes.put("/:id",async function(req,res){
-    const id = await req.params.id;
-    const status = await req.params.staut;
+    const id = req.params.id;
+    const status = req.params.staut;
 
     if(id === undefined || status === undefined) {
         res.status(400).end();

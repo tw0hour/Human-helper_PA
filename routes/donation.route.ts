@@ -39,8 +39,8 @@ donationRoutes.get("/:id",async function(req,res){
  * Add
  */
 donationRoutes.post("/", async function(req, res) {
-    const amount_given = await req.body.amount_given;
-    const date = await req.body.date;
+    const amount_given = req.body.amount_given;
+    const date = req.body.date;
 
     if(amount_given === undefined || date === undefined) {
         res.status(400).end();
@@ -65,9 +65,9 @@ donationRoutes.post("/", async function(req, res) {
  * Update
  */
 donationRoutes.put("/:id",async function(req,res){
-    const id = await req.body.id;
-    const amount_given = await req.body.amount_given;
-    const date = await req.body.date;
+    const id = req.body.id;
+    const amount_given = req.body.amount_given;
+    const date = req.body.date;
 
     if(id === undefined || amount_given === undefined || date === undefined) {
         res.status(400).end();

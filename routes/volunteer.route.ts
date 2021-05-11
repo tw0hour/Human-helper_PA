@@ -8,10 +8,10 @@ const volunteerRoutes = express();
  */
 volunteerRoutes.get("/",async function(req,res){
     const volunteerController = await VolunteerController.getInstance();
-    const volunterr = await volunteerController.getAll();
+    const volunteer = await volunteerController.getAll();
 
-    if(volunterr) {
-        res.json(volunterr);
+    if(volunteer) {
+        res.json(volunteer);
         res.status(201).end();
     } else {
         res.status(404).end();

@@ -1,6 +1,5 @@
 import express from "express";
 import {FoodController} from "../controllers/food.controller";
-import {AssociationController} from "../controllers/association.controller";
 
 const foodRoutes = express();
 
@@ -40,9 +39,9 @@ foodRoutes.get("/:id",async function(req,res){
  * Add
  */
 foodRoutes.post("/", async function(req, res) {
-    const name = await req.body.name;
-    const type_food = await req.body.type_food;
-    const expirationDate = await req.body.expirationDate;
+    const name = req.body.name;
+    const type_food = req.body.type_food;
+    const expirationDate = req.body.expirationDate;
 
     if(name === undefined || type_food === undefined || expirationDate === undefined) {
         res.status(400).end();
@@ -68,10 +67,10 @@ foodRoutes.post("/", async function(req, res) {
  * Update
  */
 foodRoutes.put("/:id",async function(req,res){
-    const id = await req.params.id;
-    const name = await req.body.name;
-    const type_food = await req.body.type_food;
-    const expirationDate = await req.body.expirationDate;
+    const id = req.params.id;
+    const name = req.body.name;
+    const type_food = req.body.type_food;
+    const expirationDate = req.body.expirationDate;
 
     if(id === undefined || name === undefined || type_food === undefined || expirationDate === undefined) {
         res.status(400).end();
@@ -98,7 +97,7 @@ foodRoutes.put("/:id",async function(req,res){
  * Delete
  */
 foodRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
-    const id = await req.params.id;
+    const id = req.params.id;
     if (id === undefined) {
         res.status(400).end();
     }

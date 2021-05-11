@@ -1,6 +1,5 @@
 import express from "express";
 import {MedicamentController} from "../controllers/medicament.controller";
-import {AssociationController} from "../controllers/association.controller";
 
 const medicamentRoutes = express();
 
@@ -64,7 +63,7 @@ medicamentRoutes.post("/", async function(req, res) {
  * Update
  */
 medicamentRoutes.put("/:id",async function(req,res){
-    const id = await req.params.id;
+    const id = req.params.id;
     const name = req.body.name;
     const expirationDate = req.body.expirationDate;
 
