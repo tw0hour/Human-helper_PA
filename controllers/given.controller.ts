@@ -4,7 +4,7 @@ import {GivenCreationProps, GivenInstance} from "../models/given";
 
 
 export interface GivenUpdateOption {
-    id: number
+    id: string;
     money: number;
     date: string;
 }
@@ -27,7 +27,7 @@ export class GivenController {
         this.Given = Given;
     }
 
-    public async getAll(limit: number, offset: number): Promise<GivenInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<GivenInstance[] | null>{
         return await this.Given.findAll({
             limit,
             offset

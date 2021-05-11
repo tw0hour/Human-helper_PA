@@ -5,8 +5,8 @@ import {Gender_clothCreationProps, Gender_clothInstance, Gender_clothProps} from
 
 
 export interface Gender_clothUpdateOption {
-    id:number;
-    name:string;
+    id:string;
+    type:string;
 }
 
 export class Gender_clothController {
@@ -27,7 +27,7 @@ export class Gender_clothController {
         this.Gender_cloth = Gender_cloth;
     }
 
-    public async getAll(limit: number, offset: number): Promise<Gender_clothInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<Gender_clothInstance[] | null>{
         return await this.Gender_cloth.findAll({
             limit,
             offset

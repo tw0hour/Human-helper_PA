@@ -5,8 +5,8 @@ import {DonationCreationProps, DonationInstance} from "../models/donation";
 
 export interface DonationUpdateOption {
     id:number;
-    amount_given:number;
-    date:string;
+    amount_given?:number;
+    date?:string;
 }
 
 export class DonationController {
@@ -27,7 +27,7 @@ export class DonationController {
         this.Donation = Donation;
     }
 
-    public async getAll(limit: number, offset: number): Promise<DonationInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<DonationInstance[] | null>{
         return await this.Donation.findAll({
             limit,
             offset

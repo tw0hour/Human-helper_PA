@@ -22,6 +22,7 @@ import {DonationInstance} from "./donation";
 export interface AssociationProps{
     id:number;
     name:string;
+    mail: string;
     password:string;
     money: number;
 }
@@ -44,6 +45,9 @@ export default function(sequelize:Sequelize):ModelCtor<AssociationInstance>{
             autoIncrement: true
         },
         name:{
+            type:DataTypes.STRING
+        },
+        mail:{
             type:DataTypes.STRING
         },
         password:{

@@ -4,12 +4,12 @@ import {Planning_campCreationProps, Planning_campInstance} from "../models/plann
 
 
 export interface Planning_campUpdateOption {
-    id: number;
-    day: number;
-    time_slots: string;
+    id: string;
+    day?: number;
+    time_slots?: string;
 }
 
-export class Planning_campController {cgxf
+export class Planning_campController {
 
     Planning_camp: ModelCtor<Planning_campInstance>;
 
@@ -27,7 +27,7 @@ export class Planning_campController {cgxf
         this.Planning_camp = Planning_camp;
     }
 
-    public async getAll(limit: number, offset: number): Promise<Planning_campInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<Planning_campInstance[] | null>{
         return await this.Planning_camp.findAll({
             limit,
             offset

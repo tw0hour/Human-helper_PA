@@ -7,13 +7,9 @@ import association from "../models/association";
 export interface AssociationUpdateOption {
     id:string;
     name?:string;
-    description?:string;
-    image?:string;
-    capacity?:number;
-    duration?:number;
-    hour_open?:string;
-    handicapped_access?:boolean;
-    status?:boolean;
+    mail?: string;
+    password?:string;
+    money?: number;
 }
 
 export class AssociationController {
@@ -34,7 +30,7 @@ export class AssociationController {
         this.Association = Association;
     }
 
-    public async getAll(limit: number, offset: number): Promise<AssociationInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<AssociationInstance[] | null>{
         return await this.Association.findAll({
             limit,
             offset

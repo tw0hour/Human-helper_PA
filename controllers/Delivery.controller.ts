@@ -4,11 +4,8 @@ import {DeliveryCreationProps, DeliveryInstance} from "../models/Delivery";
 
 
 export interface DeliveryUpdateOption {
-    id:number;
-    name:string;
-    size:number;
-    type_cloth:string;
-    gender:string;
+    id:string;
+    status?:string;
 }
 
 export class DeliveryController {
@@ -29,7 +26,7 @@ export class DeliveryController {
         this.Delivery = Delivery;
     }
 
-    public async getAll(limit: number, offset: number): Promise<DeliveryInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<DeliveryInstance[] | null>{
         return await this.Delivery.findAll({
             limit,
             offset

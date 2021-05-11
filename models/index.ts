@@ -5,12 +5,14 @@ import clothCreator,{ClothInstance} from "./cloth";
 import deliveryCreator,{DeliveryInstance} from "./Delivery";
 import donationCreator, {DonationInstance} from "./donation";
 import foodCreator,{FoodInstance} from "./Food";
+import type_foodCreator from "./TypeFood";
 import gender_clothCreator, {Gender_clothInstance} from "./gender_cloth";
 import givenCreator,{GivenInstance} from "./given";
 import medicamentCreator,{MedicamentInstance} from "./medicament";
 import planning_campCreator, {Planning_campInstance} from "./planning_camp";
 import type_clothCreator,{Type_clothInstance} from "./type_cloth";
 import volunteerCreator,{VolunteerInstance} from "./volunteer";
+import {TypeFoodInstance} from "./TypeFood";
 
 export interface SequelizeManagerProps{
     sequelize:Sequelize;
@@ -20,6 +22,7 @@ export interface SequelizeManagerProps{
     Delivery:ModelCtor<DeliveryInstance>;
     Donation:ModelCtor<DonationInstance>;
     Food:ModelCtor<FoodInstance>;
+    Type_food: ModelCtor<TypeFoodInstance>;
     Gender_cloth:ModelCtor<Gender_clothInstance>;
     Given:ModelCtor<GivenInstance>;
     Medicament:ModelCtor<MedicamentInstance>;
@@ -38,6 +41,7 @@ export class SequelizeManager implements SequelizeManagerProps{
     Delivery: ModelCtor<DeliveryInstance>;
     Donation: ModelCtor<DonationInstance>;
     Food: ModelCtor<FoodInstance>;
+    Type_food: ModelCtor<TypeFoodInstance>;
     Gender_cloth: ModelCtor<Gender_clothInstance>;
     Given: ModelCtor<GivenInstance>;
     Medicament: ModelCtor<MedicamentInstance>;
@@ -71,6 +75,7 @@ export class SequelizeManager implements SequelizeManagerProps{
             Delivery: deliveryCreator(sequelize),
             Donation: donationCreator(sequelize),
             Food: foodCreator(sequelize),
+            Type_food: type_foodCreator(sequelize),
             Gender_cloth: gender_clothCreator(sequelize),
             Given: givenCreator(sequelize),
             Medicament: medicamentCreator(sequelize),
@@ -94,6 +99,7 @@ export class SequelizeManager implements SequelizeManagerProps{
         this.Delivery = props.Delivery;
         this.Donation = props.Donation;
         this.Food = props.Food;
+        this.Type_food = props.Type_food;
         this.Gender_cloth = props.Gender_cloth;
         this.Given = props.Given;
         this.Medicament = props.Medicament;

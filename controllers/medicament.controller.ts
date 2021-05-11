@@ -4,7 +4,7 @@ import {MedicamentCreationProps, MedicamentInstance} from "../models/medicament"
 
 
 export interface MedicamentUpdateOption {
-    id:number;
+    id:string;
     name:string;
     expirationDate: string;
 }
@@ -27,7 +27,7 @@ export class MedicamentController {
         this.Medicament = Medicament;
     }
 
-    public async getAll(limit: number, offset: number): Promise<MedicamentInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<MedicamentInstance[] | null>{
         return await this.Medicament.findAll({
             limit,
             offset

@@ -8,7 +8,7 @@ import {
 
 export interface Gender_clothProps {
     id:number;
-    name:string;
+    type:string;
 }
 
 export interface Gender_clothCreationProps extends Optional<Gender_clothProps, "id">{}
@@ -24,7 +24,7 @@ export default function(sequelize:Sequelize): ModelCtor<Gender_clothInstance>{
             primaryKey: true,
             autoIncrement: true
         },
-        name:{
+        type:{
             type:DataTypes.STRING
         }
 

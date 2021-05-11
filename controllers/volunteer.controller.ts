@@ -1,63 +1,65 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {FoodCreationProps, FoodInstance} from "../models/Food";
+import {VolunteerCreationProps, VolunteerInstance} from "../models/volunteer";
 
 
-export interface FoodUpdateOption {
-    id:number;
+export interface VolunteerUpdateOption {
+    id:string;
     name:string;
-    expirationDate:string;
+    mail:string;
+    password:string;
+    type:string;
 }
 
-export class FoodController {
+export class VolunteerController {
 
-    Food: ModelCtor<FoodInstance>;
+    Volunteer: ModelCtor<VolunteerInstance>;
 
-    private static instance: FoodController;
+    private static instance: VolunteerController;
 
-    public static async getInstance(): Promise<FoodController> {
-        if(FoodController.instance == undefined) {
-            const {Food} = await SequelizeManager.getInstance();
-            FoodController.instance = new FoodController(Food);
+    public static async getInstance(): Promise<VolunteerController> {
+        if(VolunteerController.instance == undefined) {
+            const {Volunteer} = await SequelizeManager.getInstance();
+            VolunteerController.instance = new VolunteerController(Volunteer);
         }
-        return FoodController.instance;
+        return VolunteerController.instance;
     }
 
-    constructor(Food: ModelCtor<FoodInstance>) {
-        this.Food = Food;
+    constructor(Volunteer: ModelCtor<VolunteerInstance>) {
+        this.Volunteer = Volunteer;
     }
 
-    public async getAll(limit: number, offset: number): Promise<FoodInstance[] | null>{
-        return await this.Food.findAll({
+    public async getAll(limit?: number, offset?: number): Promise<VolunteerInstance[] | null>{
+        return await this.Volunteer.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: FoodCreationProps): Promise<FoodInstance | null> {
-        return await this.Food.create({
+    public async add(props: VolunteerCreationProps): Promise<VolunteerInstance | null> {
+        return await this.Volunteer.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<FoodInstance | null> {
-        return await this.Food.findOne({
+    public async getById(id: string): Promise<VolunteerInstance | null> {
+        return await this.Volunteer.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: FoodUpdateOption): Promise<FoodInstance | null> {
+    public async update(options: VolunteerUpdateOption): Promise<VolunteerInstance | null> {
 
-        const foodUpdate = await this.getById(options.id.toString());
+        const VolunteerUpdate = await this.getById(options.id.toString());
 
-        if(foodUpdate === null)
+        if(VolunteerUpdate === null)
         {
             return null;
         }
         else
         {
-            return await foodUpdate.update({
+            return await VolunteerUpdate.update({
                 ...options
             }, {
                 where: {
@@ -68,8 +70,8 @@ export class FoodController {
     }
 
     public async removeById (id: string):Promise<Boolean> {
-        const foodDelete = await this.getById(id);
-        if(foodDelete === null)
+        const VolunteerDelete = await this.getById(id);
+        if(VolunteerDelete === null)
         {
             return false;
         }
@@ -77,9 +79,9 @@ export class FoodController {
         {
             try
             {
-                await this.Food.destroy({
+                await this.Volunteer.destroy({
                     where:{
-                        id: foodDelete.id
+                        id: VolunteerDelete.id
                     }
                 });
                 return true;

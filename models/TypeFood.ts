@@ -3,13 +3,7 @@ import {
     Optional,
     Model,
     DataTypes,
-    ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
-    HasOneGetAssociationMixin,
-    HasOneSetAssociationMixin
+    ModelCtor
 } from "sequelize";
 
 export interface TypeFoodProps{
@@ -22,7 +16,7 @@ export interface TypeFoodInstance extends Model<TypeFoodProps,TypeFoodCreationPr
 
 }
 export default function(sequelize:Sequelize): ModelCtor<TypeFoodInstance>{
-    return sequelize.define<TypeFoodInstance>("animal",{
+    return sequelize.define<TypeFoodInstance>("type_food",{
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

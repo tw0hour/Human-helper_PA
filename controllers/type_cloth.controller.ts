@@ -1,53 +1,52 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {FoodCreationProps, FoodInstance} from "../models/Food";
+import {Type_clothCreationProps, Type_clothInstance} from "../models/type_cloth";
 
 
-export interface FoodUpdateOption {
-    id:number;
-    name:string;
-    expirationDate:string;
+export interface Type_ClothUpdateOption {
+    id:string;
+    type?:string;
 }
 
-export class FoodController {
+export class Type_ClothController {
 
-    Food: ModelCtor<FoodInstance>;
+    Type_Cloth: ModelCtor<Type_clothInstance>;
 
-    private static instance: FoodController;
+    private static instance: Type_ClothController;
 
-    public static async getInstance(): Promise<FoodController> {
-        if(FoodController.instance == undefined) {
-            const {Food} = await SequelizeManager.getInstance();
-            FoodController.instance = new FoodController(Food);
+    public static async getInstance(): Promise<Type_ClothController> {
+        if(Type_ClothController.instance == undefined) {
+            const {Type_cloth} = await SequelizeManager.getInstance();
+            Type_ClothController.instance = new Type_ClothController(Type_cloth);
         }
-        return FoodController.instance;
+        return Type_ClothController.instance;
     }
 
-    constructor(Food: ModelCtor<FoodInstance>) {
-        this.Food = Food;
+    constructor(Type_Cloth: ModelCtor<Type_clothInstance>) {
+        this.Type_Cloth = Type_Cloth;
     }
 
-    public async getAll(limit: number, offset: number): Promise<FoodInstance[] | null>{
-        return await this.Food.findAll({
+    public async getAll(limit?: number, offset?: number): Promise<Type_clothInstance[] | null>{
+        return await this.Type_Cloth.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: FoodCreationProps): Promise<FoodInstance | null> {
-        return await this.Food.create({
+    public async add(props: Type_clothCreationProps): Promise<Type_clothInstance | null> {
+        return await this.Type_Cloth.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<FoodInstance | null> {
-        return await this.Food.findOne({
+    public async getById(id: string): Promise<Type_clothInstance | null> {
+        return await this.Type_Cloth.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: FoodUpdateOption): Promise<FoodInstance | null> {
+    public async update(options: Type_ClothUpdateOption): Promise<Type_clothInstance | null> {
 
         const foodUpdate = await this.getById(options.id.toString());
 
@@ -68,8 +67,8 @@ export class FoodController {
     }
 
     public async removeById (id: string):Promise<Boolean> {
-        const foodDelete = await this.getById(id);
-        if(foodDelete === null)
+        const type_clothDelete = await this.getById(id);
+        if(type_clothDelete === null)
         {
             return false;
         }
@@ -77,9 +76,9 @@ export class FoodController {
         {
             try
             {
-                await this.Food.destroy({
+                await this.Type_Cloth.destroy({
                     where:{
-                        id: foodDelete.id
+                        id: type_clothDelete.id
                     }
                 });
                 return true;

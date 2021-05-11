@@ -4,11 +4,11 @@ import {ClothCreationProps, ClothInstance} from "../models/cloth";
 
 
 export interface ClothUpdateOption {
-    id:number;
-    name:string;
-    size:number;
-    type_cloth:string;
-    gender:string;
+    id:string;
+    name?:string;
+    size?:number;
+    type_cloth?:string;
+    gender?:string;
 }
 
 export class ClothController {
@@ -29,7 +29,7 @@ export class ClothController {
         this.Cloth = Cloth;
     }
 
-    public async getAll(limit: number, offset: number): Promise<ClothInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<ClothInstance[] | null>{
         return await this.Cloth.findAll({
             limit,
             offset

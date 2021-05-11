@@ -4,11 +4,11 @@ import {CampCreationProps, CampInstance} from "../models/camp";
 
 
 export interface CampUpdateOption {
-    id:number;
-    nb_people:number;
-    city:string;
-    address:string;
-    postal_code: number;
+    id:string;
+    nb_people?:number;
+    city?:string;
+    address?:string;
+    postal_code?: number;
 }
 
 export class CampController {
@@ -29,7 +29,7 @@ export class CampController {
         this.Camp = Camp;
     }
 
-    public async getAll(limit: number, offset: number): Promise<CampInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<CampInstance[] | null>{
         return await this.Camp.findAll({
             limit,
             offset

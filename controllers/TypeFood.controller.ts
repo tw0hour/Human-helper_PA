@@ -1,53 +1,52 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
-import {FoodCreationProps, FoodInstance} from "../models/Food";
+import {TypeFoodCreationProps, TypeFoodInstance} from "../models/TypeFood";
 
 
-export interface FoodUpdateOption {
-    id:number;
-    name:string;
-    expirationDate:string;
+export interface Type_FoodUpdateOption {
+    id:string;
+    type:string;
 }
 
-export class FoodController {
+export class Type_FoodController {
 
-    Food: ModelCtor<FoodInstance>;
+    Food: ModelCtor<TypeFoodInstance>;
 
-    private static instance: FoodController;
+    private static instance: Type_FoodController;
 
-    public static async getInstance(): Promise<FoodController> {
-        if(FoodController.instance == undefined) {
-            const {Food} = await SequelizeManager.getInstance();
-            FoodController.instance = new FoodController(Food);
+    public static async getInstance(): Promise<Type_FoodController> {
+        if(Type_FoodController.instance == undefined) {
+            const {Type_food} = await SequelizeManager.getInstance();
+            Type_FoodController.instance = new Type_FoodController(Type_food);
         }
-        return FoodController.instance;
+        return Type_FoodController.instance;
     }
 
-    constructor(Food: ModelCtor<FoodInstance>) {
+    constructor(Food: ModelCtor<TypeFoodInstance>) {
         this.Food = Food;
     }
 
-    public async getAll(limit: number, offset: number): Promise<FoodInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<TypeFoodInstance[] | null>{
         return await this.Food.findAll({
             limit,
             offset
         });
     }
 
-    public async add(props: FoodCreationProps): Promise<FoodInstance | null> {
+    public async add(props: TypeFoodCreationProps): Promise<TypeFoodInstance | null> {
         return await this.Food.create({
             ...props
         });
     }
 
-    public async getById(id: string): Promise<FoodInstance | null> {
+    public async getById(id: string): Promise<TypeFoodInstance | null> {
         return await this.Food.findOne({
             where :{
                 id: id
             }
         });
     }
-    public async update(options: FoodUpdateOption): Promise<FoodInstance | null> {
+    public async update(options: Type_FoodUpdateOption): Promise<TypeFoodInstance | null> {
 
         const foodUpdate = await this.getById(options.id.toString());
 

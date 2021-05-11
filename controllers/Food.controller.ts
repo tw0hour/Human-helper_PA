@@ -4,9 +4,10 @@ import {FoodCreationProps, FoodInstance} from "../models/Food";
 
 
 export interface FoodUpdateOption {
-    id:number;
-    name:string;
-    expirationDate:string;
+    id:string;
+    name?:string;
+    type_food?:string;
+    expirationDate?:string;
 }
 
 export class FoodController {
@@ -27,7 +28,7 @@ export class FoodController {
         this.Food = Food;
     }
 
-    public async getAll(limit: number, offset: number): Promise<FoodInstance[] | null>{
+    public async getAll(limit?: number, offset?: number): Promise<FoodInstance[] | null>{
         return await this.Food.findAll({
             limit,
             offset

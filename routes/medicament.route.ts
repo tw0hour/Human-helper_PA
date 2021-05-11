@@ -1,25 +1,109 @@
 import express from "express";
+import {MedicamentController} from "../controllers/medicament.controller";
+import {AssociationController} from "../controllers/association.controller";
 
 const medicamentRoutes = express();
 
+/**
+ * GetAll
+ */
 medicamentRoutes.get("/",async function(req,res){
-    res.send("get");
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.getAll();
+
+    if(medicament){
+        res.status(201).end();
+        res.json(medicament).end();
+    }
 });
 
+/**
+ * GetById
+ */
 medicamentRoutes.get("/:id",async function(req,res){
-    res.send("get by id" + req.params.id);
+    const id = req.params.id;
+    if(id === undefined) {
+        res.status(400).end();
+    }
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.getById(id);
+
+    if(medicament) {
+        res.json(medicament);
+        res.status(201).end();
+    } else {
+        res.status(404).end();
+    }
 });
 
+/**
+ * Add
+ */
 medicamentRoutes.post("/", async function(req, res) {
-    res.send("post");
+    const name = req.body.name;
+    const expirationDate = req.body.expirationDate;
+
+    if (name === undefined || expirationDate === undefined) {
+        res.status(400).end();
+        return;
+    }
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.add({
+        name,
+        expirationDate
+    });
+    if(medicament) {
+        res.status(201).end();
+        res.json(medicament);
+    } else {
+        res.status(500).end();
+    }
 });
 
+/**
+ * Update
+ */
 medicamentRoutes.put("/:id",async function(req,res){
-    res.send("update" + req.params.id);
+    const id = await req.params.id;
+    const name = req.body.name;
+    const expirationDate = req.body.expirationDate;
+
+    if (id === undefined || name === undefined || expirationDate === undefined) {
+        res.status(400).end();
+        return;
+    }
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.update({
+        id,
+        name,
+        expirationDate
+    });
+
+    if(medicament) {
+        res.status(201).end();
+        res.json(medicament);
+    } else {
+        res.status(500).end();
+    }
 });
 
+/**
+ * Delete
+ */
 medicamentRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
-    res.send("delete" + req.params.id);
+    const id = req.params.id;
+    if (id === undefined) {
+        res.status(400).end();
+    }
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.removeById(id);
+
+    if(medicament) {
+        res.status(201).end();
+        res.json(medicament);
+    } else {
+        res.status(500).end();
+    }
 });
 
 export {
