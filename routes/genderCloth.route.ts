@@ -1,12 +1,12 @@
 import express from "express";
 import {GenderClothController} from "../controllers/genderCloth.controller";
 
-const gender_clothRoutes = express();
+const genderClothRoutes = express();
 
 /**
  * GetAll
  */
-gender_clothRoutes.get("/",async function(req,res){
+genderClothRoutes.get("/",async function(req, res){
     const genderClothController = await GenderClothController.getInstance();
     const genderCloth = await genderClothController.getAll();
 
@@ -19,7 +19,7 @@ gender_clothRoutes.get("/",async function(req,res){
 /**
  * GetById
  */
-gender_clothRoutes.get("/:id",async function(req,res){
+genderClothRoutes.get("/:id",async function(req, res){
     const id = req.params.id;
     if(id === undefined) {
         res.status(400).end();
@@ -38,7 +38,7 @@ gender_clothRoutes.get("/:id",async function(req,res){
 /**
  * Add
  */
-gender_clothRoutes.post("/", async function(req, res) {
+genderClothRoutes.post("/", async function(req, res) {
     const type = await req.body.type;
 
     if (type === undefined) {
@@ -60,7 +60,7 @@ gender_clothRoutes.post("/", async function(req, res) {
 /**
  * Update
  */
-gender_clothRoutes.put("/:id",async function(req,res){
+genderClothRoutes.put("/:id",async function(req, res){
     const id = req.params.id;
     const type = req.body.type;
 
@@ -85,7 +85,7 @@ gender_clothRoutes.put("/:id",async function(req,res){
 /**
  * Delete
  */
-gender_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
+genderClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;
     if (id === undefined) {
         res.status(400).end();
@@ -102,5 +102,5 @@ gender_clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) 
 });
 
 export {
-    gender_clothRoutes
+    genderClothRoutes
 };

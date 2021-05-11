@@ -1,16 +1,17 @@
-import {Express} from "express";
+import { Express } from "express";
 import { associationRoutes } from "./association.routes";
 import { campRoutes } from "./camp.route";
 import { clothRoutes } from "./cloth.route";
 import { deliveryRoutes } from "./delivery.route";
 import { donationRoutes } from "./donation.route";
 import { foodRoutes } from "./food.route";
-import { gender_clothRoutes } from "./genderCloth.route";
+import { genderClothRoutes } from "./genderCloth.route";
 import { medicamentRoutes } from "./medicament.route";
 import { planningCampRoutes } from "./planningCamp.route";
 import { typeClothRoutes } from "./typeCloth.route";
 import { typeFoodRoutes } from "./typeFood.route";
 import { volunteerRoutes } from "./volunteer.route";
+
 
 export function buildRoutes(app:Express){
     app.use("/association",associationRoutes);
@@ -19,10 +20,10 @@ export function buildRoutes(app:Express){
     app.use("/delivery",deliveryRoutes);
     app.use("/donation",donationRoutes);
     app.use("/food",foodRoutes);
-    app.use("/gender_cloth",gender_clothRoutes);
+    app.use("/genderCloth",genderClothRoutes);
     app.use("/medicament",medicamentRoutes);
-    app.use("/planning_camp",planningCampRoutes);
-    app.use("/type_cloth",typeClothRoutes);
+    app.use("/planningCamp",planningCampRoutes);
+    app.use("/typeCloth",typeClothRoutes);
     app.use("/typeFood",typeFoodRoutes);
     app.use("/volunteer",volunteerRoutes);
 }
