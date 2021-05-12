@@ -11,8 +11,8 @@ planningCampRoutes.get("/",async function(req, res){
     const planningCamp = await planningCampController.getAll();
 
     if(planningCamp){
+        res.json(planningCamp);
         res.status(201).end();
-        res.json(planningCamp).end();
     }
 });
 
@@ -53,8 +53,8 @@ planningCampRoutes.post("/", async function(req, res) {
     });
 
     if(planningCamp) {
-        res.status(201).end();
         res.json(planningCamp);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -80,8 +80,8 @@ planningCampRoutes.put("/:id",async function(req, res){
     });
 
     if(planningCamp) {
-        res.status(201).end();
         res.json(planningCamp);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -99,8 +99,8 @@ planningCampRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) 
     const planningCamp = await planningCampController.removeById(id);
 
     if(planningCamp) {
-        res.status(201).end();
         res.json(planningCamp);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

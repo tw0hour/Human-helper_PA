@@ -11,8 +11,8 @@ clothRoutes.get("/",async function(req,res){
     const cloth = await clothController.getAll();
 
     if(cloth) {
+        res.json(cloth);
         res.status(201).end();
-        res.json(cloth).end();
     }
 });
 
@@ -107,10 +107,11 @@ clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const clothController = await ClothController.getInstance();
-    const cloth = await clothController.removeById(id);
+    const clothDelete = await clothController.removeById(id);
 
-    if(cloth)
+    if(clothDelete)
     {
+        res.json(clothDelete);
         res.status(204).end();
     }
     else

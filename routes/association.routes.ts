@@ -11,8 +11,8 @@ const associationRoutes = express();
     const association = await associationController.getAll();
 
     if(association){
+        res.json(association);
         res.status(201).end();
-        res.json(association).end();
     }
 });
 
@@ -56,8 +56,8 @@ const associationRoutes = express();
         money
     });
     if(association) {
-        res.status(201).end();
         res.json(association);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -88,8 +88,9 @@ const associationRoutes = express();
      });
 
      if(associationUpdate) {
-         res.status(201).end();
          res.json(associationUpdate);
+         res.status(201).end();
+
      } else {
          res.status(500).end();
      }
@@ -104,8 +105,8 @@ associationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const associationDelete = await associationController.removeById(id);
 
     if(associationDelete) {
-        res.status(201).end();
         res.json(associationDelete);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

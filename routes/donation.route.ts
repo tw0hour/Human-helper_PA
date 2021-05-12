@@ -11,8 +11,8 @@ donationRoutes.get("/",async function(req,res){
     const donation = await donationController.getAll();
 
     if(donation){
+        res.json(donation);
         res.status(201).end();
-        res.json(donation).end();
     }
 });
 
@@ -54,8 +54,8 @@ donationRoutes.post("/", async function(req, res) {
     });
 
     if(donation) {
-        res.status(201).end();
         res.json(donation);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -80,6 +80,10 @@ donationRoutes.put("/:id",async function(req,res){
         amount_given,
         date
     });
+    if (donation){
+        res.json(donation);
+        res.status(200).end();
+    }
 });
 
 /**
@@ -94,8 +98,8 @@ donationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const donationDelete = await donationController.removeById(id);
 
     if(donationDelete) {
-        res.status(201).end();
         res.json(donationDelete);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

@@ -1,6 +1,5 @@
 import express from "express";
 import {TypeClothController} from "../controllers/typeCloth.controller";
-import {AssociationController} from "../controllers/association.controller";
 
 const typeClothRoutes = express();
 
@@ -12,8 +11,8 @@ typeClothRoutes.get("/",async function(req, res){
     const typeCloth = await typeClothController.getAll();
 
     if(typeCloth){
+        res.json(typeCloth);
         res.status(201).end();
-        res.json(typeCloth).end();
     }
 });
 
@@ -51,8 +50,8 @@ typeClothRoutes.post("/", async function(req, res) {
         type
     });
     if(typeCloth) {
-        res.status(201).end();
         res.json(typeCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -76,8 +75,8 @@ typeClothRoutes.put("/:id",async function(req, res){
     });
 
     if(typeCloth) {
-        res.status(201).end();
         res.json(typeCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -95,8 +94,8 @@ typeClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const typeCloth = await typeClothController.removeById(id);
 
     if(typeCloth) {
-        res.status(201).end();
         res.json(typeCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

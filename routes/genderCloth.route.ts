@@ -11,8 +11,8 @@ genderClothRoutes.get("/",async function(req, res){
     const genderCloth = await genderClothController.getAll();
 
     if(genderCloth){
+        res.json(genderCloth);
         res.status(201).end();
-        res.json(genderCloth).end();
     }
 });
 
@@ -50,8 +50,8 @@ genderClothRoutes.post("/", async function(req, res) {
         type
     });
     if(genderCloth) {
-        res.status(201).end();
         res.json(genderCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -75,8 +75,8 @@ genderClothRoutes.put("/:id",async function(req, res){
     });
 
     if(genderCloth) {
-        res.status(201).end();
         res.json(genderCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -94,8 +94,8 @@ genderClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const genderCloth = await genderClothController.removeById(id);
 
     if(genderCloth) {
-        res.status(201).end();
         res.json(genderCloth);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

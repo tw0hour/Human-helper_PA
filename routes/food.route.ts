@@ -11,8 +11,8 @@ foodRoutes.get("/",async function(req,res){
     const food = await foodController.getAll();
 
     if(food){
+        res.json(food);
         res.status(201).end();
-        res.json(food).end();
     }
 });
 
@@ -56,8 +56,8 @@ foodRoutes.post("/", async function(req, res) {
     });
 
     if(food) {
-        res.status(201).end();
         res.json(food);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -86,8 +86,8 @@ foodRoutes.put("/:id",async function(req,res){
     });
 
     if(food) {
-        res.status(201).end();
         res.json(food);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -105,8 +105,8 @@ foodRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const foodDelete = await foodController.removeById(id);
 
     if(foodDelete) {
-        res.status(201).end();
         res.json(foodDelete);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

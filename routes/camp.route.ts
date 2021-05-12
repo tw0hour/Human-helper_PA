@@ -1,5 +1,4 @@
 import express from "express";
-import {AssociationController} from "../controllers/association.controller";
 import {CampController} from "../controllers/camp.controller";
 
 const campRoutes = express();
@@ -13,8 +12,8 @@ campRoutes.get("/",async function(req,res){
     const camp = await campController.getAll();
 
     if(camp){
+        res.json(camp);
         res.status(201).end();
-        res.json(camp).end();
     }
 });
 /**
@@ -110,8 +109,8 @@ campRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const camp = await campController.removeById(id);
 
     if(camp) {
-        res.status(201).end();
         res.json(camp);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

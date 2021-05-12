@@ -11,8 +11,8 @@ deliveryRoutes.get("/",async function(req,res){
     const delivery = await deliveryController.getAll();
 
     if(delivery) {
+        res.json(delivery);
         res.status(201).end();
-        res.json(delivery).end();
     }
 });
 
@@ -28,8 +28,8 @@ deliveryRoutes.get("/:id",async function(req,res){
     const delivery = await deliveryController.getById(id);
 
     if(delivery) {
+        res.json(delivery);
         res.status(201).end();
-        res.json(delivery).end();
     }
 });
 
@@ -48,8 +48,8 @@ deliveryRoutes.post("/", async function(req, res) {
     });
 
     if(delivery) {
+        res.json(delivery);
         res.status(201).end();
-        res.json(delivery).end();
     }
 });
 
@@ -70,8 +70,8 @@ deliveryRoutes.put("/:id",async function(req,res){
     });
 
     if(delivery) {
+        res.json(delivery);
         res.status(201).end();
-        res.json(delivery).end();
     }
 });
 
@@ -88,8 +88,8 @@ deliveryRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const deliveryDelete = await deliveryController.removeById(id);
 
     if(deliveryDelete) {
+        res.json(deliveryDelete);
         res.status(201).end();
-        res.json(deliveryDelete).end();
     }
 });
 

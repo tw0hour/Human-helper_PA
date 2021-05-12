@@ -11,8 +11,8 @@ medicamentRoutes.get("/",async function(req,res){
     const medicament = await medicamentController.getAll();
 
     if(medicament){
+        res.json(medicament);
         res.status(201).end();
-        res.json(medicament).end();
     }
 });
 
@@ -52,8 +52,8 @@ medicamentRoutes.post("/", async function(req, res) {
         expirationDate
     });
     if(medicament) {
-        res.status(201).end();
         res.json(medicament);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -79,8 +79,8 @@ medicamentRoutes.put("/:id",async function(req,res){
     });
 
     if(medicament) {
-        res.status(201).end();
         res.json(medicament);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -98,8 +98,8 @@ medicamentRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const medicament = await medicamentController.removeById(id);
 
     if(medicament) {
-        res.status(201).end();
         res.json(medicament);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }

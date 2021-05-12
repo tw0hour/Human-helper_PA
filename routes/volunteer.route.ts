@@ -58,8 +58,8 @@ volunteerRoutes.post("/", async function(req, res) {
         type
     });
     if(volunteer) {
-        res.status(201).end();
         res.json(volunteer);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -89,8 +89,8 @@ volunteerRoutes.put("/:id",async function(req,res){
     });
 
     if(volunteer) {
-        res.status(201).end();
         res.json(volunteer);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
@@ -108,8 +108,8 @@ volunteerRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const volunteer = await volunteerController.removeById(id);
 
     if(volunteer) {
-        res.status(201).end();
         res.json(volunteer);
+        res.status(201).end();
     } else {
         res.status(500).end();
     }
