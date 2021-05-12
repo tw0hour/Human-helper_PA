@@ -5,10 +5,10 @@ import {CampCreationProps, CampInstance} from "../models/camp";
 
 export interface CampUpdateOption {
     id:string;
-    nb_people?:number;
+    nbPeople?:number;
     city?:string;
     address?:string;
-    postal_code?: number;
+    postalCode?: number;
 }
 
 export class CampController {

@@ -5,7 +5,7 @@ import {DonationCreationProps, DonationInstance} from "../models/donation";
 
 export interface DonationUpdateOption {
     id:number;
-    amount_given?:number;
+    amountGiven?:number;
     date?:string;
 }
 

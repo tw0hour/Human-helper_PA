@@ -4,16 +4,8 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
     HasOneGetAssociationMixin,
     HasOneSetAssociationMixin,
-    BelongsToMany,
-    BelongsToManyGetAssociationsMixin,
-    BelongsToManySetAssociationsMixin,
-    HasManySetAssociationsMixin
 } from "sequelize";
 import {PlanningCampInstance} from "./planningCamp";
 import {AssociationInstance} from "./association";
@@ -21,10 +13,10 @@ import {AssociationInstance} from "./association";
 
 export interface CampProps{
     id:number;
-    nb_people:number;
+    nbPeople:number;
     city:string;
     address:string;
-    postal_code: number;
+    postalCode: number;
 }
 
 export interface CampCreationProps extends Optional<CampProps, "id"> {}
@@ -45,7 +37,7 @@ export default function(sequelize:Sequelize):ModelCtor<CampInstance>{
             primaryKey: true,
             autoIncrement: true
         },
-        nb_people:{
+        nbPeople:{
             type:DataTypes.BIGINT
         },
         city:{
@@ -54,7 +46,7 @@ export default function(sequelize:Sequelize):ModelCtor<CampInstance>{
         address:{
             type:DataTypes.STRING
         },
-        postal_code:{
+        postalCode:{
             type:DataTypes.INTEGER
         }
     },{

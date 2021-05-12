@@ -48,8 +48,8 @@ medicamentRoutes.post("/", async function(req, res) {
     }
     const medicamentController = await MedicamentController.getInstance();
     const medicament = await medicamentController.add({
-        name,
-        expirationDate
+        day: name,
+        timeSlots: expirationDate
     });
     if(medicament) {
         res.json(medicament);

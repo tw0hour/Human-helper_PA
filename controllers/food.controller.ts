@@ -6,7 +6,7 @@ import {FoodCreationProps, FoodInstance} from "../models/food";
 export interface FoodUpdateOption {
     id:string;
     name?:string;
-    type_food?:string;
+    typeFoods?:string;
     expirationDate?:string;
 }
 

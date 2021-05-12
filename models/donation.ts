@@ -8,7 +8,7 @@ import {
 
 export interface donationProps {
     id:number;
-    amount_given:number;
+    amountGiven:number;
     date:string;
 }
 
@@ -25,7 +25,7 @@ export default function(sequelize:Sequelize): ModelCtor<DonationInstance>{
             primaryKey: true,
             autoIncrement: true
         },
-        amount_given:{
+        amountGiven:{
             type:DataTypes.BIGINT
         },
 

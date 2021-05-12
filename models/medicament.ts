@@ -4,10 +4,6 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
     HasOneGetAssociationMixin,
     HasOneSetAssociationMixin
 } from "sequelize";
@@ -15,8 +11,8 @@ import {DeliveryInstance} from "./delivery";
 
 export interface MedicamentProps{
     id:number;
-    name:string;
-    expirationDate: string;
+    day:string;
+    timeSlots: string;
 }
 
 export interface MedicamentCreationProps extends Optional<MedicamentProps, "id">{}
@@ -36,10 +32,10 @@ export default function(sequelize:Sequelize): ModelCtor<MedicamentInstance>{
             primaryKey: true,
             autoIncrement: true
         },
-        name:{
+        day:{
             type:DataTypes.STRING
         },
-        expirationDate:{
+        timeSlots:{
             type:DataTypes.DATE
         },
 

@@ -41,10 +41,10 @@ clothRoutes.get("/:id",async function(req,res){
 clothRoutes.post("/", async function(req, res) {
     const name = req.body.name;
     const size = req.body.size;
-    const type_cloth = req.body.type_cloth;
+    const typeCloths = req.body.typeCloths;
     const gender = req.body.gender;
 
-    if (name === undefined || size === undefined || type_cloth === undefined || gender === undefined) {
+    if (name === undefined || size === undefined || typeCloths === undefined || gender === undefined) {
         res.status(400).end();
         return;
     }
@@ -52,7 +52,7 @@ clothRoutes.post("/", async function(req, res) {
     const cloth = await clothController.add({
         name,
         size,
-        type_cloth,
+        typeCloths,
         gender
     });
 
@@ -72,10 +72,10 @@ clothRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
     const name = req.body.name;
     const size = req.body.size;
-    const type_cloth = req.body.type_cloth;
+    const typeCloths = req.body.typeCloths;
     const gender = req.body.gender;
 
-    if (name === undefined || size === undefined || type_cloth === undefined || gender === undefined) {
+    if (name === undefined || size === undefined || typeCloths === undefined || gender === undefined) {
         res.status(400).end();
         return;
     }
@@ -84,7 +84,7 @@ clothRoutes.put("/:id",async function(req,res){
         id,
         name,
         size,
-        type_cloth,
+        typeCloths,
         gender
     });
 

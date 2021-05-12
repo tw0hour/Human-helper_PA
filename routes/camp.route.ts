@@ -39,21 +39,21 @@ campRoutes.get("/:id",async function(req,res){
  * Add
  */
 campRoutes.post("/", async function(req, res) {
-    const nb_people = req.body.nb_people;
+    const nbPeople = req.body.nbPeople;
     const city = req.body.city;
-    const address = req.body.adress;
-    const postal_code = req.body.postal_code;
+    const address = req.body.address;
+    const postalCode = req.body.postalCode;
 
-    if(nb_people === undefined || city === undefined || address === undefined || postal_code === undefined) {
+    if(nbPeople === undefined || city === undefined || address === undefined || postalCode === undefined) {
         res.status(400).end();
         return;
     }
     const campController = await CampController.getInstance();
     const camp = await campController.add({
-        nb_people,
+        nbPeople,
         city,
         address,
-        postal_code
+        postalCode
     });
 
     if(camp) {
@@ -69,22 +69,22 @@ campRoutes.post("/", async function(req, res) {
  */
 campRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const nb_people = req.body.nb_people;
+    const nbPeople = req.body.nbPeople;
     const city = req.body.city;
-    const address = req.body.adress;
-    const postal_code = req.body.postal_code;
+    const address = req.body.address;
+    const postalCode = req.body.postalCode;
 
-    if(id === undefined || nb_people === undefined || city === undefined || address === undefined || postal_code === undefined) {
+    if(id === undefined || nbPeople === undefined || city === undefined || address === undefined || postalCode === undefined) {
         res.status(400).end();
         return;
     }
     const campController = await CampController.getInstance();
     const camp = await campController.update({
         id,
-        nb_people,
+        nbPeople,
         city,
         address,
-        postal_code
+        postalCode
     });
 
     if(camp) {

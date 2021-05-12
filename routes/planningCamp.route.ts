@@ -40,16 +40,16 @@ planningCampRoutes.get("/:id",async function(req, res){
  */
 planningCampRoutes.post("/", async function(req, res) {
     const day = req.body.day;
-    const timeslot = req.body.timeslots;
+    const timeSlot = req.body.timeSlots;
 
-    if (day === undefined || timeslot === undefined) {
+    if (day === undefined || timeSlot === undefined) {
         res.status(400).end();
         return;
     }
     const planningCampController = await  PlanningCampController.getInstance();
     const planningCamp = await planningCampController.add({
         day,
-        time_slots : timeslot
+        time_slots : timeSlot
     });
 
     if(planningCamp) {
@@ -66,9 +66,9 @@ planningCampRoutes.post("/", async function(req, res) {
 planningCampRoutes.put("/:id",async function(req, res){
     const id = req.params.id;
     const day = req.body.day;
-    const timeslot = req.body.timeslots;
+    const timeSlot = req.body.timeSlots;
 
-    if (id === undefined || day === undefined || timeslot === undefined) {
+    if (id === undefined || day === undefined || timeSlot === undefined) {
         res.status(400).end();
         return;
     }
@@ -76,7 +76,7 @@ planningCampRoutes.put("/:id",async function(req, res){
     const planningCamp = await planningCampController.update({
         id,
         day,
-        time_slots : timeslot
+        timeSlots : timeSlot
     });
 
     if(planningCamp) {

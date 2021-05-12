@@ -40,10 +40,10 @@ foodRoutes.get("/:id",async function(req,res){
  */
 foodRoutes.post("/", async function(req, res) {
     const name = req.body.name;
-    const type_food = req.body.type_food;
+    const typeFoods = req.body.typeFoods;
     const expirationDate = req.body.expirationDate;
 
-    if(name === undefined || type_food === undefined || expirationDate === undefined) {
+    if(name === undefined || typeFoods === undefined || expirationDate === undefined) {
         res.status(400).end();
         return;
     }
@@ -51,7 +51,7 @@ foodRoutes.post("/", async function(req, res) {
     const foodController = await FoodController.getInstance();
     const food = await foodController.add({
         name,
-        type_food,
+        typeFoods,
         expirationDate
     });
 
@@ -69,10 +69,10 @@ foodRoutes.post("/", async function(req, res) {
 foodRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
     const name = req.body.name;
-    const type_food = req.body.type_food;
+    const typeFoods = req.body.typeFoods;
     const expirationDate = req.body.expirationDate;
 
-    if(id === undefined || name === undefined || type_food === undefined || expirationDate === undefined) {
+    if(id === undefined || name === undefined || typeFoods === undefined || expirationDate === undefined) {
         res.status(400).end();
         return;
     }
@@ -81,7 +81,7 @@ foodRoutes.put("/:id",async function(req,res){
     const food = await foodController.update({
         id,
         name,
-        type_food,
+        typeFoods,
         expirationDate
     });
 

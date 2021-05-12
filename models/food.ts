@@ -4,18 +4,12 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
-    HasOneGetAssociationMixin,
-    HasOneSetAssociationMixin
 } from "sequelize";
 
 export interface FoodProps{
     id:number;
     name:string;
-    type_food:string;
+    typeFoods:string;
     expirationDate:string;
 }
 export interface FoodCreationProps extends Optional<FoodProps, "id">{}
@@ -33,7 +27,7 @@ export default function(sequelize:Sequelize): ModelCtor<FoodInstance>{
         name:{
             type:DataTypes.STRING
         },
-        type_food:{
+        typeFoods:{
             type:DataTypes.STRING
         },
         expirationDate:{

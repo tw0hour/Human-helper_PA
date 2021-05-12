@@ -39,17 +39,17 @@ donationRoutes.get("/:id",async function(req,res){
  * Add
  */
 donationRoutes.post("/", async function(req, res) {
-    const amount_given = req.body.amount_given;
+    const amountGiven = req.body.amountGiven;
     const date = req.body.date;
 
-    if(amount_given === undefined || date === undefined) {
+    if(amountGiven === undefined || date === undefined) {
         res.status(400).end();
         return;
     }
 
     const donationController = await DonationController.getInstance();
     const donation = await donationController.add({
-        amount_given,
+        amountGiven: amountGiven,
         date
     });
 
@@ -66,10 +66,10 @@ donationRoutes.post("/", async function(req, res) {
  */
 donationRoutes.put("/:id",async function(req,res){
     const id = req.body.id;
-    const amount_given = req.body.amount_given;
+    const amountGiven = req.body.amountGiven;
     const date = req.body.date;
 
-    if(id === undefined || amount_given === undefined || date === undefined) {
+    if(id === undefined || amountGiven === undefined || date === undefined) {
         res.status(400).end();
         return;
     }
@@ -77,7 +77,7 @@ donationRoutes.put("/:id",async function(req,res){
     const donationController = await DonationController.getInstance();
     const donation = await donationController.update({
         id,
-        amount_given,
+        amountGiven: amountGiven,
         date
     });
     if (donation){

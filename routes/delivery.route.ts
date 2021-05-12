@@ -30,6 +30,8 @@ deliveryRoutes.get("/:id",async function(req,res){
     if(delivery) {
         res.json(delivery);
         res.status(201).end();
+    }else {
+        res.status(404).end();
     }
 });
 
@@ -54,11 +56,11 @@ deliveryRoutes.post("/", async function(req, res) {
 });
 
 /**
- * Upadte
+ * Update
  */
 deliveryRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const status = req.params.staut;
+    const status = req.params.status;
 
     if(id === undefined || status === undefined) {
         res.status(400).end();
@@ -72,6 +74,8 @@ deliveryRoutes.put("/:id",async function(req,res){
     if(delivery) {
         res.json(delivery);
         res.status(201).end();
+    }else{
+        res.status(500).end();
     }
 });
 

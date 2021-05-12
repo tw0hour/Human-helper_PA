@@ -7,7 +7,7 @@ export interface ClothUpdateOption {
     id:string;
     name?:string;
     size?:number;
-    type_cloth?:string;
+    typeCloths?:string;
     gender?:string;
 }
 

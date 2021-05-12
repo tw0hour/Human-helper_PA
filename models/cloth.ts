@@ -10,7 +10,7 @@ export interface ClothProps {
     id:number;
     name:string;
     size:number;
-    type_cloth:string;
+    typeCloths:string;
     gender:string;
 }
 
@@ -33,7 +33,7 @@ export default function(sequelize:Sequelize): ModelCtor<ClothInstance>{
         size:{
             type:DataTypes.BIGINT
         },
-        type_cloth:{
+        typeCloths:{
             type:DataTypes.STRING
         },
         gender:{
