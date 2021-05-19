@@ -39,6 +39,19 @@ export class TypeClothController {
         });
     }
 
+    public async checkDoublonTypeCloth(typeCloth: string): Promise<Boolean> {
+        const doublonTypeCloth = await this.Type_Cloth.findOne({
+            where :{
+                type: typeCloth
+            }
+        });
+
+        if(doublonTypeCloth === null){
+            return false;
+        }
+        return true;
+    }
+
     public async getById(id: string): Promise<TypeClothInstance | null> {
         return await this.Type_Cloth.findOne({
             where :{
@@ -48,15 +61,15 @@ export class TypeClothController {
     }
     public async update(options: TypeClothUpdateOption): Promise<TypeClothInstance | null> {
 
-        const foodUpdate = await this.getById(options.id.toString());
+        const typeClothUpdate = await this.getById(options.id.toString());
 
-        if(foodUpdate === null)
+        if(typeClothUpdate === null)
         {
             return null;
         }
         else
         {
-            return await foodUpdate.update({
+            return await typeClothUpdate.update({
                 ...options
             }, {
                 where: {

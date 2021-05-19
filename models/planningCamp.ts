@@ -4,16 +4,8 @@ import {
     Model,
     DataTypes,
     ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
     HasOneGetAssociationMixin,
-    HasOneSetAssociationMixin,
-    BelongsToMany,
-    BelongsToManyGetAssociationsMixin,
-    BelongsToManySetAssociationsMixin,
-    HasManySetAssociationsMixin
+    HasOneSetAssociationMixin
 } from "sequelize";
 import {CampInstance} from "./camp";
 
@@ -29,7 +21,6 @@ export interface PlanningCampCreationProps extends Optional<PlanningCampProps, "
 export interface PlanningCampInstance extends Model<PlanningCampProps,PlanningCampCreationProps>,PlanningCampProps{
     getCamp: HasOneGetAssociationMixin<CampInstance>;
     setCamp: HasOneSetAssociationMixin<CampInstance, "id">;
-
 
 }
 export default function(sequelize:Sequelize):ModelCtor<PlanningCampInstance>{

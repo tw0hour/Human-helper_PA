@@ -51,6 +51,11 @@ volunteerRoutes.post("/", async function(req, res) {
         return;
     }
     const volunteerController = await VolunteerController.getInstance();
+    const doublonMail = await volunteerController.checkDoublonMail(mail);
+    if(doublonMail) {
+        res.status(400).end();
+        return;
+    }
     const volunteer = await volunteerController.add({
         name,
         mail,
@@ -80,6 +85,11 @@ volunteerRoutes.put("/:id",async function(req,res){
         return;
     }
     const volunteerController = await VolunteerController.getInstance();
+    const checkOldPassword = await volunteerController.passwordSameAsTheOldOne(id, password);
+
+    if (checkOldPassword){
+        res.status(400).end();
+    }
     const volunteer = await volunteerController.update({
         id,
         name,

@@ -10,7 +10,7 @@ export interface TypeFoodUpdateOption {
 
 export class TypeFoodController {
 
-    Food: ModelCtor<TypeFoodInstance>;
+    Type_Food: ModelCtor<TypeFoodInstance>;
 
     private static instance: TypeFoodController;
 
@@ -23,24 +23,38 @@ export class TypeFoodController {
     }
 
     constructor(Food: ModelCtor<TypeFoodInstance>) {
-        this.Food = Food;
+        this.Type_Food = Food;
     }
 
     public async getAll(limit?: number, offset?: number): Promise<TypeFoodInstance[] | null>{
-        return await this.Food.findAll({
+        return await this.Type_Food.findAll({
             limit,
             offset
         });
     }
 
     public async add(props: TypeFoodCreationProps): Promise<TypeFoodInstance | null> {
-        return await this.Food.create({
+        return await this.Type_Food.create({
             ...props
         });
     }
 
+    public async checkDoublonTypeFood(typeFood: string): Promise<Boolean> {
+        const doublonTypeFood = await this.Type_Food.findOne({
+            where :{
+                type: typeFood
+            }
+        });
+
+        if(doublonTypeFood === null){
+            return false;
+        }
+        return true;
+    }
+
+
     public async getById(id: string): Promise<TypeFoodInstance | null> {
-        return await this.Food.findOne({
+        return await this.Type_Food.findOne({
             where :{
                 id: id
             }
@@ -48,15 +62,15 @@ export class TypeFoodController {
     }
     public async update(options: TypeFoodUpdateOption): Promise<TypeFoodInstance | null> {
 
-        const foodUpdate = await this.getById(options.id.toString());
+        const typeFoodUpdate = await this.getById(options.id.toString());
 
-        if(foodUpdate === null)
+        if(typeFoodUpdate === null)
         {
             return null;
         }
         else
         {
-            return await foodUpdate.update({
+            return await typeFoodUpdate.update({
                 ...options
             }, {
                 where: {
@@ -67,8 +81,8 @@ export class TypeFoodController {
     }
 
     public async removeById (id: string):Promise<Boolean> {
-        const foodDelete = await this.getById(id);
-        if(foodDelete === null)
+        const typeFoodDelete = await this.getById(id);
+        if(typeFoodDelete === null)
         {
             return false;
         }
@@ -76,9 +90,9 @@ export class TypeFoodController {
         {
             try
             {
-                await this.Food.destroy({
+                await this.Type_Food.destroy({
                     where:{
-                        id: foodDelete.id
+                        id: typeFoodDelete.id
                     }
                 });
                 return true;

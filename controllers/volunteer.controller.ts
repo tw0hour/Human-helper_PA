@@ -42,6 +42,19 @@ export class VolunteerController {
         });
     }
 
+    public async checkDoublonMail (mail: string): Promise<Boolean> {
+        const doublonMail = await this.Volunteer.findOne({
+            where :{
+                mail: mail
+            }
+        });
+
+        if(doublonMail === null){
+            return false;
+        }
+        return true;
+    }
+
     public async getById(id: string): Promise<VolunteerInstance | null> {
         return await this.Volunteer.findOne({
             where :{
@@ -67,6 +80,23 @@ export class VolunteerController {
                 }
             });
         }
+    }
+
+    public async passwordSameAsTheOldOne(id: string, newPassword: string): Promise<boolean | null> {
+        const volunteer = await this.Volunteer.findOne({
+            where :{
+                id: id
+            }
+        });
+        if(!volunteer){
+            return null;
+        }
+        const oldPassword = volunteer.password;
+
+        if(oldPassword === newPassword){
+            return true;
+        }
+        return false;
     }
 
     public async removeById (id: string):Promise<Boolean> {

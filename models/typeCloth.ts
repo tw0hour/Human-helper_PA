@@ -3,8 +3,9 @@ import {
     Optional,
     Model,
     DataTypes,
-    ModelCtor,
+    ModelCtor, HasManyGetAssociationsMixin, HasManySetAssociationsMixin,
 } from "sequelize";
+import {ClothInstance} from "./cloth";
 
 export interface TypeClothProps {
     id:number;
@@ -14,7 +15,8 @@ export interface TypeClothProps {
 export interface TypeClothCreationProps extends Optional<TypeClothProps, "id">{}
 
 export interface TypeClothInstance extends Model<TypeClothProps,TypeClothCreationProps>,TypeClothProps{
-
+    getCloth: HasManyGetAssociationsMixin<ClothInstance>;
+    setCloth: HasManySetAssociationsMixin<ClothInstance, "id">;
 }
 
 export default function(sequelize:Sequelize): ModelCtor<TypeClothInstance>{

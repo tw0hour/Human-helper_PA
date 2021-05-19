@@ -46,6 +46,12 @@ typeClothRoutes.post("/", async function(req, res) {
         return;
     }
     const typeClothController = await TypeClothController.getInstance();
+    const doublonTypeCloth = await typeClothController.checkDoublonTypeCloth(type);
+    if(doublonTypeCloth) {
+        res.status(400).end();
+        return;
+    }
+
     const typeCloth = await typeClothController.add({
         type
     });

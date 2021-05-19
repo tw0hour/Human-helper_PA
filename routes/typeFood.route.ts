@@ -46,6 +46,11 @@ typeFoodRoutes.post("/", async function(req, res) {
         return;
     }
     const typeFoodController = await TypeFoodController.getInstance();
+    const doublonTypeFood = await typeFoodController.checkDoublonTypeFood(type);
+    if(doublonTypeFood) {
+        res.status(400).end();
+        return;
+    }
     const typeFood = await typeFoodController.add({
         type
     });

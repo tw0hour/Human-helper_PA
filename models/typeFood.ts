@@ -3,7 +3,7 @@ import {
     Optional,
     Model,
     DataTypes,
-    ModelCtor
+    ModelCtor, HasManyGetAssociationsMixin, HasManySetAssociationsMixin
 } from "sequelize";
 
 export interface TypeFoodProps{
@@ -13,6 +13,8 @@ export interface TypeFoodProps{
 export interface TypeFoodCreationProps extends Optional<TypeFoodProps, "id">{}
 
 export interface TypeFoodInstance extends Model<TypeFoodProps,TypeFoodCreationProps>,TypeFoodProps{
+    getFood: HasManyGetAssociationsMixin<TypeFoodInstance>;
+    setFood: HasManySetAssociationsMixin<TypeFoodInstance, "id">;
 
 }
 export default function(sequelize:Sequelize): ModelCtor<TypeFoodInstance>{
