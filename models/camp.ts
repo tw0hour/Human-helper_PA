@@ -5,7 +5,7 @@ import {
     DataTypes,
     ModelCtor,
     HasOneGetAssociationMixin,
-    HasOneSetAssociationMixin,
+    HasOneSetAssociationMixin, INTEGER,
 } from "sequelize";
 import {PlanningCampInstance} from "./planningCamp";
 import {AssociationInstance} from "./association";
@@ -17,6 +17,8 @@ export interface CampProps{
     city:string;
     address:string;
     postalCode: number;
+    association_id:number | null;
+    planning_camp_id:number | null;
 }
 
 export interface CampCreationProps extends Optional<CampProps, "id"> {}
@@ -47,6 +49,12 @@ export default function(sequelize:Sequelize):ModelCtor<CampInstance>{
             type:DataTypes.STRING
         },
         postalCode:{
+            type:DataTypes.INTEGER
+        },
+        association_id:{
+            type:DataTypes.INTEGER
+        },
+        planning_camp_id:{
             type:DataTypes.INTEGER
         }
     },{

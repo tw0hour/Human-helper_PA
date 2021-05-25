@@ -9,6 +9,8 @@ export interface CampUpdateOption {
     city?:string;
     address?:string;
     postalCode?: number;
+    association_id?:number | null;
+    planning_camp_id?:number | null;
 }
 
 export class CampController {
@@ -29,6 +31,7 @@ export class CampController {
         this.Camp = Camp;
     }
 
+
     public async getAll(limit?: number, offset?: number): Promise<CampInstance[] | null>{
         return await this.Camp.findAll({
             limit,
@@ -36,11 +39,13 @@ export class CampController {
         });
     }
 
+
     public async add(props: CampCreationProps): Promise<CampInstance | null> {
         return await this.Camp.create({
             ...props
         });
     }
+
 
     public async getById(id: string): Promise<CampInstance | null> {
         return await this.Camp.findOne({
@@ -49,6 +54,8 @@ export class CampController {
             }
         });
     }
+
+
     public async update(options: CampUpdateOption): Promise<CampInstance | null> {
 
         const campUpdate = await this.getById(options.id.toString());
@@ -68,6 +75,7 @@ export class CampController {
             });
         }
     }
+
 
     public async removeById (id: string):Promise<Boolean> {
         const campDelete = await this.getById(id);
