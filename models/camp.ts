@@ -28,9 +28,7 @@ export interface CampInstance extends Model<CampProps,CampCreationProps>,CampPro
     setPlanningCamp : HasOneSetAssociationMixin<PlanningCampInstance, "id">;
 
     getAssociation: HasOneGetAssociationMixin<AssociationInstance>;
-    setAssociation: HasOneSetAssociationMixin<AssociationInstance, "id">
-    
-    
+    setAssociation: HasOneSetAssociationMixin<AssociationInstance, "id">;
 }
 export default function(sequelize:Sequelize):ModelCtor<CampInstance>{
     return sequelize.define<CampInstance>("camp",{

@@ -146,10 +146,13 @@ campRoutes.put("/:id",async function(req,res){
             postalCode
         });
 
-        if(updateCamp) {
+        if(updateCamp)
+        {
             res.json(updateCamp);
             res.status(201).end();
-        } else {
+        }
+        else
+        {
             res.status(500).end();
         }
     }
@@ -161,28 +164,38 @@ campRoutes.put("/:id",async function(req,res){
 campRoutes.put("/camp/:id/association/:associationId",async function(req,res){
     const association_id = req.params.associationId;
     const id = req.params.id;
-    if(id === undefined || association_id === undefined || association_id === null){
+
+    if(id === undefined || association_id === undefined || association_id === null)
+    {
         res.status(400).end()
-    }else{
+    }
+    else
+    {
         const associationController = await AssociationController.getInstance();
         const association = await associationController.getById(association_id);
 
         const campController = await CampController.getInstance();
         const camp = await campController.getById(id);
 
-        if(camp === null || association === null){
+        if(camp === null || association === null)
+        {
             res.status(404).end();
             return;
-        }else{
+        }
+        else
+        {
             const updateAssociationIdInCamp = await campController.update({
                 id,
                 association_id: parseInt(association_id)
             });
 
-            if(updateAssociationIdInCamp === null){
+            if(updateAssociationIdInCamp === null)
+            {
                 res.status(500).end();
                 return;
-            }else{
+            }
+            else
+            {
                 res.json(updateAssociationIdInCamp);
                 res.status(201).end();
             }
@@ -197,7 +210,8 @@ campRoutes.put("/camp/:id/association/:associationId",async function(req,res){
 campRoutes.put("/camp/:id/planning/:planningId",async function(req,res){
     const planning_camp_id = req.params.planningId;
     const id = req.params.id;
-    if(id === undefined || planning_camp_id === null){
+    if(id === undefined || planning_camp_id === null)
+    {
         res.status(400).end()
     }
     const planningCampController = await PlanningCampController.getInstance();
@@ -206,18 +220,24 @@ campRoutes.put("/camp/:id/planning/:planningId",async function(req,res){
     const campController = await CampController.getInstance();
     const camp = await campController.getById(id);
 
-    if(camp === null || planning === null){
+    if(camp === null || planning === null)
+    {
         res.status(404).end();
         return;
-    }else{
+    }
+    else
+    {
         const updateAssociationIdInCamp = await campController.update({
             id,
             planning_camp_id:parseInt(planning_camp_id)
         });
-        if(updateAssociationIdInCamp === null){
+        if(updateAssociationIdInCamp === null)
+        {
             res.status(500).end();
             return;
-        }else{
+        }
+        else
+        {
             res.json(updateAssociationIdInCamp);
             res.status(200).end();
         }

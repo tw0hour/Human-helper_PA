@@ -12,6 +12,10 @@ export interface ClothProps {
     size:number;
     typeCloths:string;
     gender:string;
+    volunteer_id:number;
+    type_cloth_id:number;
+    gender_cloth_id:number;
+    delivery_id:number | null;
 }
 
 export interface ClothCreationProps extends Optional<ClothProps, "id">{}
@@ -38,8 +42,19 @@ export default function(sequelize:Sequelize): ModelCtor<ClothInstance>{
         },
         gender:{
             type:DataTypes.STRING
+        },
+        volunteer_id:{
+            type:DataTypes.BIGINT
+        },
+        type_cloth_id:{
+            type:DataTypes.BIGINT
+        },
+        gender_cloth_id:{
+            type:DataTypes.BIGINT
+        },
+        delivery_id:{
+            type:DataTypes.BIGINT
         }
-
     },{
         freezeTableName: true,
         underscored: true,

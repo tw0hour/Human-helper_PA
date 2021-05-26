@@ -9,6 +9,10 @@ export interface ClothUpdateOption {
     size?:number;
     typeCloths?:string;
     gender?:string;
+    volunteer_id?:number;
+    type_cloth_id?:number;
+    gender_cloth_id?:number;
+    delivery_id?:number;
 }
 
 export class ClothController {
