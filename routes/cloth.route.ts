@@ -143,7 +143,44 @@ clothRoutes.put("/:id",async function(req,res){
     }
 });
 
-// TODO gender cloth id a faire aussi
+
+/**
+ * update genderClothId
+ * */
+clothRoutes.put("/cloth/:id/GenderCloth/:genderClothId",async function(req,res){
+    const id = req.params.id;
+    const genderClothId = req.params.genderClothId;
+    if (id === undefined || genderClothId === undefined)
+    {
+        res.status(400).end();
+        return;
+    }
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.getById(genderClothId);
+    const clothController = await ClothController.getInstance();
+    const cloth = await clothController.getById(id);
+    if(genderCloth === null || cloth === null)
+    {
+        res.status(404).end();
+        return;
+    }
+    else
+    {
+        const clothUpdate = await clothController.update({
+            id,
+            gender_cloth_id:parseInt(genderClothId)
+        });
+        if(clothUpdate){
+            res.json(clothUpdate);
+            res.status(200).end();
+        }else{
+            res.status(500);
+            return;
+        }
+    }
+});
+
+
 /**
  * Update type cloth id
  */
