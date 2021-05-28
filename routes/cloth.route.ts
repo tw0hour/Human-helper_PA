@@ -6,7 +6,7 @@ import { GenderClothController } from "../controllers/genderCloth.controller";
 
 const clothRoutes = express();
 
-
+//todo : get by typeCloth / gender Cloth / typeCloth && genderCloth ?
 /**
  * GetAll
  */
