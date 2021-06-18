@@ -9,8 +9,10 @@ import {
 export interface FoodProps{
     id:number;
     name:string;
-    typeFoods:string;
     expirationDate:string;
+    volunteer_id:number;
+    type_food_id:number;
+    delivery_id:number | null;
 }
 export interface FoodCreationProps extends Optional<FoodProps, "id">{}
 
@@ -27,11 +29,17 @@ export default function(sequelize:Sequelize): ModelCtor<FoodInstance>{
         name:{
             type:DataTypes.STRING
         },
-        typeFoods:{
-            type:DataTypes.STRING
-        },
         expirationDate:{
             type:DataTypes.STRING
+        },
+        volunteer_id: {
+            type:DataTypes.BIGINT
+        },
+        type_food_id: {
+            type:DataTypes.BIGINT
+        },
+        delivery_id:{
+            type:DataTypes.BIGINT
         }
 
     },{

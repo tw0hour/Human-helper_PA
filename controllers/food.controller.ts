@@ -4,10 +4,12 @@ import {FoodCreationProps, FoodInstance} from "../models/food";
 
 
 export interface FoodUpdateOption {
-    id:string;
+    id:number;
     name?:string;
-    typeFoods?:string;
     expirationDate?:string;
+    volunteer_id?:number;
+    type_food_id?:number;
+    delivery_id?:number | null;
 }
 
 export class FoodController {
@@ -49,7 +51,9 @@ export class FoodController {
         });
     }
     public async update(options: FoodUpdateOption): Promise<FoodInstance | null> {
-
+        if(options.id===undefined){
+            return null;
+        }
         const foodUpdate = await this.getById(options.id.toString());
 
         if(foodUpdate === null)

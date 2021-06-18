@@ -83,10 +83,11 @@ deliveryRoutes.post("/", async function(req, res) {
  */
 deliveryRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const status = req.params.status;
+    const status = req.body.status;
 
     if(id === undefined || status === undefined) {
         res.status(400).end();
+        return;
     }
     const deliveryController = await DeliveryController.getInstance();
     const delivery = await deliveryController.update({
@@ -94,7 +95,7 @@ deliveryRoutes.put("/:id",async function(req,res){
         status
     });
 
-    if(delivery) {
+    if(delivery !==null) {
         res.json(delivery);
         res.status(201).end();
     }else{

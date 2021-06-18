@@ -61,10 +61,10 @@ donationRoutes.post("/", async function(req, res) {
     }
 });
 
-/**
+/*
  * Update
  */
-donationRoutes.put("/:id",async function(req,res){
+/*donationRoutes.put("/:id",async function(req,res){
     const id = req.body.id;
     const amountGiven = req.body.amountGiven;
     const date = req.body.date;
@@ -84,7 +84,7 @@ donationRoutes.put("/:id",async function(req,res){
         res.json(donation);
         res.status(200).end();
     }
-});
+});*/
 
 /**
  * Delete

@@ -11,8 +11,10 @@ import {DeliveryInstance} from "./delivery";
 
 export interface MedicamentProps{
     id:number;
-    day:string;
-    timeSlots: string;
+    name?: string;
+    expirationDate?:string;
+    volunteer_id?:number;
+    delivery_id?:number;
 }
 
 export interface MedicamentCreationProps extends Optional<MedicamentProps, "id">{}
@@ -32,12 +34,18 @@ export default function(sequelize:Sequelize): ModelCtor<MedicamentInstance>{
             primaryKey: true,
             autoIncrement: true
         },
-        day:{
+        name:{
             type:DataTypes.STRING
         },
-        timeSlots:{
-            type:DataTypes.DATE
+        expirationDate:{
+            type:DataTypes.STRING
         },
+        volunteer_id:{
+            type:DataTypes.BIGINT
+        },
+        delivery_id:{
+            type:DataTypes.BIGINT
+        }
 
     },{
         freezeTableName: true,

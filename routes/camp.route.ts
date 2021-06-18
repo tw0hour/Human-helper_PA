@@ -92,7 +92,7 @@ campRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const campController = await CampController.getInstance();
     const camp = campController.getById(id);
 
-    if (camp)
+    if (!camp)
     {
         res.status(404).end();
         return;
