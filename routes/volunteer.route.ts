@@ -3,10 +3,15 @@ import {VolunteerController} from "../controllers/volunteer.controller";
 
 const volunteerRoutes = express();
 
+//CORS est un package node.js pour fournir un middleware Connect / Express et permettre
+// d'autoriser les sites externe à utiliser notre API
+const cors = require('cors');
+volunteerRoutes.use(cors());
+
 /**
  * GetAll
  */
-volunteerRoutes.get("/",async function(req,res){
+volunteerRoutes.get("/", async function(req,res){
     const volunteerController = await VolunteerController.getInstance();
     const volunteer = await volunteerController.getAll();
 
@@ -40,7 +45,7 @@ volunteerRoutes.get("/:id",async function(req,res){
 /**
  * Add
  */
-volunteerRoutes.post("/", async function(req, res) {
+volunteerRoutes.post("/",async function(req, res) {
     const name = req.body.name;
     const mail = req.body.mail;
     const password = req.body.password;

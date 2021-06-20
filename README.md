@@ -6,7 +6,6 @@
 **cloth :**
 **delivery :**
 **donation :**
-**donation :**
 **food :**
 **genderCloth :**
 **medicament :**
