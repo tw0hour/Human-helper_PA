@@ -7,6 +7,9 @@ export interface DonationUpdateOption {
     id:number;
     amountGiven?:number;
     date?:string;
+    association_id?:number;
+    volunteer_id?:number;
+
 }
 
 export class DonationController {

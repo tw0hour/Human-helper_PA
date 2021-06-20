@@ -8,8 +8,10 @@ import {
 
 export interface donationProps {
     id:number;
-    amountGiven:number;
-    date:string;
+    amountGiven?:number;
+    date?:string;
+    association_id?:number;
+    volunteer_id?:number;
 }
 
 export interface DonationCreationProps extends Optional<donationProps, "id">{}
@@ -28,11 +30,15 @@ export default function(sequelize:Sequelize): ModelCtor<DonationInstance>{
         amountGiven:{
             type:DataTypes.BIGINT
         },
-
         date :{
             type:DataTypes.STRING
+        },
+        association_id:{
+            type:DataTypes.BIGINT
+        },
+        volunteer_id:{
+            type:DataTypes.BIGINT
         }
-
     },{
         freezeTableName: true,
         underscored: true,

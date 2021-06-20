@@ -74,7 +74,7 @@ genderClothRoutes.put("/:id",async function(req, res){
         type
     });
 
-    if(genderCloth) {
+    if(genderCloth !== null) {
         res.json(genderCloth);
         res.status(201).end();
     } else {

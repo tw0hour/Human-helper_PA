@@ -4,9 +4,11 @@ import {MedicamentCreationProps, MedicamentInstance} from "../models/medicament"
 
 
 export interface MedicamentUpdateOption {
-    id:string;
-    name:string;
-    expirationDate: string;
+    id?:string;
+    name?:string;
+    expirationDate?: string;
+    volunteer_id?:number;
+    delivery_id?:number;
 }
 
 export class MedicamentController {
@@ -48,7 +50,9 @@ export class MedicamentController {
         });
     }
     public async update(options: MedicamentUpdateOption): Promise<MedicamentInstance | null> {
-
+        if(options.id === undefined){
+            return null;
+        }
         const medicamentUpdate = await this.getById(options.id.toString());
 
         if(medicamentUpdate === null)

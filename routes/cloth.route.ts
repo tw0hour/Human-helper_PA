@@ -52,12 +52,11 @@ clothRoutes.get("/:id",async function(req,res){
 clothRoutes.post("/", async function(req, res) {
     const name = req.body.name;
     const size = req.body.size;
-    const typeCloths = req.body.typeCloths;
     const gender = req.body.gender;
     const volunteer_id = req.body.volunteer_id;
     const type_cloth_id = req.body.type_cloth_id;
     const gender_cloth_id = req.body.gender_cloth_id;
-    if (name === undefined || size === undefined || typeCloths === undefined || gender === undefined || volunteer_id === undefined || type_cloth_id === undefined || gender_cloth_id === undefined)
+    if (name === undefined || size === undefined || gender === undefined || volunteer_id === undefined || type_cloth_id === undefined || gender_cloth_id === undefined)
     {
         res.status(400).end();
         return;
@@ -80,7 +79,6 @@ clothRoutes.post("/", async function(req, res) {
         const cloth = await clothController.add({
             name,
             size,
-            typeCloths,
             gender,
             volunteer_id,
             type_cloth_id,
@@ -122,13 +120,11 @@ clothRoutes.put("/:id",async function(req,res){
     {
         const name = req.body.name || cloth?.name;
         const size = req.body.size || cloth?.size;
-        const typeCloths = req.body.typeCloths || cloth?.typeCloths;
         const gender = req.body.gender || cloth?.gender;
         const clothUpdate = await clothController.update({
             id,
             name,
             size,
-            typeCloths,
             gender
         });
         if(clothUpdate)
