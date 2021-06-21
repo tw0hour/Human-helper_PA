@@ -42,6 +42,13 @@ export class VolunteerController {
         });
     }
 
+    public async connection(name: string, password: string):Promise<VolunteerInstance | null> {
+        return await this.Volunteer.findOne({where: {
+                name,
+                password
+            }});
+    }
+
     public async checkDoublonMail (mail: string): Promise<Boolean> {
         const doublonMail = await this.Volunteer.findOne({
             where :{

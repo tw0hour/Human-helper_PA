@@ -1,7 +1,9 @@
  import express from "express";
  import {AssociationController} from "../controllers/association.controller";
-
 const associationRoutes = express();
+
+ const cors = require('cors');
+ associationRoutes.use(cors());
 
  /**
   * GetAll

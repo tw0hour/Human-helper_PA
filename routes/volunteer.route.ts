@@ -76,6 +76,30 @@ volunteerRoutes.post("/",async function(req, res) {
 });
 
 /**
+ * Connexion
+ * @param  name, password
+ */
+volunteerRoutes.post("/connection",async function (req, res){
+    const name = req.body.name;
+    const password = req.body.password;
+    if(name === undefined || password === undefined){
+        res.status(400).end();
+    }
+    const volunteerController = await VolunteerController.getInstance();
+    const user = await volunteerController.connection(name, password);
+
+    if(!user){
+        console.log("Connexion refusée !");
+        res.status(404).end();
+        return;
+    }else{
+        console.log("Connexion réussie ! ")
+        res.json(user);
+        res.status(204).end();
+    }
+});
+
+/**
  * Update
  */
 volunteerRoutes.put("/:id",async function(req,res){
