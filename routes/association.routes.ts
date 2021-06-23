@@ -1,5 +1,7 @@
  import express from "express";
  import {AssociationController} from "../controllers/association.controller";
+ import {VolunteerController} from "../controllers/volunteer.controller";
+ import {volunteerRoutes} from "./volunteer.route";
 const associationRoutes = express();
 
  const cors = require('cors');
@@ -65,6 +67,29 @@ const associationRoutes = express();
     }
 });
 
+ /**
+  * Connexion
+  * @param  name, password
+  */
+ volunteerRoutes.post("/connection",async function (req, res){
+     const name = req.body.name;
+     const password = req.body.password;
+     if(name === undefined || password === undefined){
+         res.status(400).end();
+     }
+     const associationController = await AssociationController.getInstance();
+     const association = await associationController.connection(name, password);
+
+     if(!association){
+         console.log("Connexion refusée !");
+         res.status(404).end();
+         return;
+     }else{
+         console.log("Connexion réussie ! ")
+         res.json(association);
+         res.status(204).end();
+     }
+ });
 
  /**
   * Update

@@ -1,6 +1,7 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
 import {AssociationCreationProps, AssociationInstance} from "../models/association";
+import {VolunteerInstance} from "../models/volunteer";
 
 
 export interface AssociationUpdateOption {
@@ -40,6 +41,13 @@ export class AssociationController {
         return await this.Association.create({
             ...props
         });
+    }
+
+    public async connection(name: string, password: string):Promise<AssociationInstance | null> {
+        return await this.Association.findOne({where: {
+                name,
+                password
+            }});
     }
 
     public async getById(id: string): Promise<AssociationInstance | null> {

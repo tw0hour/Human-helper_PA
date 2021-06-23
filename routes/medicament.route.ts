@@ -1,8 +1,10 @@
 import express from "express";
 import {MedicamentController} from "../controllers/medicament.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
-
 const medicamentRoutes = express();
+
+const cors = require('cors');
+medicamentRoutes.use(cors());
 
 /**
  * GetAll
