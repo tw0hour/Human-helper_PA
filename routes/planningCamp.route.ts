@@ -2,7 +2,8 @@ import express from "express";
 import {PlanningCampController} from "../controllers/planningCamp.controller";
 
 const planningCampRoutes = express();
-
+const cors = require('cors');
+planningCampRoutes.use(cors());
 /**
  * GetAll
  */

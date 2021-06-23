@@ -2,7 +2,8 @@ import express from "express";
 import {GenderClothController} from "../controllers/genderCloth.controller";
 
 const genderClothRoutes = express();
-
+const cors = require('cors');
+genderClothRoutes.use(cors());
 /**
  * GetAll
  */

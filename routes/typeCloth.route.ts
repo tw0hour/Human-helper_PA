@@ -2,7 +2,8 @@ import express from "express";
 import {TypeClothController} from "../controllers/typeCloth.controller";
 
 const typeClothRoutes = express();
-
+const cors = require('cors');
+typeClothRoutes.use(cors());
 /**
  * GetAll
  */

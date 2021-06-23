@@ -5,7 +5,8 @@ import { TypeClothController } from "../controllers/typeCloth.controller";
 import { GenderClothController } from "../controllers/genderCloth.controller";
 
 const clothRoutes = express();
-
+const cors = require('cors');
+clothRoutes.use(cors());
 //todo : get by typeCloth / gender Cloth / typeCloth && genderCloth ?
 /**
  * GetAll

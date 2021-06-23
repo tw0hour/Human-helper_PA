@@ -2,6 +2,8 @@ import express from "express";
 import {TypeFoodController} from "../controllers/typeFood.controller";
 
 const typeFoodRoutes = express();
+const cors = require('cors');
+typeFoodRoutes.use(cors());
 
 /**
  * GetAll

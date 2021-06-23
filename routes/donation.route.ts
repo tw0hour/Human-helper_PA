@@ -2,7 +2,8 @@ import express from "express";
 import {DonationController} from "../controllers/donation.controller";
 
 const donationRoutes = express();
-
+const cors = require('cors');
+donationRoutes.use(cors());
 /**
  * GetAll
  */

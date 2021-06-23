@@ -4,7 +4,8 @@ import { TypeFoodController } from "../controllers/typeFood.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
 
 const foodRoutes = express();
-
+const cors = require('cors');
+foodRoutes.use(cors());
 /**
  * GetAll
  */

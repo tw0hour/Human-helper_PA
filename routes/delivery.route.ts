@@ -2,7 +2,8 @@ import express from "express";
 import {DeliveryController} from "../controllers/delivery.controller";
 
 const deliveryRoutes = express();
-
+const cors = require('cors');
+deliveryRoutes.use(cors());
 /**
  * (pour le moment en variable global dans delivery.routes, a voir s'il est possible de le définir dans le model
  * pour le status :
