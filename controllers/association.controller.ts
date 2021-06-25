@@ -57,6 +57,15 @@ export class AssociationController {
             }
         });
     }
+    public async getByName(name: string): Promise<AssociationInstance | null> {
+        return await this.Association.findOne({
+            where :{
+                name: name
+            }
+        });
+    }
+
+
     public async update(options: AssociationUpdateOption): Promise<AssociationInstance | null> {
 
         const associationUpdate = await this.getById(options.id);

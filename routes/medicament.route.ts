@@ -1,6 +1,7 @@
 import express from "express";
 import {MedicamentController} from "../controllers/medicament.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
+import {AssociationController} from "../controllers/association.controller";
 const medicamentRoutes = express();
 
 const cors = require('cors');
@@ -39,7 +40,7 @@ medicamentRoutes.get("/:id",async function(req,res){
 });
 
 /**
- * Add
+ * AddByVolunteer
  */
 medicamentRoutes.post("/", async function(req, res) {
     const name = req.body.name;
@@ -73,6 +74,42 @@ medicamentRoutes.post("/", async function(req, res) {
         return;
     }
 
+});
+
+/**
+ * AddByAssociation
+ */
+medicamentRoutes.post("/association/", async function(req, res) {
+    const name = req.body.name;
+    const expirationDate = req.body.expirationDate;
+    const association_id = req.body.volunteer_id;
+
+    if (name === undefined || expirationDate === undefined || association_id === undefined) {
+        res.status(400).end();
+        return;
+    }
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(association_id);
+    if(association !== null){
+
+        const medicamentController = await MedicamentController.getInstance();
+        const medicament = await medicamentController.add({
+            name,
+            expirationDate,
+            volunteer_id: association_id
+        });
+
+        if(medicament) {
+            res.json(medicament);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+            return;
+        }
+    }else{
+        res.status(404).end();
+        return;
+    }
 
 });
 

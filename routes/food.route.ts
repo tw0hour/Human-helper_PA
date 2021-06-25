@@ -2,6 +2,7 @@ import express from "express";
 import {FoodController} from "../controllers/food.controller";
 import { TypeFoodController } from "../controllers/typeFood.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
+import {AssociationController} from "../controllers/association.controller";
 
 const foodRoutes = express();
 const cors = require('cors');
@@ -39,7 +40,7 @@ foodRoutes.get("/:id",async function(req,res){
 });
 
 /**
- * Add
+ * AddByVolunteer
  */
 foodRoutes.post("/", async function(req, res) {
     const name = req.body.name;
@@ -64,6 +65,48 @@ foodRoutes.post("/", async function(req, res) {
             name,
             expirationDate,
             volunteer_id,
+            type_food_id,
+            delivery_id: null
+        });
+
+        if (food) {
+            res.json(food);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
+    }else{
+        res.status(404).end();
+        return;
+    }
+});
+
+/**
+ * AddByAssociation
+ */
+foodRoutes.post("/", async function(req, res) {
+    const name = req.body.name;
+    const expirationDate = req.body.expirationDate;
+    const association_id = req.body.volunteer_id;
+    const type_food_id = req.body.type_food_id;
+
+    if(name === undefined ||  expirationDate === undefined || association_id === undefined || type_food_id === undefined) {
+        res.status(400).end();
+        return;
+    }
+
+    const typeFoodController = await TypeFoodController.getInstance();
+    const typeFood = typeFoodController.getById(type_food_id);
+
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(association_id);
+
+    if(typeFood !== null || association!== null) {
+        const foodController = await FoodController.getInstance();
+        const food = await foodController.add({
+            name,
+            expirationDate,
+            volunteer_id:association_id,
             type_food_id,
             delivery_id: null
         });

@@ -40,6 +40,25 @@ const associationRoutes = express();
 });
 
  /**
+  * GetByName
+  */
+ associationRoutes.get("/name/:name", async function(req,res){
+     const name = req.params.name;
+     if(name === undefined) {
+         res.status(400).end();
+     }
+     const associationController = await AssociationController.getInstance();
+     const association = await associationController.getByName(name);
+
+     if(association) {
+         res.json(association);
+         res.status(201).end();
+     } else {
+         res.status(404).end();
+     }
+ });
+
+ /**
   * Add
   */
  associationRoutes.post("/", async function(req, res) {
