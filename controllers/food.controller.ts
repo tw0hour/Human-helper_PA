@@ -10,6 +10,7 @@ export interface FoodUpdateOption {
     volunteer_id?:number;
     type_food_id?:number;
     delivery_id?:number | null;
+    association_id?:number;
 }
 
 export class FoodController {

@@ -13,6 +13,7 @@ export interface FoodProps{
     volunteer_id:number;
     type_food_id:number;
     delivery_id:number | null;
+    association_id?:number;
 }
 export interface FoodCreationProps extends Optional<FoodProps, "id">{}
 
@@ -39,6 +40,9 @@ export default function(sequelize:Sequelize): ModelCtor<FoodInstance>{
             type:DataTypes.BIGINT
         },
         delivery_id:{
+            type:DataTypes.BIGINT
+        },
+        association_id:{
             type:DataTypes.BIGINT
         }
 

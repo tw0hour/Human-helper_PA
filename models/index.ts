@@ -86,6 +86,9 @@ export class SequelizeManager implements SequelizeManagerProps{
     private static associate(props: SequelizeManagerProps): void {
         props.Association.hasMany(props.Camp);
         props.Association.hasMany(props.Donation);
+        props.Association.hasMany(props.Cloth);
+        props.Association.hasMany(props.Food);
+        props.Association.hasMany(props.Medicament);
 
         props.Volunteer.hasMany(props.Donation);
         props.Volunteer.hasMany(props.Food);

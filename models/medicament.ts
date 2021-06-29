@@ -15,6 +15,7 @@ export interface MedicamentProps{
     expirationDate?:string;
     volunteer_id?:number;
     delivery_id?:number;
+    association_id?:number;
 }
 
 export interface MedicamentCreationProps extends Optional<MedicamentProps, "id">{}
@@ -44,6 +45,9 @@ export default function(sequelize:Sequelize): ModelCtor<MedicamentInstance>{
             type:DataTypes.BIGINT
         },
         delivery_id:{
+            type:DataTypes.BIGINT
+        },
+        association_id:{
             type:DataTypes.BIGINT
         }
 

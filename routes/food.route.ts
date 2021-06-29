@@ -40,32 +40,54 @@ foodRoutes.get("/:id",async function(req,res){
 });
 
 /**
- * AddByVolunteer
+ * AddByVolunteer or by association
  */
 foodRoutes.post("/", async function(req, res) {
     const name = req.body.name;
     const expirationDate = req.body.expirationDate;
     const volunteer_id = req.body.volunteer_id;
     const type_food_id = req.body.type_food_id;
+    const association_id = req.body.association_id;
 
-    if(name === undefined ||  expirationDate === undefined || volunteer_id === undefined || type_food_id === undefined) {
+    if(name === undefined ||  expirationDate === undefined || type_food_id === undefined) {
         res.status(400).end();
         return;
     }
 
+    let volunteer = null;
+    let association = null;
+    // on ne peux pas avoir un dont en provenance d'une association et d'un volontaire en même temps
+    if(volunteer_id !== undefined && association_id === undefined)
+    {
+        const volunteerController = await VolunteerController.getInstance();
+        volunteer = await volunteerController.getById(volunteer_id);
+        if (volunteer === null){
+            res.status(404).end();
+            return;
+        }
+    }else if(volunteer_id === undefined && association_id !== undefined){
+        const associationController = await AssociationController.getInstance();
+        association = await associationController.getById(association_id);
+        if (association === null){
+            res.status(404).end();
+            return;
+        }
+    }else{
+        res.status(403).end()
+        return;
+    }
+
     const typeFoodController = await TypeFoodController.getInstance();
-    const typeFood = typeFoodController.getById(type_food_id);
+    const typeFood = await typeFoodController.getById(type_food_id);
 
-    const volunteerController = await VolunteerController.getInstance();
-    const volunteer = await volunteerController.getById(volunteer_id);
-
-    if(typeFood !== null || volunteer!== null) {
+    if(typeFood !== null) {
         const foodController = await FoodController.getInstance();
         const food = await foodController.add({
             name,
             expirationDate,
             volunteer_id,
             type_food_id,
+            association_id,
             delivery_id: null
         });
 
@@ -81,47 +103,6 @@ foodRoutes.post("/", async function(req, res) {
     }
 });
 
-/**
- * AddByAssociation
- */
-foodRoutes.post("/", async function(req, res) {
-    const name = req.body.name;
-    const expirationDate = req.body.expirationDate;
-    const association_id = req.body.volunteer_id;
-    const type_food_id = req.body.type_food_id;
-
-    if(name === undefined ||  expirationDate === undefined || association_id === undefined || type_food_id === undefined) {
-        res.status(400).end();
-        return;
-    }
-
-    const typeFoodController = await TypeFoodController.getInstance();
-    const typeFood = typeFoodController.getById(type_food_id);
-
-    const associationController = await AssociationController.getInstance();
-    const association = await associationController.getById(association_id);
-
-    if(typeFood !== null || association!== null) {
-        const foodController = await FoodController.getInstance();
-        const food = await foodController.add({
-            name,
-            expirationDate,
-            volunteer_id:association_id,
-            type_food_id,
-            delivery_id: null
-        });
-
-        if (food) {
-            res.json(food);
-            res.status(201).end();
-        } else {
-            res.status(500).end();
-        }
-    }else{
-        res.status(404).end();
-        return;
-    }
-});
 
 /**
  * Update

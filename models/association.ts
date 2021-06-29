@@ -17,6 +17,9 @@ import {
 } from "sequelize";
 import {CampInstance} from "./camp";
 import {DonationInstance} from "./donation";
+import { ClothInstance } from "./cloth";
+import { FoodInstance } from "./food";
+import { MedicamentInstance } from "./medicament";
 
 
 export interface AssociationProps{
@@ -35,6 +38,15 @@ export interface AssociationInstance extends Model<AssociationProps,AssociationC
 
     getDonation: HasManyGetAssociationsMixin<DonationInstance>;
     setDonation: HasManySetAssociationsMixin<DonationInstance, "id">
+
+    getCloth: HasManyGetAssociationsMixin<ClothInstance>;
+    setCloth: HasManySetAssociationsMixin<ClothInstance, "id">
+
+    getFood: HasManyGetAssociationsMixin<FoodInstance>;
+    setFood: HasManySetAssociationsMixin<FoodInstance, "id">
+
+    getMedicament: HasManyGetAssociationsMixin<MedicamentInstance>;
+    setMedicament: HasManySetAssociationsMixin<MedicamentInstance, "id">
 
 }
 export default function(sequelize:Sequelize):ModelCtor<AssociationInstance>{

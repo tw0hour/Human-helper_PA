@@ -12,6 +12,7 @@ export interface ClothUpdateOption {
     type_cloth_id?:number;
     gender_cloth_id?:number;
     delivery_id?:number;
+    association_id?:number;
 }
 
 export class ClothController {

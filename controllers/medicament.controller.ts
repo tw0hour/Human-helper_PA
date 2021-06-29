@@ -9,6 +9,7 @@ export interface MedicamentUpdateOption {
     expirationDate?: string;
     volunteer_id?:number;
     delivery_id?:number;
+    association_id?:number;
 }
 
 export class MedicamentController {
