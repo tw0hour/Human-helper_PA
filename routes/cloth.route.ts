@@ -55,37 +55,22 @@ clothRoutes.post("/", async function(req, res) {
     const name = req.body.name;
     const size = req.body.size;
     const gender = req.body.gender;
-    const volunteer_id = req.body.volunteer_id;
+    const volunteer_id = req.body.volunteer_id || null;
     const association_id = req.body.association_id;
     const type_cloth_id = req.body.type_cloth_id;
     const gender_cloth_id = req.body.gender_cloth_id;
 
-    if (name === undefined || size === undefined || gender === undefined || type_cloth_id === undefined || gender_cloth_id === undefined)
+    if (association_id === undefined || name === undefined || size === undefined || gender === undefined || type_cloth_id === undefined || gender_cloth_id === undefined)
     {
         res.status(400).end();
         return;
     }
 
-    let volunteer = null;
-    let association = null;
-    // on ne peux pas avoir un dont en provenance d'une association et d'un volontaire en même temps
-    if(volunteer_id !== undefined && association_id === undefined)
-    {
-        const volunteerController = await VolunteerController.getInstance();
-        volunteer = await volunteerController.getById(volunteer_id);
-        if (volunteer === null){
-            res.status(404).end();
-            return;
-        }
-    }else if(volunteer_id === undefined && association_id !== undefined){
-        const associationController = await AssociationController.getInstance();
-        association = await associationController.getById(association_id);
-        if (association === null){
-            res.status(404).end();
-            return;
-        }
-    }else{
-        res.status(403).end()
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(association_id);
+
+    if (association === null){
+        res.status(404).end();
         return;
     }
 
@@ -99,26 +84,23 @@ clothRoutes.post("/", async function(req, res) {
         res.status(404).end();
         return;
     }
-    else
-    {
-        const clothController = await ClothController.getInstance();
-        const cloth = await clothController.add({
-            name,
-            size,
-            gender,
-            volunteer_id,
-            association_id,
-            type_cloth_id,
-            gender_cloth_id,
-            delivery_id:null
-        });
+    const clothController = await ClothController.getInstance();
+    const cloth = await clothController.add({
+        name,
+        size,
+        gender,
+        volunteer_id,
+        association_id,
+        type_cloth_id,
+        gender_cloth_id,
+        delivery_id:null
+    });
 
-        if(cloth) {
-            res.json(cloth);
-            res.status(201).end();
-        } else {
-            res.status(500).end();
-        }
+    if(cloth) {
+        res.json(cloth);
+        res.status(201).end();
+    } else {
+        res.status(500).end();
     }
 });
 
@@ -147,12 +129,10 @@ clothRoutes.put("/:id",async function(req,res){
     {
         const name = req.body.name || cloth?.name;
         const size = req.body.size || cloth?.size;
-        const gender = req.body.gender || cloth?.gender;
         const clothUpdate = await clothController.update({
             id:parseInt(id),
             name,
             size,
-            gender
         });
         if(clothUpdate)
         {
