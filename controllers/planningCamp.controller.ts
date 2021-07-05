@@ -4,7 +4,7 @@ import {PlanningCampCreationProps, PlanningCampInstance} from "../models/plannin
 
 
 export interface PlanningCampUpdateOption {
-    id: string;
+    id: number;
     day?: number;
     timeSlots?: string;
 }

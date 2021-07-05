@@ -5,7 +5,7 @@ import {VolunteerInstance} from "../models/volunteer";
 
 
 export interface AssociationUpdateOption {
-    id:string;
+    id:number;
     name?:string;
     mail?: string;
     password?:string;
@@ -68,7 +68,7 @@ export class AssociationController {
 
     public async update(options: AssociationUpdateOption): Promise<AssociationInstance | null> {
 
-        const associationUpdate = await this.getById(options.id);
+        const associationUpdate = await this.getById(options.id.toString());
 
         if(associationUpdate === null)
         {

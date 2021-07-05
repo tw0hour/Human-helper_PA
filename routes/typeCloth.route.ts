@@ -77,7 +77,7 @@ typeClothRoutes.put("/:id",async function(req, res){
     }
     const typeClothController = await TypeClothController.getInstance();
     const typeCloth = await typeClothController.update({
-        id,
+        id:parseInt(id),
         type
     });
 

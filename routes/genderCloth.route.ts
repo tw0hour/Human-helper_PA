@@ -71,7 +71,7 @@ genderClothRoutes.put("/:id",async function(req, res){
     }
     const genderClothController = await GenderClothController.getInstance();
     const genderCloth = await genderClothController.update({
-        id,
+        id:parseInt(id),
         type
     });
 

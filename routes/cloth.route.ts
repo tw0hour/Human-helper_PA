@@ -149,7 +149,7 @@ clothRoutes.put("/:id",async function(req,res){
         const size = req.body.size || cloth?.size;
         const gender = req.body.gender || cloth?.gender;
         const clothUpdate = await clothController.update({
-            id,
+            id:parseInt(id),
             name,
             size,
             gender
@@ -190,7 +190,7 @@ clothRoutes.put("/cloth/:id/GenderCloth/:genderClothId",async function(req,res){
     else
     {
         const clothUpdate = await clothController.update({
-            id,
+            id:parseInt(id),
             gender_cloth_id:parseInt(genderClothId)
         });
         if(clothUpdate){
@@ -227,7 +227,7 @@ clothRoutes.put("/cloth/:id/TypeCloth/:typeClothId",async function(req,res){
     else
     {
         const clothUpdate = await clothController.update({
-            id,
+            id:parseInt(id),
             type_cloth_id:parseInt(typeClothId)
         });
         if(clothUpdate){

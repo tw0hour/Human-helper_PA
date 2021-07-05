@@ -75,7 +75,7 @@ planningCampRoutes.put("/:id",async function(req, res){
     }
     const planningCampController = await  PlanningCampController.getInstance();
     const planningCamp = await planningCampController.update({
-        id,
+        id:parseInt(id),
         day,
         timeSlots : timeSlot
     });

@@ -4,7 +4,7 @@ import {TypeFoodCreationProps, TypeFoodInstance} from "../models/typeFood";
 
 
 export interface TypeFoodUpdateOption {
-    id:string;
+    id:number;
     type:string;
 }
 

@@ -92,7 +92,7 @@ deliveryRoutes.put("/:id",async function(req,res){
     }
     const deliveryController = await DeliveryController.getInstance();
     const delivery = await deliveryController.update({
-        id,
+        id:parseInt(id),
         status
     });
 

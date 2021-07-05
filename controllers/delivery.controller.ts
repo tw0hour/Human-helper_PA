@@ -4,7 +4,7 @@ import {DeliveryCreationProps, DeliveryInstance} from "../models/delivery";
 
 
 export interface DeliveryUpdateOption {
-    id:string;
+    id:number;
     status?:string;
 }
 

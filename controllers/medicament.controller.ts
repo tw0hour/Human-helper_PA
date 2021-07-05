@@ -4,7 +4,7 @@ import {MedicamentCreationProps, MedicamentInstance} from "../models/medicament"
 
 
 export interface MedicamentUpdateOption {
-    id?:string;
+    id?:number;
     name?:string;
     expirationDate?: string;
     volunteer_id?:number;

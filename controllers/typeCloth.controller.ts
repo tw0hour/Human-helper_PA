@@ -4,7 +4,7 @@ import {TypeClothCreationProps, TypeClothInstance} from "../models/typeCloth";
 
 
 export interface TypeClothUpdateOption {
-    id:string;
+    id:number;
     type?:string;
 }
 

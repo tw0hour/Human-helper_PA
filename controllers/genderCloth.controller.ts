@@ -5,7 +5,7 @@ import {GenderClothCreationProps, GenderClothInstance, GenderClothProps} from ".
 
 
 export interface GenderClothUpdateOption {
-    id:string;
+    id:number;
     type:string;
 }
 

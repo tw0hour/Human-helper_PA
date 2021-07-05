@@ -147,7 +147,7 @@ medicamentRoutes.put("/:id",async function(req,res){
     }
     const medicamentController = await MedicamentController.getInstance();
     const medicament = await medicamentController.update({
-        id,
+        id:parseInt(id),
         name,
         expirationDate
     });

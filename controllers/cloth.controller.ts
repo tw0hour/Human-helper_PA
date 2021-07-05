@@ -4,7 +4,7 @@ import {ClothCreationProps, ClothInstance} from "../models/cloth";
 
 
 export interface ClothUpdateOption {
-    id:string;
+    id:number;
     name?:string;
     size?:number;
     gender?:string;

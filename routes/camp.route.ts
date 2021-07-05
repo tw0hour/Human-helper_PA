@@ -141,7 +141,7 @@ campRoutes.put("/:id",async function(req,res){
         const postalCode = req.body.postalCode || camp?.postalCode;
 
         const updateCamp = await campController.update({
-            id,
+            id:parseInt(id),
             nbPeople,
             city,
             address,
@@ -187,7 +187,7 @@ campRoutes.put("/camp/:id/association/:associationId",async function(req,res){
         else
         {
             const updateAssociationIdInCamp = await campController.update({
-                id,
+                id:parseInt(id),
                 association_id: parseInt(association_id)
             });
 
@@ -230,7 +230,7 @@ campRoutes.put("/camp/:id/planning/:planningId",async function(req,res){
     else
     {
         const updateAssociationIdInCamp = await campController.update({
-            id,
+            id:parseInt(id),
             planning_camp_id:parseInt(planning_camp_id)
         });
         if(updateAssociationIdInCamp === null)

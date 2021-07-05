@@ -126,7 +126,7 @@ const associationRoutes = express();
      }
      const associationController = await AssociationController.getInstance();
      const associationUpdate = await associationController.update({
-         id,
+         id:parseInt(id),
          name,
          mail,
          password,

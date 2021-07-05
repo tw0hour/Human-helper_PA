@@ -120,7 +120,7 @@ volunteerRoutes.put("/:id",async function(req,res){
         res.status(400).end();
     }
     const volunteer = await volunteerController.update({
-        id,
+        id:parseInt(id),
         name,
         mail,
         password,

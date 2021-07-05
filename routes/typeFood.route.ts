@@ -77,7 +77,7 @@ typeFoodRoutes.put("/:id",async function(req,res){
     }
     const typeFoodController = await TypeFoodController.getInstance();
     const typeFood = await typeFoodController.update({
-        id,
+        id:parseInt(id),
         type
     });
 

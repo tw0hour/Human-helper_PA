@@ -4,7 +4,7 @@ import {VolunteerCreationProps, VolunteerInstance} from "../models/volunteer";
 
 
 export interface VolunteerUpdateOption {
-    id:string;
+    id:number;
     name:string;
     mail:string;
     password:string;
