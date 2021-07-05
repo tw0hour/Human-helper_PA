@@ -1,7 +1,7 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
 import {AssociationCreationProps, AssociationInstance} from "../models/association";
-import {VolunteerInstance} from "../models/volunteer";
+
 
 
 export interface AssociationUpdateOption {

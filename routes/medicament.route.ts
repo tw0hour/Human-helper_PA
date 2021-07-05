@@ -53,29 +53,19 @@ medicamentRoutes.post("/", async function(req, res) {
         return;
     }
 
-    let volunteer = null;
-    let association = null;
-    // on ne peux pas avoir un dont en provenance d'une association et d'un volontaire en même temps
-    if(volunteer_id !== undefined && association_id === undefined)
-    {
-        const volunteerController = await VolunteerController.getInstance();
-        volunteer = await volunteerController.getById(volunteer_id);
-        if (volunteer === null){
-            res.status(404).end();
-            return;
-        }
-    }else if(volunteer_id === undefined && association_id !== undefined){
-        const associationController = await AssociationController.getInstance();
-        association = await associationController.getById(association_id);
-        if (association === null){
-            res.status(404).end();
-            return;
-        }
-    }else{
-        res.status(403).end()
+    const volunteerController = await VolunteerController.getInstance();
+    const volunteer = await volunteerController.getById(volunteer_id);
+    if (volunteer === null) {
+        res.status(404).end();
         return;
     }
 
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(association_id);
+    if (association === null) {
+        res.status(404).end();
+        return;
+    }
 
     const medicamentController = await MedicamentController.getInstance();
         const medicament = await medicamentController.add({

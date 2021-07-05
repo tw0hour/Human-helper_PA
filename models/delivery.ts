@@ -3,13 +3,7 @@ import {
     Optional,
     Model,
     DataTypes,
-    ModelCtor,
-    BelongsToSetAssociationMixin,
-    HasManyGetAssociationsMixin,
-    HasManyAddAssociationMixin,
-    BelongsToGetAssociationMixin,
-    HasOneGetAssociationMixin,
-    HasOneSetAssociationMixin
+    ModelCtor
 } from "sequelize";
 
 export interface DeliveryProps{

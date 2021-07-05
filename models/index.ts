@@ -1,4 +1,4 @@
-import { Association, ModelCtor, Sequelize } from "sequelize";
+import { ModelCtor, Sequelize } from "sequelize";
 import campCreator,{ CampInstance} from "./camp";
 import associationCreator, {AssociationInstance} from "./association";
 import clothCreator,{ClothInstance} from "./cloth";

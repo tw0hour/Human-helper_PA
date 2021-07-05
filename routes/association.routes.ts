@@ -1,6 +1,5 @@
  import express from "express";
  import {AssociationController} from "../controllers/association.controller";
- import {VolunteerController} from "../controllers/volunteer.controller";
  import {volunteerRoutes} from "./volunteer.route";
 const associationRoutes = express();
 
