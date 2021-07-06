@@ -10,7 +10,7 @@ export interface FoodProps{
     id:number;
     name:string;
     expirationDate:string;
-    volunteer_id:number;
+    volunteer_id:number | null;
     type_food_id:number;
     delivery_id:number | null;
     association_id?:number;
