@@ -92,7 +92,7 @@ medicamentRoutes.post("/", async function(req, res) {
 medicamentRoutes.post("/association/", async function(req, res) {
     const name = req.body.name;
     const expirationDate = req.body.expirationDate;
-    const association_id = req.body.volunteer_id;
+    const association_id = req.body.association_id;
 
     if (name === undefined || expirationDate === undefined || association_id === undefined) {
         res.status(400).end();
@@ -106,7 +106,7 @@ medicamentRoutes.post("/association/", async function(req, res) {
         const medicament = await medicamentController.add({
             name,
             expirationDate,
-            volunteer_id: association_id
+            association_id
         });
 
         if(medicament) {
