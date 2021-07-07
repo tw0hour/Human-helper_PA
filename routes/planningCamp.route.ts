@@ -66,26 +66,34 @@ planningCampRoutes.post("/", async function(req, res) {
  */
 planningCampRoutes.put("/:id",async function(req, res){
     const id = req.params.id;
-    const day = req.body.day;
-    const timeSlot = req.body.timeSlots;
 
-    if (id === undefined || day === undefined || timeSlot === undefined) {
+
+    if (id === undefined) {
         res.status(400).end();
         return;
     }
     const planningCampController = await  PlanningCampController.getInstance();
-    const planningCamp = await planningCampController.update({
-        id:parseInt(id),
-        day,
-        timeSlots : timeSlot
-    });
+    const planningCamp = await planningCampController.getById(id);
+    if (planningCamp === null){
+        res.status(404).end();
+        return;
+    }else{
+        const day = req.body.day || planningCamp.day;
+        const timeSlot = req.body.timeSlots || planningCamp.time_slots;
+        const planningCampUpdate = await planningCampController.update({
+            id:parseInt(id),
+            day,
+            timeSlots : timeSlot
+        });
 
-    if(planningCamp) {
-        res.json(planningCamp);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(planningCampUpdate) {
+            res.json(planningCampUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -97,14 +105,21 @@ planningCampRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) 
         res.status(400).end();
     }
     const planningCampController = await  PlanningCampController.getInstance();
-    const planningCamp = await planningCampController.removeById(id);
+    const planningCamp = await planningCampController.getById(id);
+    if(planningCamp === null){
+        res.status(404).end();
+        return;
+    }else{
+        const planningCampDelete = await planningCampController.removeById(id);
 
-    if(planningCamp) {
-        res.json(planningCamp);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(planningCampDelete) {
+            res.json(planningCampDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 export {

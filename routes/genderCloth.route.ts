@@ -69,18 +69,26 @@ genderClothRoutes.put("/:id",async function(req, res){
         res.status(400).end();
         return;
     }
-    const genderClothController = await GenderClothController.getInstance();
-    const genderCloth = await genderClothController.update({
-        id:parseInt(id),
-        type
-    });
 
-    if(genderCloth !== null) {
-        res.json(genderCloth);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+    const genderClothController = await GenderClothController.getInstance();
+    const genderCloth = await genderClothController.getById(id);
+    if(genderCloth === null){
+        res.status(404).end();
+        return;
+    }else{
+        const genderClothUpdate = await genderClothController.update({
+            id:parseInt(id),
+            type
+        });
+
+        if(genderClothUpdate !== null) {
+            res.json(genderClothUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -92,13 +100,20 @@ genderClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const genderClothController = await GenderClothController.getInstance();
-    const genderCloth = await genderClothController.removeById(id);
 
-    if(genderCloth) {
-        res.json(genderCloth);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+    const genderCloth = await genderClothController.getById(id);
+    if(genderCloth === null){
+        res.status(404).end();
+        return;
+    }else {
+        const genderClothDelete = await genderClothController.removeById(id);
+
+        if (genderClothDelete) {
+            res.json(genderClothDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
 });
 

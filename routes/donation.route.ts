@@ -1,5 +1,7 @@
 import express from "express";
 import {DonationController} from "../controllers/donation.controller";
+import { VolunteerController } from "../controllers/volunteer.controller";
+import { AssociationController } from "../controllers/association.controller";
 
 const donationRoutes = express();
 const cors = require('cors');
@@ -42,24 +44,37 @@ donationRoutes.get("/:id",async function(req,res){
 donationRoutes.post("/", async function(req, res) {
     const amountGiven = req.body.amountGiven;
     const date = req.body.date;
+    const volunteer_id = req.body.volunteer_id;
+    const association_id = req.body.association_id;
 
-    if(amountGiven === undefined || date === undefined) {
+    if(amountGiven === undefined || date === undefined || volunteer_id === undefined || association_id === undefined) {
         res.status(400).end();
         return;
     }
 
-    const donationController = await DonationController.getInstance();
-    const donation = await donationController.add({
-        amountGiven: amountGiven,
-        date
-    });
+    const volunteerController = await VolunteerController.getInstance();
+    const volunteer = await volunteerController.getById(volunteer_id);
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(association_id);
 
-    if(donation) {
-        res.json(donation);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+    if(association === null || volunteer === null){
+        res.status(404).end();
+        return;
+    }else{
+        const donationController = await DonationController.getInstance();
+        const donation = await donationController.add({
+            amountGiven: amountGiven,
+            date
+        });
+
+        if(donation) {
+            res.json(donation);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /*
@@ -95,15 +110,23 @@ donationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     if (id === undefined) {
         res.status(400).end();
     }
-    const donationController = await DonationController.getInstance();
-    const donationDelete = await donationController.removeById(id);
 
-    if(donationDelete) {
-        res.json(donationDelete);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+    const donationController = await DonationController.getInstance();
+    const donation = await donationController.getById(id);
+    if(donation === null){
+        res.status(404).end();
+        return;
+    }else{
+        const donationDelete = await donationController.removeById(id);
+
+        if(donationDelete) {
+            res.json(donationDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 export {

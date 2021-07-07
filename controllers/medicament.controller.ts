@@ -37,6 +37,16 @@ export class MedicamentController {
         });
     }
 
+    public async getAllInStock(limit?: number, offset?: number): Promise<MedicamentInstance[] | null>{
+        return await this.Medicament.findAll({
+            limit,
+            offset,
+            where:{
+                delivery_id:null
+            }
+        });
+    }
+
     public async add(props: MedicamentCreationProps): Promise<MedicamentInstance | null> {
         return await this.Medicament.create({
             ...props

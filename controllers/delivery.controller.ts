@@ -32,6 +32,15 @@ export class DeliveryController {
             offset
         });
     }
+    public async getAllByStatus(delivery:string,limit?: number, offset?: number): Promise<DeliveryInstance[] | null>{
+        return await this.Delivery.findAll({
+            limit,
+            offset,
+            where:{
+                status: delivery
+            }
+        });
+    }
 
     public async add(props: DeliveryCreationProps): Promise<DeliveryInstance | null> {
         return await this.Delivery.create({

@@ -76,17 +76,24 @@ typeClothRoutes.put("/:id",async function(req, res){
         return;
     }
     const typeClothController = await TypeClothController.getInstance();
-    const typeCloth = await typeClothController.update({
-        id:parseInt(id),
-        type
-    });
+    const typeCloth = await typeClothController.getById(id);
+    if (typeCloth === null){
+        res.status(404).end();
+        return;
+    }else{
+        const typeClothUpdate = await typeClothController.update({
+            id:parseInt(id),
+            type
+        });
 
-    if(typeCloth) {
-        res.json(typeCloth);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(typeClothUpdate) {
+            res.json(typeClothUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -98,13 +105,19 @@ typeClothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const typeClothController = await TypeClothController.getInstance();
-    const typeCloth = await typeClothController.removeById(id);
+    const typeCloth = await typeClothController.getById(id);
+    if (typeCloth === null){
+        res.status(404).end();
+        return;
+    }else {
+        const typeCloth = await typeClothController.removeById(id);
 
-    if(typeCloth) {
-        res.json(typeCloth);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if (typeCloth) {
+            res.json(typeCloth);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
 });
 

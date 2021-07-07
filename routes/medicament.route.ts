@@ -21,6 +21,21 @@ medicamentRoutes.get("/",async function(req,res){
 });
 
 /**
+ * get all  medicament in stock
+ */
+medicamentRoutes.get("/inStock",async function(req,res){
+    const medicamentController = await MedicamentController.getInstance();
+    const medicament = await medicamentController.getAllInStock();
+
+    if(medicament) {
+        res.json(medicament);
+        res.status(201).end();
+    }else{
+        res.status(500).end();
+    }
+});
+
+/**
  * GetById
  */
 medicamentRoutes.get("/:id",async function(req,res){
@@ -128,26 +143,35 @@ medicamentRoutes.post("/association/", async function(req, res) {
  */
 medicamentRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const name = req.body.name;
-    const expirationDate = req.body.expirationDate;
 
-    if (id === undefined || name === undefined || expirationDate === undefined) {
+
+    if (id === undefined) {
         res.status(400).end();
         return;
     }
     const medicamentController = await MedicamentController.getInstance();
-    const medicament = await medicamentController.update({
-        id:parseInt(id),
-        name,
-        expirationDate
-    });
+    const medicament = await medicamentController.getById(id);
+    if (medicament === null){
+        res.status(404).end();
+        return;
+    }else{
+        const name = req.body.name || medicament.name;
+        const expirationDate = req.body.expirationDate || medicament.expirationDate;
 
-    if(medicament) {
-        res.json(medicament);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        const medicamentUpdate = await medicamentController.update({
+            id:parseInt(id),
+            name,
+            expirationDate
+        });
+
+        if(medicamentUpdate) {
+            res.json(medicamentUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -159,14 +183,22 @@ medicamentRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const medicamentController = await MedicamentController.getInstance();
-    const medicament = await medicamentController.removeById(id);
+    const medicament = await medicamentController.getById(id);
+    if (medicament === null){
+        res.status(404).end();
+        return;
+    }else{
+        const medicamentDelete = await medicamentController.removeById(id);
 
-    if(medicament) {
-        res.json(medicament);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(medicamentDelete) {
+            res.json(medicamentDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
+
 });
 
 export {

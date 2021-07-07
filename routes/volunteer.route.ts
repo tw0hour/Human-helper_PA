@@ -104,35 +104,45 @@ volunteerRoutes.post("/connection",async function (req, res){
  */
 volunteerRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const name = req.body.name;
-    const mail = req.body.mail;
-    const password = req.body.password;
-    const type = req.body.type;
 
-    if (id === undefined || name === undefined || mail === undefined || password === undefined || type === undefined) {
+    const password = req.body.password;
+
+    if (id === undefined || password === undefined ) {
         res.status(400).end();
         return;
     }
     const volunteerController = await VolunteerController.getInstance();
-    const checkOldPassword = await volunteerController.passwordSameAsTheOldOne(id, password);
+    const volunteer = await volunteerController.getById(id);
+    if (volunteer === null){
+        res.status(404).end();
+        return;
+    }else{
+        //TODO: a voir avec kelyan, si l'utilisateur ne changes pas de mdp
+        const checkOldPassword = await volunteerController.passwordSameAsTheOldOne(id, password);
+        if (checkOldPassword){
+            res.status(400).end();
+        }
 
-    if (checkOldPassword){
-        res.status(400).end();
-    }
-    const volunteer = await volunteerController.update({
-        id:parseInt(id),
-        name,
-        mail,
-        password,
-        type
-    });
+        //const password = req.body.password || volunteer.password;
+        const name = req.body.name || volunteer.name;
+        const mail = req.body.mail || volunteer.mail;
+        const type = req.body.type || volunteer.type;
+        const volunteerUpdate = await volunteerController.update({
+            id:parseInt(id),
+            name,
+            mail,
+            password,
+            type
+        });
 
-    if(volunteer) {
-        res.json(volunteer);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(volunteerUpdate) {
+            res.json(volunteerUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -144,14 +154,20 @@ volunteerRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const volunteerController = await VolunteerController.getInstance();
-    const volunteer = await volunteerController.removeById(id);
-
-    if(volunteer) {
-        res.json(volunteer);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+    const volunteer = await volunteerController.getById(id);
+    if (volunteer === null){
+        res.status(404).end();
+        return;
+    }else{
+        const volunteerDelete = await volunteerController.removeById(id);
+        if(volunteerDelete) {
+            res.json(volunteerDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 export {

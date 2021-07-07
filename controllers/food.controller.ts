@@ -38,6 +38,16 @@ export class FoodController {
         });
     }
 
+    public async getAllInStock(limit?: number, offset?: number): Promise<FoodInstance[] | null>{
+        return await this.Food.findAll({
+            limit,
+            offset,
+            where:{
+                delivery_id:null
+            }
+        });
+    }
+
     public async add(props: FoodCreationProps): Promise<FoodInstance | null> {
         return await this.Food.create({
             ...props

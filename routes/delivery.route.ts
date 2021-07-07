@@ -5,13 +5,10 @@ const deliveryRoutes = express();
 const cors = require('cors');
 deliveryRoutes.use(cors());
 /**
- * (pour le moment en variable global dans delivery.routes, a voir s'il est possible de le définir dans le model
  * pour le status :
- *      - en stock : stock
  *      - en cours de livraison : delivery
  *      - livré : delivered
  */
-const inStockStatus = "stock"; // todo a voir si vraiment utile
 const deliveryStatus = "delivery";
 const deliveredStatus = "delivered";
 
@@ -21,6 +18,41 @@ const deliveredStatus = "delivered";
 deliveryRoutes.get("/",async function(req,res){
     const deliveryController = await DeliveryController.getInstance();
     const delivery = await deliveryController.getAll();
+
+    if(delivery)
+    {
+        res.json(delivery);
+        res.status(201).end();
+    }
+    else
+    {
+        res.status(404).end();
+        return;
+    }
+});
+
+/**
+ * get by delivery
+ */
+deliveryRoutes.get("/delivery",async function(req,res){
+    const deliveryController = await DeliveryController.getInstance();
+    const delivery = await deliveryController.getAllByStatus(deliveryStatus);
+
+    if(delivery)
+    {
+        res.json(delivery);
+        res.status(201).end();
+    }
+    else
+    {
+        res.status(404).end();
+        return;
+    }
+});
+
+deliveryRoutes.get("/delivered",async function(req,res){
+    const deliveryController = await DeliveryController.getInstance();
+    const delivery = await deliveryController.getAllByStatus(deliveredStatus);
 
     if(delivery)
     {
@@ -62,15 +94,10 @@ deliveryRoutes.get("/:id",async function(req,res){
  * Add
  */
 deliveryRoutes.post("/", async function(req, res) {
-    const status = req.body.status;
 
-    if(status === undefined)
-    {
-        res.status(400).end();
-    }
     const deliveryController = await DeliveryController.getInstance();
     const delivery = await deliveryController.add({
-        status
+        status:deliveryStatus
     });
 
     if(delivery) {
@@ -80,28 +107,34 @@ deliveryRoutes.post("/", async function(req, res) {
 });
 
 /**
- * Update
+ * set status delivered
  */
 deliveryRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
-    const status = req.body.status;
 
-    if(id === undefined || status === undefined) {
+    if(id === undefined) {
         res.status(400).end();
         return;
     }
     const deliveryController = await DeliveryController.getInstance();
-    const delivery = await deliveryController.update({
-        id:parseInt(id),
-        status
-    });
-
-    if(delivery !==null) {
-        res.json(delivery);
-        res.status(201).end();
+    const delivery = await deliveryController.getById(id);
+    if(delivery === null){
+        res.status(404).end();
+        return;
     }else{
-        res.status(500).end();
+        const deliveryUpdate = await deliveryController.update({
+            id:parseInt(id),
+            status:deliveredStatus
+        });
+
+        if(deliveryUpdate !==null) {
+            res.json(deliveryUpdate);
+            res.status(201).end();
+        }else{
+            res.status(500).end();
+        }
     }
+
 });
 
 /**

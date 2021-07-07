@@ -76,17 +76,24 @@ typeFoodRoutes.put("/:id",async function(req,res){
         return;
     }
     const typeFoodController = await TypeFoodController.getInstance();
-    const typeFood = await typeFoodController.update({
-        id:parseInt(id),
-        type
-    });
+    const typeFood = await typeFoodController.getById(id);
+    if(typeFood === null){
+        res.status(404).end();
+        return;
+    }else{
+        const typeFoodUpdate = await typeFoodController.update({
+            id:parseInt(id),
+            type
+        });
 
-    if(typeFood) {
-        res.json(typeFood);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(typeFoodUpdate) {
+            res.json(typeFoodUpdate);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 /**
@@ -98,14 +105,21 @@ typeFoodRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
         res.status(400).end();
     }
     const typeFoodController = await TypeFoodController.getInstance();
-    const typeFoodDelete = await typeFoodController.removeById(id);
+    const typeFood = await typeFoodController.getById(id);
+    if(typeFood === null){
+        res.status(404).end();
+        return;
+    }else{
+        const typeFoodDelete = await typeFoodController.removeById(id);
 
-    if(typeFoodDelete) {
-        res.json(typeFoodDelete);
-        res.status(201).end();
-    } else {
-        res.status(500).end();
+        if(typeFoodDelete) {
+            res.json(typeFoodDelete);
+            res.status(201).end();
+        } else {
+            res.status(500).end();
+        }
     }
+
 });
 
 export {

@@ -4,11 +4,12 @@ import { VolunteerController } from "../controllers/volunteer.controller";
 import { TypeClothController } from "../controllers/typeCloth.controller";
 import { GenderClothController } from "../controllers/genderCloth.controller";
 import { AssociationController } from "../controllers/association.controller";
+import { DeliveryController } from "../controllers/delivery.controller";
 
 const clothRoutes = express();
 const cors = require('cors');
 clothRoutes.use(cors());
-//todo : get by typeCloth / gender Cloth / typeCloth && genderCloth ?
+
 /**
  * GetAll
  */
@@ -20,10 +21,24 @@ clothRoutes.get("/",async function(req,res){
         res.json(cloth);
         res.status(201).end();
     }else{
-        res.status(404).end();
+        res.status(500).end();
     }
 });
 
+/**
+ * get all  cloth in stock
+ */
+clothRoutes.get("/inStock",async function(req,res){
+    const clothController = await ClothController.getInstance();
+    const cloth = await clothController.getAllInStock();
+
+    if(cloth) {
+        res.json(cloth);
+        res.status(201).end();
+    }else{
+        res.status(500).end();
+    }
+});
 
 /**
  * GetById
@@ -109,8 +124,6 @@ clothRoutes.post("/", async function(req, res) {
 
 /**
  * Update one or several attribute in a cloth
- * TODO:
- *      maybe check if the cloth is already delevery
  */
 clothRoutes.put("/:id",async function(req,res){
     const id = req.params.id;
@@ -129,12 +142,23 @@ clothRoutes.put("/:id",async function(req,res){
     }
     else
     {
+        const delivery_id = req.body.delivery_id || null;
+        if(delivery_id !== undefined && delivery_id){
+            const deliveryController = await DeliveryController.getInstance();
+            const delivery = await deliveryController.getById(delivery_id);
+            if (delivery === null){
+                res.status(404).end();
+                return;
+            }
+        }
         const name = req.body.name || cloth?.name;
         const size = req.body.size || cloth?.size;
+
         const clothUpdate = await clothController.update({
             id:parseInt(id),
             name,
-            size
+            size,
+            delivery_id
         });
         if(clothUpdate)
         {
@@ -225,7 +249,6 @@ clothRoutes.put("/cloth/:id/TypeCloth/:typeClothId",async function(req,res){
 
 /**
  * Delete by id
- * TODO: voir si le cloth est deja delivery
  */
 clothRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;

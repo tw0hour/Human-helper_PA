@@ -49,7 +49,6 @@ campRoutes.get("/:id",async function(req,res){
 
 /**
  * Add
- * Maybe check if already exist on same Address
  */
 campRoutes.post("/", async function(req, res) {
     const nbPeople = req.body.nbPeople;
@@ -82,8 +81,7 @@ campRoutes.post("/", async function(req, res) {
 
 /**
  * Delete by id
- * TODO: a voir plus tard les actions a effectuer avec l'id de l'associations et du camp qui lui sont attribué
- */
+*/
 campRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;
     if (id === undefined)
@@ -163,11 +161,11 @@ campRoutes.put("/:id",async function(req,res){
 /**
  * Add association to camp
  */
-campRoutes.put("/camp/:id/association/:associationId",async function(req,res){
-    const association_id = req.params.associationId;
+campRoutes.put("/camp_id/:id/association/:association_id",async function(req,res){
+    const association_id = req.params.association_id;
     const id = req.params.id;
 
-    if(id === undefined || association_id === undefined || association_id === null)
+    if(id === undefined || association_id === undefined)
     {
         res.status(400).end()
     }
@@ -209,8 +207,8 @@ campRoutes.put("/camp/:id/association/:associationId",async function(req,res){
 /**
  * Add planning to camp
  */
-campRoutes.put("/camp/:id/planning/:planningId",async function(req,res){
-    const planning_camp_id = req.params.planningId;
+campRoutes.put("/camp_id/:id/planning/:planning_camp_id",async function(req,res){
+    const planning_camp_id = req.params.planning_camp_id;
     const id = req.params.id;
     if(id === undefined || planning_camp_id === null)
     {

@@ -1,4 +1,4 @@
-import {ModelCtor} from "sequelize";
+import { ModelCtor } from "sequelize";
 import {SequelizeManager} from "../models";
 import {ClothCreationProps, ClothInstance} from "../models/cloth";
 
@@ -36,6 +36,16 @@ export class ClothController {
         return await this.Cloth.findAll({
             limit,
             offset
+        });
+    }
+
+    public async getAllInStock(limit?: number, offset?: number): Promise<ClothInstance[] | null>{
+        return await this.Cloth.findAll({
+            limit,
+            offset,
+            where:{
+                delivery_id:null
+            }
         });
     }
 
