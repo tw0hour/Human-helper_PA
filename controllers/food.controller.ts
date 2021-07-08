@@ -107,4 +107,16 @@ export class FoodController {
             }
         }
     }
+
+    /**
+     * Quantity of food donated to an association
+     * @param assocId
+     */
+    public async nbFoodDonation(assocId: string): Promise<number>{
+        return this.Food.count({
+            where:{
+                association_id: assocId
+            }
+        });
+    }
 }

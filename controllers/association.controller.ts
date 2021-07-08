@@ -1,7 +1,9 @@
 import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
 import {AssociationCreationProps, AssociationInstance} from "../models/association";
-
+import {ClothController} from "./cloth.controller";
+import {FoodController} from "./food.controller";
+import {MedicamentController} from "./medicament.controller";
 
 
 export interface AssociationUpdateOption {
@@ -109,5 +111,40 @@ export class AssociationController {
                 return false;
             }
         }
+    }
+
+
+    /**
+     * Return the number corresponding to the compartment which has the least stock
+     * @param associationId
+     */
+    public async needs(associationId: string): Promise<number | null>{
+        const association = await this.getById(associationId);
+
+        if(!association) {
+            return null;
+        }
+
+        const clothController = await ClothController.getInstance();
+        const nbClothDonation = await clothController.nbClothDonation(associationId);
+
+        const foodController = await FoodController.getInstance();
+        const nbFoodDonation = await foodController.nbFoodDonation(associationId);
+
+        const medicamentController = await MedicamentController.getInstance();
+        const nbMedicamentDonation = await medicamentController.nbMedicamentDonation(associationId);
+
+        if(nbClothDonation === null || nbFoodDonation === null || nbMedicamentDonation === null) {
+            return null;
+        }
+
+        const needsTab: number[] = [];
+
+        needsTab.push(nbClothDonation);
+        needsTab.push(nbFoodDonation);
+        needsTab.push(nbMedicamentDonation);
+
+        return Math.min(...needsTab);
+
     }
 }

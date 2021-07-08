@@ -106,4 +106,16 @@ export class ClothController {
             }
         }
     }
+
+    /**
+     * Quantity of clothing donated to an association
+     * @param assocId
+     */
+    public async nbClothDonation(assocId: string): Promise<number>{
+        return this.Cloth.count({
+            where:{
+                association_id: assocId
+            }
+        });
+    }
 }

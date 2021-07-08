@@ -106,4 +106,16 @@ export class MedicamentController {
             }
         }
     }
+
+    /**
+     * Quantity of drugs donated to an association
+     * @param assocId
+     */
+    public async nbMedicamentDonation(assocId: string): Promise<number>{
+        return this.Medicament.count({
+            where:{
+                association_id: assocId
+            }
+        });
+    }
 }

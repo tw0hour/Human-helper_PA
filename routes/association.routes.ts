@@ -165,6 +165,32 @@ associationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     }
 });
 
+ /**
+  * Get the number corresponding to the compartment which has the least stock
+  */
+associationRoutes.get("/needs/:idAssoc", async function (req,res){
+    const idAssoc = req.params.idAssoc;
+    if (idAssoc === undefined) {
+        res.status(400).end();
+        return;
+    }
+
+    const associationController = await AssociationController.getInstance();
+    const needsAssociation = await associationController.needs(idAssoc);
+
+    console.log("needs : " + needsAssociation);
+
+    if(needsAssociation === null){
+        res.status(500).end();
+    } else {
+        res.json(needsAssociation);
+        res.status(201).end();
+    }
+
+});
+
+
+
 export {
     associationRoutes
 };
