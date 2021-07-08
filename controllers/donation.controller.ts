@@ -1,6 +1,7 @@
-import {ModelCtor} from "sequelize";
+import {ModelCtor, Op} from "sequelize";
 import {SequelizeManager} from "../models";
 import {DonationCreationProps, DonationInstance} from "../models/donation";
+import association from "../models/association";
 
 
 export interface DonationUpdateOption {
@@ -94,4 +95,29 @@ export class DonationController {
             }
         }
     }
+
+    public async nbDonation(assocId: string): Promise<number>{
+        return this.Donation.count({
+            where:{
+                association_id: assocId
+            }
+        });
+    }
+
+    public async totalDonation(assocId: number): Promise<number>{
+        return this.Donation.sum('amountGiven', {
+            where:{
+                association_id: assocId
+            }
+        })
+    }
+
+    public async maxDonation(assocId: number): Promise<number>{
+        return this.Donation.max('amountGiven',{
+            where:{
+                association_id: assocId,
+            }
+        });
+    }
+
 }

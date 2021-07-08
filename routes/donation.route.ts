@@ -2,6 +2,7 @@ import express from "express";
 import {DonationController} from "../controllers/donation.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
 import { AssociationController } from "../controllers/association.controller";
+import donation from "../models/donation";
 
 const donationRoutes = express();
 const cors = require('cors');
@@ -101,6 +102,85 @@ donationRoutes.post("/", async function(req, res) {
         res.status(200).end();
     }
 });*/
+
+/*************************Statistiques*************************/
+
+donationRoutes.get("/nbDonation/:assocId", async function (req, res){
+    const assocId = req.params.assocId;
+    if (assocId === undefined){
+        res.status(400).end();
+    }
+
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(assocId);
+
+    if(association === null){
+        res.status(404).end();
+        return;
+    }
+
+    const donationController = await DonationController.getInstance();
+    const stats = await donationController.nbDonation(assocId);
+
+    if(stats === null){
+        res.status(500).end();
+    } else {
+        res.json(stats);
+        res.status(201).end();
+    }
+});
+
+donationRoutes.get("/totalDonation/:assocId", async function (req, res){
+    const assocId = req.params.assocId;
+    if (assocId === undefined){
+        res.status(400).end();
+    }
+
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(assocId);
+
+    if(association === null){
+        res.status(404).end();
+        return;
+    }
+
+    const donationController = await DonationController.getInstance();
+    const stats = await donationController.totalDonation(parseInt(assocId));
+
+    if(stats === null){
+        res.status(500).end();
+    } else {
+        res.json(stats);
+        res.status(201).end();
+    }
+});
+
+donationRoutes.get("/maxDonation/:assocId", async function (req, res){
+    const assocId = req.params.assocId;
+    if (assocId === undefined){
+        res.status(400).end();
+    }
+
+    const associationController = await AssociationController.getInstance();
+    const association = await associationController.getById(assocId);
+
+    if(association === null){
+        res.status(404).end();
+        return;
+    }
+
+    const donationController = await DonationController.getInstance();
+    const stats = await donationController.maxDonation(parseInt(assocId));
+
+    if(stats === null){
+        res.status(500).end();
+    } else {
+        res.json(stats);
+        res.status(201).end();
+    }
+});
+
+
 
 /**
  * Delete
