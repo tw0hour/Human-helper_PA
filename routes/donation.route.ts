@@ -145,7 +145,7 @@ donationRoutes.get("/totalDonation/:assocId", async function (req, res){
     }
 
     const donationController = await DonationController.getInstance();
-    const stats = await donationController.totalDonation(parseInt(assocId));
+    const stats = await donationController.totalDonation(assocId);
 
     if(stats === null){
         res.status(500).end();
@@ -170,7 +170,7 @@ donationRoutes.get("/maxDonation/:assocId", async function (req, res){
     }
 
     const donationController = await DonationController.getInstance();
-    const stats = await donationController.maxDonation(parseInt(assocId));
+    const stats = await donationController.maxDonation(assocId);
 
     if(stats === null){
         res.status(500).end();

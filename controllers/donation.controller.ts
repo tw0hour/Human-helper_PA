@@ -104,7 +104,7 @@ export class DonationController {
         });
     }
 
-    public async totalDonation(assocId: number): Promise<number>{
+    public async totalDonation(assocId: string): Promise<number>{
         return this.Donation.sum('amountGiven', {
             where:{
                 association_id: assocId
@@ -112,7 +112,7 @@ export class DonationController {
         })
     }
 
-    public async maxDonation(assocId: number): Promise<number>{
+    public async maxDonation(assocId: string): Promise<number>{
         return this.Donation.max('amountGiven',{
             where:{
                 association_id: assocId,
