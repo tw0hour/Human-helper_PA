@@ -118,9 +118,8 @@ export class AssociationController {
      * Return the number corresponding to the compartment which has the least stock
      * @param associationId
      */
-    public async needs(associationId: string): Promise<number | null>{
+    public async needs(associationId: string): Promise<({ cloth: number } | { food: number } | { medicament: number })[] | null>{
         const association = await this.getById(associationId);
-
         if(!association) {
             return null;
         }
@@ -138,13 +137,35 @@ export class AssociationController {
             return null;
         }
 
-        const needsTab: number[] = [];
+        const needsTab = [nbClothDonation, nbFoodDonation, nbMedicamentDonation];
 
-        needsTab.push(nbClothDonation);
-        needsTab.push(nbFoodDonation);
-        needsTab.push(nbMedicamentDonation);
 
-        return Math.min(...needsTab);
+        needsTab.forEach((value, index) => {
+            value.valueOf()
+
+        });
+        const quantityCloth = nbClothDonation['cloth'];
+        const quantityFood = nbFoodDonation['food'];
+        const quantityMedicament = nbMedicamentDonation['medicament'];
+
+
+        console.log("cloth : " + quantityCloth);
+        console.log("food : " + quantityFood);
+        console.log("medocs : " + quantityMedicament);
+        console.log("-------------------------------------------");
+
+
+        const min = Math.min(quantityCloth, quantityFood, quantityMedicament);
+
+        for(let i in needsTab){
+            for(let y in needsTab[i]){
+                console.log("indexOf : " + y.indexOf(y) + "cle : " + y)
+            }
+        }
+
+        const res: [] = [];
+
+        return  needsTab;
 
     }
 }

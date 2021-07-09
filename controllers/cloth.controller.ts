@@ -1,4 +1,4 @@
-import { ModelCtor } from "sequelize";
+import {ModelCtor} from "sequelize";
 import {SequelizeManager} from "../models";
 import {ClothCreationProps, ClothInstance} from "../models/cloth";
 
@@ -108,14 +108,15 @@ export class ClothController {
     }
 
     /**
-     * Quantity of clothing donated to an association
      * @param assocId
+     * @return associative array with the name of the table and the quantity of clothing donated to association
      */
-    public async nbClothDonation(assocId: string): Promise<number>{
-        return this.Cloth.count({
+    public async nbClothDonation(assocId: string): Promise<{ cloth: number }>{
+        const quantity = await this.Cloth.count({
             where:{
                 association_id: assocId
             }
         });
+        return {'cloth': quantity};
     }
 }

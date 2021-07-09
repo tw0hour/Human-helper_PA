@@ -108,14 +108,15 @@ export class MedicamentController {
     }
 
     /**
-     * Quantity of drugs donated to an association
      * @param assocId
+     * @return associative array with the name of the table and the quantity of clothing donated to association
      */
-    public async nbMedicamentDonation(assocId: string): Promise<number>{
-        return this.Medicament.count({
+    public async nbMedicamentDonation(assocId: string): Promise<{ medicament:number }>{
+        const quantity = await this.Medicament.count({
             where:{
                 association_id: assocId
             }
         });
+        return {'medicament' : quantity};
     }
 }
