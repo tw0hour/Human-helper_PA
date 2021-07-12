@@ -166,7 +166,7 @@ associationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
 });
 
  /**
-  * Get the number corresponding to the compartment which has the least stock
+  * Get the name of the table which has the least stock
   */
 associationRoutes.get("/needs/:idAssoc", async function (req,res){
     const idAssoc = req.params.idAssoc;
@@ -178,15 +178,12 @@ associationRoutes.get("/needs/:idAssoc", async function (req,res){
     const associationController = await AssociationController.getInstance();
     const needsAssociation = await associationController.needs(idAssoc);
 
-    console.log("needs : " + needsAssociation);
-
     if(needsAssociation === null){
         res.status(500).end();
     } else {
         res.json(needsAssociation);
         res.status(201).end();
     }
-
 });
 
 

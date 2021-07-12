@@ -112,12 +112,12 @@ export class FoodController {
      * @param assocId
      * @return associative array with the name of the table and the quantity of clothing donated to association
      */
-    public async nbFoodDonation(assocId: string): Promise<{food : number}>{
+    public async nbFoodDonation(assocId: string): Promise<{ name: string,quantity: number }>{
         const quantity = await this.Food.count({
             where:{
                 association_id: assocId
             }
         });
-        return {'food' : quantity};
+        return {name: 'food',quantity: quantity};
     }
 }

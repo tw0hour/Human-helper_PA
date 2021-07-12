@@ -115,10 +115,10 @@ export class AssociationController {
 
 
     /**
-     * Return the number corresponding to the compartment which has the least stock
+     * Return the name of the table which has the least stock
      * @param associationId
      */
-    public async needs(associationId: string): Promise<({ cloth: number } | { food: number } | { medicament: number })[] | null>{
+    public async needs(associationId: string): Promise<{ name: string; quantity: number }[] | null>{
         const association = await this.getById(associationId);
         if(!association) {
             return null;
@@ -139,33 +139,13 @@ export class AssociationController {
 
         const needsTab = [nbClothDonation, nbFoodDonation, nbMedicamentDonation];
 
-
-        needsTab.forEach((value, index) => {
-            value.valueOf()
-
-        });
-        const quantityCloth = nbClothDonation['cloth'];
-        const quantityFood = nbFoodDonation['food'];
-        const quantityMedicament = nbMedicamentDonation['medicament'];
-
-
-        console.log("cloth : " + quantityCloth);
-        console.log("food : " + quantityFood);
-        console.log("medocs : " + quantityMedicament);
-        console.log("-------------------------------------------");
-
-
-        const min = Math.min(quantityCloth, quantityFood, quantityMedicament);
-
-        for(let i in needsTab){
-            for(let y in needsTab[i]){
-                console.log("indexOf : " + y.indexOf(y) + "cle : " + y)
+        return needsTab.filter((value) => {
+            const min = Math.min(nbClothDonation.quantity, nbFoodDonation.quantity, nbMedicamentDonation.quantity);
+            console.log("min : " + min);
+            if (value.quantity === min) {
+                console.log("forEach : " + value.name);
+                return value.name;
             }
-        }
-
-        const res: [] = [];
-
-        return  needsTab;
-
+        });
     }
 }

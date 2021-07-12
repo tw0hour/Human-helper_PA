@@ -111,12 +111,13 @@ export class ClothController {
      * @param assocId
      * @return associative array with the name of the table and the quantity of clothing donated to association
      */
-    public async nbClothDonation(assocId: string): Promise<{ cloth: number }>{
+    public async nbClothDonation(assocId: string): Promise<{ name: string, quantity: number }>{
         const quantity = await this.Cloth.count({
             where:{
                 association_id: assocId
             }
         });
-        return {'cloth': quantity};
+        return {name: 'cloth', quantity: quantity};
+
     }
 }
