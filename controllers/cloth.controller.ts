@@ -49,6 +49,16 @@ export class ClothController {
         });
     }
 
+    public async getAllByDelivery(delivery_id:number,limit?: number, offset?: number): Promise<ClothInstance[] | null>{
+        return await this.Cloth.findAll({
+            limit,
+            offset,
+            where:{
+                delivery_id
+            }
+        });
+    }
+
     public async add(props: ClothCreationProps): Promise<ClothInstance | null> {
         return await this.Cloth.create({
             ...props

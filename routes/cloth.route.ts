@@ -41,6 +41,34 @@ clothRoutes.get("/inStock",async function(req,res){
 });
 
 /**
+ * get all  cloth in stock
+ */
+clothRoutes.get("/delivery/:delivery_id",async function(req,res){
+    const delivery_id = req.params.delivery_id;
+    if(delivery_id === undefined){
+        res.status(400).end();
+        return;
+    }
+    const deliveryController = await DeliveryController.getInstance();
+    const delivery = await deliveryController.getById(delivery_id);
+    if(delivery === null){
+        res.status(404).end();
+        return;
+    }else{
+        const clothController = await ClothController.getInstance();
+        const cloth = await clothController.getAllByDelivery(parseInt(delivery_id));
+
+        if(cloth) {
+            res.json(cloth);
+            res.status(201).end();
+        }else{
+            res.status(500).end();
+        }
+    }
+});
+
+
+/**
  * GetById
  */
 clothRoutes.get("/:id",async function(req,res){

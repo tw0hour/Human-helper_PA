@@ -98,6 +98,7 @@
     - ( required attributes : `idCloth`, `idTypeCloth`)
 
   
+- #### get **Cloth** by `delivery_id`
 
 
 ###***Delivery :***
@@ -158,7 +159,9 @@
 
 - ####update **Food** `name` and/or `type_food_id` and/or `expirationDate`
 
-- ####delete **Food** by id
+- ####delete **Food** by `id`
+
+- ####get **Food** by `delivery_id`
 
 
 
