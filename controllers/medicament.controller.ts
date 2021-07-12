@@ -117,6 +117,6 @@ export class MedicamentController {
                 association_id: assocId
             }
         });
-        return {name: 'medicament', quantity: quantity};
+        return {name: 'Médicament', quantity: quantity};
     }
 }

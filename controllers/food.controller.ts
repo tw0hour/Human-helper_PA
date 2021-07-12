@@ -118,6 +118,6 @@ export class FoodController {
                 association_id: assocId
             }
         });
-        return {name: 'food',quantity: quantity};
+        return {name: 'Nourriture',quantity: quantity};
     }
 }

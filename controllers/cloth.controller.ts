@@ -117,7 +117,7 @@ export class ClothController {
                 association_id: assocId
             }
         });
-        return {name: 'cloth', quantity: quantity};
+        return {name: 'Vêtements', quantity: quantity};
 
     }
 }
