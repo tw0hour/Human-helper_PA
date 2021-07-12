@@ -48,6 +48,16 @@ export class FoodController {
         });
     }
 
+    public async getAllDelivery(delivery_id: number, limit?: number, offset?: number): Promise<FoodInstance[] | null>{
+        return await this.Food.findAll({
+            limit,
+            offset,
+            where:{
+                delivery_id
+            }
+        });
+    }
+
     public async add(props: FoodCreationProps): Promise<FoodInstance | null> {
         return await this.Food.create({
             ...props
