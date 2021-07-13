@@ -2,6 +2,7 @@ import express from "express";
 import {MedicamentController} from "../controllers/medicament.controller";
 import { VolunteerController } from "../controllers/volunteer.controller";
 import {AssociationController} from "../controllers/association.controller";
+import {DeliveryController} from "../controllers/delivery.controller";
 const medicamentRoutes = express();
 
 const cors = require('cors');
@@ -55,6 +56,34 @@ medicamentRoutes.get("/:id",async function(req,res){
 });
 
 /**
+ * get all medicament by delivery
+ */
+medicamentRoutes.get("/delivery/:delivery_id",async function(req,res){
+    const delivery_id = req.params.delivery_id;
+    if(delivery_id === undefined){
+        res.status(400).end();
+        return;
+    }
+    const deliveryController = await DeliveryController.getInstance();
+    const delivery = await deliveryController.getById(delivery_id);
+    if(delivery === null){
+        res.status(404).end();
+        return;
+    }else{
+        const medicamentController = await MedicamentController.getInstance();
+        const medicament = await medicamentController.getAllByDelivery(parseInt(delivery_id));
+
+        if(medicament) {
+            res.json(medicament);
+            res.status(201).end();
+        }else{
+            res.status(500).end();
+        }
+    }
+});
+
+
+/**
  * AddByVolunteer
  */
 medicamentRoutes.post("/", async function(req, res) {
@@ -63,7 +92,7 @@ medicamentRoutes.post("/", async function(req, res) {
     const volunteer_id = req.body.volunteer_id;
     const association_id = req.body.association_id;
 
-    if (name === undefined || expirationDate === undefined ) {
+    if (name === undefined || expirationDate === undefined || association_id === undefined || volunteer_id === undefined) {
         res.status(400).end();
         return;
     }

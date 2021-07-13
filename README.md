@@ -195,6 +195,8 @@
 
 - ####delete **Medicament** by `id`
 
+- #### get **Medicament** by `delivery_id`
+
 
 ###***PlanningCamp :***
 - ####get all **PlanningCamp**

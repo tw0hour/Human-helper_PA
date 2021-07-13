@@ -41,7 +41,7 @@ clothRoutes.get("/inStock",async function(req,res){
 });
 
 /**
- * get all  cloth in stock
+ * get all cloth by delivery
  */
 clothRoutes.get("/delivery/:delivery_id",async function(req,res){
     const delivery_id = req.params.delivery_id;
