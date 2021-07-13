@@ -170,7 +170,7 @@ clothRoutes.put("/:id",async function(req,res){
     }
     else
     {
-        const delivery_id = req.body.delivery_id || null;
+        const delivery_id = req.body.delivery_id || cloth.delivery_id;
         if(delivery_id !== undefined && delivery_id){
             const deliveryController = await DeliveryController.getInstance();
             const delivery = await deliveryController.getById(delivery_id);

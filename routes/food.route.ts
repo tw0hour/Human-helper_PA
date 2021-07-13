@@ -217,11 +217,15 @@ foodRoutes.put("/:id",async function(req,res){
         res.status(404).end();
         return;
     }else{
-        let delivery_id;
+        let delivery_id = food.delivery_id;
         if(req.body.delivery_id !== undefined){
             delivery_id = req.body.delivery_id;
+            if(delivery_id === null){
+                res.status(400).end();
+                return;
+            }
             const deliveryController = await DeliveryController.getInstance();
-            const delivery = await deliveryController.getById(delivery_id);
+            const delivery = await deliveryController.getById(delivery_id.toString());
             if (delivery === null){
                 res.status(404).end();
                 return;
