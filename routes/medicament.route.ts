@@ -184,13 +184,29 @@ medicamentRoutes.put("/:id",async function(req,res){
         res.status(404).end();
         return;
     }else{
+        let delivery_id = medicament.delivery_id;
+
+        if(req.body.delivery_id !== undefined){
+            delivery_id = req.body.delivery_id;
+            if(delivery_id === undefined){
+                res.status(400).end();
+                return;
+            }
+            const deliveryController = await DeliveryController.getInstance();
+            const delivery = await deliveryController.getById(delivery_id.toString());
+            if (delivery === null){
+                res.status(404).end();
+                return;
+            }
+        }
         const name = req.body.name || medicament.name;
         const expirationDate = req.body.expirationDate || medicament.expirationDate;
 
         const medicamentUpdate = await medicamentController.update({
             id:parseInt(id),
             name,
-            expirationDate
+            expirationDate,
+            delivery_id
         });
 
         if(medicamentUpdate) {
