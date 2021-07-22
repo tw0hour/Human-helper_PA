@@ -121,15 +121,15 @@ export class AssociationController {
     }
 
     public async passwordSameAsTheOldOne(id: string, newPassword: string): Promise<boolean | null> {
-        const volunteer = await this.Association.findOne({
+        const association = await this.Association.findOne({
             where :{
                 id: id
             }
         });
-        if(!volunteer){
+        if(!association){
             return null;
         }
-        const oldPassword = volunteer.password;
+        const oldPassword = association.password;
 
         if(oldPassword === newPassword){
             return true;
