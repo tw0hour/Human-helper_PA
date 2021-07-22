@@ -1,6 +1,7 @@
  import express from "express";
  import {AssociationController} from "../controllers/association.controller";
  import {volunteerRoutes} from "./volunteer.route";
+ import {VolunteerController} from "../controllers/volunteer.controller";
 const associationRoutes = express();
 
  const cors = require('cors');
@@ -70,7 +71,14 @@ const associationRoutes = express();
         res.status(400).end();
         return;
     }
-    const associationController = await AssociationController.getInstance();
+
+     const associationController = await AssociationController.getInstance();
+     const doublonMail = await associationController.checkDoublonMail(mail);
+     if(doublonMail) {
+         res.status(400).end();
+         return;
+     }
+
     const association = await associationController.add({
         name,
         mail,
@@ -148,6 +156,44 @@ const associationRoutes = express();
          res.status(500).end();
      }
 });
+
+ /**
+  * Update password
+  */
+ associationRoutes.put("/password/:id",async function(req,res){
+     const id = req.params.id;
+     const password = req.body.password;
+
+     if (id === undefined || password === undefined) {
+         res.status(400).end();
+         return;
+     }
+     const associationController = await AssociationController.getInstance();
+     const association = await associationController.getById(id);
+     if(association === null){
+         res.status(404).end();
+         return
+     }
+
+     const checkOldPassword = await associationController.passwordSameAsTheOldOne(id,password);
+
+     if (checkOldPassword){
+         res.status(400).end();
+     }
+
+     const associationUpdate = await associationController.updatePassword(
+         id,
+         password
+     );
+
+     if(associationUpdate) {
+         res.json(associationUpdate);
+         res.status(201).end();
+
+     } else {
+         res.status(500).end();
+     }
+ });
 
 associationRoutes.delete("/:id" /*, authMiddleware*/, async function(req, res) {
     const id = req.params.id;
