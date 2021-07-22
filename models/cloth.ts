@@ -10,7 +10,7 @@ export interface ClothProps {
     id:number;
     name:string;
     size:number;
-    volunteer_id:number;
+    volunteer_id:number | null;
     type_cloth_id:number;
     gender_cloth_id:number;
     delivery_id:number | null;
