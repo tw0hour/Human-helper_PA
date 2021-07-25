@@ -70,7 +70,10 @@ donationRoutes.post("/", async function(req, res) {
             association_id
         });
 
-        if(donation) {
+        const updateMoney = await associationController.updateMoney(association_id,amountGiven);
+
+
+        if(donation && updateMoney) {
             res.json(donation);
             res.status(201).end();
         } else {

@@ -1,4 +1,4 @@
-import {ModelCtor} from "sequelize";
+import {ModelCtor, where} from "sequelize";
 import {SequelizeManager} from "../models";
 import {AssociationCreationProps, AssociationInstance} from "../models/association";
 import {ClothController} from "./cloth.controller";
@@ -196,5 +196,23 @@ export class AssociationController {
                 return value.name;
             }
         });
+    }
+
+    public async updateMoney(association_id: number, amountGiven:number) : Promise<boolean | null> {
+
+        const association = await this.getById(association_id.toString());
+        if (!association) return null;
+
+
+        const associationUpdate = await association.update({
+            money: parseInt(association.money+"") + parseInt(amountGiven+"")
+        }, {
+            where: {
+                id: association_id
+            }
+        });
+
+        if (!associationUpdate) return false;
+        return true;
     }
 }
