@@ -80,17 +80,17 @@ volunteerRoutes.post("/",async function(req, res) {
  * @param  name, password
  */
 volunteerRoutes.post("/connection",async function (req, res){
-    const name = req.body.name;
+    const email = req.body.email;
     const password = req.body.password;
-    if(name === undefined || password === undefined){
-        res.status(400).end();
+    if(email === undefined || password === undefined){
+        res.status(400).send({error:"mauvais parametres"});
     }
     const volunteerController = await VolunteerController.getInstance();
-    const user = await volunteerController.connection(name, password);
+    const user = await volunteerController.connection(email, password);
 
     if(!user){
         console.log("Connexion refusée !");
-        res.status(404).end();
+        res.status(404).send({error:"mail ou mot de passe incorrect"});
         return;
     }else{
         console.log("Connexion réussie ! ")

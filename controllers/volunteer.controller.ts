@@ -42,9 +42,9 @@ export class VolunteerController {
         });
     }
 
-    public async connection(name: string, password: string):Promise<VolunteerInstance | null> {
+    public async connection(mail: string, password: string):Promise<VolunteerInstance | null> {
         return await this.Volunteer.findOne({where: {
-                name,
+                mail,
                 password
             }});
     }
