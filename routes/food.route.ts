@@ -151,7 +151,7 @@ foodRoutes.post("/association/", async function(req, res) {
     const type_food_id = req.body.type_food_id;
     const association_id = req.body.association_id;
 
-    if(name === undefined ||  expirationDate === undefined || type_food_id === undefined) {
+    if(name === undefined ||  expirationDate === undefined || type_food_id === undefined || association_id == undefined) {
         res.status(400).end();
         return;
     }

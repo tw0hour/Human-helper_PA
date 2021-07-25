@@ -8,6 +8,7 @@
 
 - ####add **Association** 
   - (required attributes : `name`, `mail`, `password` and `money`)
+    can't have an email that already exists in the database --> ```checkDoublonEmail(type: string)```
     
 
 - ####get all **Association**
@@ -24,7 +25,10 @@
 
 - ####update **Association** 
   - (need for 1 minimum attribute)
-    
+
+- ####updatePassword **Association**
+  - (required attributes : `association_id`, `password`)
+    - password can't be the same as the old one --> ``` passwordSameAsTheOldOne(id: string, newPassword: string): Promise<boolean | null>```
 
 - ####delete **Association** 
   - (required attributes : `association_id`)

@@ -52,6 +52,19 @@ export class AssociationController {
             }});
     }
 
+    public async checkDoublonMail (mail: string): Promise<Boolean> {
+        const doublonMail = await this.Association.findOne({
+            where :{
+                mail: mail
+            }
+        });
+
+        if(doublonMail === null){
+            return false;
+        }
+        return true;
+    }
+
     public async getById(id: string): Promise<AssociationInstance | null> {
         return await this.Association.findOne({
             where :{
@@ -66,7 +79,6 @@ export class AssociationController {
             }
         });
     }
-
 
     public async update(options: AssociationUpdateOption): Promise<AssociationInstance | null> {
 
@@ -86,6 +98,43 @@ export class AssociationController {
                 }
             });
         }
+    }
+
+    public async updatePassword(id:string, password: string): Promise<AssociationInstance | null> {
+
+        const associationUpdate = await this.getById(id.toString());
+
+        if(associationUpdate === null)
+        {
+            return null;
+        }
+        else
+        {
+            return await associationUpdate.update({
+                password: password
+            }, {
+                where: {
+                    id: id
+                }
+            });
+        }
+    }
+
+    public async passwordSameAsTheOldOne(id: string, newPassword: string): Promise<boolean | null> {
+        const association = await this.Association.findOne({
+            where :{
+                id: id
+            }
+        });
+        if(!association){
+            return null;
+        }
+        const oldPassword = association.password;
+
+        if(oldPassword === newPassword){
+            return true;
+        }
+        return false;
     }
 
     public async removeById (id: string):Promise<Boolean> {
