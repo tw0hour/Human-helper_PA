@@ -65,7 +65,9 @@ donationRoutes.post("/", async function(req, res) {
         const donationController = await DonationController.getInstance();
         const donation = await donationController.add({
             amountGiven: amountGiven,
-            date
+            date,
+            volunteer_id,
+            association_id
         });
 
         if(donation) {
